@@ -1,0 +1,826 @@
+/* ==========================================
+   SimplyDo - Custom Styles
+   ========================================== */
+
+/* ==========================================
+   1. CSS Variables (Color Palette)
+   ========================================== */
+:root {
+  /* Primary - 신뢰감 있는 블루 */
+  --primary-50: #eff6ff;
+  --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
+  --primary-300: #93c5fd;
+  --primary-400: #60a5fa;
+  --primary-500: #3b82f6;
+  --primary-600: #2563eb;
+  --primary-700: #1d4ed8;
+  --primary-800: #1e40af;
+  --primary-900: #1e3a8a;
+
+  /* Accent - 차분한 인디고 (보라 대체) */
+  --accent-50: #eef2ff;
+  --accent-100: #e0e7ff;
+  --accent-200: #c7d2fe;
+  --accent-400: #818cf8;
+  --accent-500: #6366f1;
+  --accent-600: #4f46e5;
+  --accent-700: #4338ca;
+
+  /* Success - 부드러운 에메랄드 (초록 대체) */
+  --success-50: #ecfdf5;
+  --success-100: #d1fae5;
+  --success-400: #34d399;
+  --success-500: #10b981;
+  --success-600: #059669;
+  --success-700: #047857;
+
+  /* Legacy aliases for compatibility */
+  --primary: var(--primary-600);
+  --primary-dark: var(--primary-700);
+  --primary-light: var(--primary-100);
+  --accent: var(--accent-500);
+  --purple: var(--accent-600);
+  --purple-light: var(--accent-100);
+  --green: var(--success-600);
+  --green-light: var(--success-100);
+
+  /* Neutrals */
+  --gray-900: #111827;
+  --gray-800: #1f2937;
+  --gray-700: #374151;
+  --gray-600: #4b5563;
+  --gray-500: #6b7280;
+  --gray-400: #9ca3af;
+  --gray-300: #d1d5db;
+  --gray-200: #e5e7eb;
+  --gray-100: #f3f4f6;
+  --gray-50: #f9fafb;
+  --white: #ffffff;
+
+  /* Amber for badges */
+  --amber-50: #fffbeb;
+  --amber-100: #fef3c7;
+  --amber-200: #fde68a;
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+  --amber-600: #d97706;
+}
+
+/* ==========================================
+   2. Typography System
+   ========================================== */
+
+/* Display - Hero 제목 */
+.text-display {
+  font-size: 3.5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Heading 1 - 섹션 제목 */
+.text-h1 {
+  font-size: 2.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Heading 2 - 서브 제목 */
+.text-h2 {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+/* Body Large - 강조 본문 */
+.text-body-lg {
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+/* Body - 일반 본문 */
+.text-body {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* Small - 보조 텍스트 */
+.text-small {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+/* 모바일 타이포그래피 조정 */
+@media (max-width: 768px) {
+  .text-display {
+    font-size: 2.5rem;
+  }
+
+  .text-h1 {
+    font-size: 1.875rem;
+  }
+
+  .text-h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* ==========================================
+   3. Base Styles
+   ========================================== */
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.7;
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ==========================================
+   4. Section Spacing
+   ========================================== */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+.section-header {
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+}
+
+/* ==========================================
+   5. Gradient Backgrounds
+   ========================================== */
+.gradient-bg {
+  background: linear-gradient(135deg, var(--primary-500) 0%, var(--accent-500) 100%);
+}
+
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+}
+
+/* Hero 배경 장식 */
+.hero-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero-blob-1 {
+  top: 5rem;
+  right: 5%;
+  width: 18rem;
+  height: 18rem;
+  background: var(--primary-400);
+  opacity: 0.2;
+}
+
+.hero-blob-2 {
+  bottom: 2rem;
+  left: 5%;
+  width: 24rem;
+  height: 24rem;
+  background: var(--accent-400);
+  opacity: 0.1;
+}
+
+@media (max-width: 768px) {
+  .hero-blob-1 {
+    width: 12rem;
+    height: 12rem;
+    right: -2rem;
+  }
+
+  .hero-blob-2 {
+    width: 16rem;
+    height: 16rem;
+    left: -4rem;
+  }
+}
+
+/* ==========================================
+   6. Mobile Menu Animation
+   ========================================== */
+#mobile-menu {
+  transition: max-height 0.3s ease-in-out;
+  max-height: 0;
+  overflow: hidden;
+}
+
+#mobile-menu.open {
+  max-height: 400px;
+}
+
+/* ==========================================
+   7. Modal Animations
+   ========================================== */
+#modal-backdrop {
+  transition: opacity 0.3s ease;
+}
+
+#info-modal {
+  transition: all 0.3s ease;
+}
+
+/* ==========================================
+   8. Card Hover Effects
+   ========================================== */
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* 서비스 카드 - 상단 그라데이션 라인 */
+.service-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-500), var(--accent-500));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.15);
+}
+
+/* 아이콘 배경 그라데이션 */
+.icon-gradient-blue {
+  background: linear-gradient(135deg, var(--primary-100) 0%, var(--primary-50) 100%);
+}
+
+.icon-gradient-indigo {
+  background: linear-gradient(135deg, var(--accent-100) 0%, var(--accent-50) 100%);
+}
+
+.icon-gradient-green {
+  background: linear-gradient(135deg, var(--success-100) 0%, var(--success-50) 100%);
+}
+
+/* ==========================================
+   9. Button Styles
+   ========================================== */
+.btn-primary {
+  background-color: var(--primary-600);
+  color: var(--white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-700);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.btn-secondary {
+  background-color: var(--gray-100);
+  color: var(--gray-800);
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid var(--gray-200);
+}
+
+.btn-secondary:hover {
+  background-color: var(--gray-200);
+  border-color: var(--gray-300);
+}
+
+/* ==========================================
+   10. Section Decorations
+   ========================================== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gray-200), transparent);
+}
+
+/* Pattern background for CTA section */
+.bg-pattern {
+  background-image: radial-gradient(white 1px, transparent 1px);
+  background-size: 30px 30px;
+}
+
+/* ==========================================
+   11. Typography Helpers
+   ========================================== */
+.text-gradient {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--accent-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   12. Navigation Styles
+   ========================================== */
+.nav-link {
+  position: relative;
+  color: var(--gray-600);
+  transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--primary-600);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-600);
+  transition: width 0.2s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ==========================================
+   13. Footer Business Info
+   ========================================== */
+.business-info {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+  line-height: 1.75;
+}
+
+.business-info p {
+  margin-bottom: 0.25rem;
+}
+
+/* ==========================================
+   14. Trust Badge Styles
+   ========================================== */
+.trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: linear-gradient(135deg, var(--amber-50) 0%, #fefce8 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid var(--amber-200);
+  box-shadow: 0 10px 25px -5px rgba(251, 191, 36, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.trust-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shine 3s ease-in-out infinite;
+}
+
+@keyframes shine {
+  0%, 100% {
+    left: -100%;
+  }
+  50% {
+    left: 100%;
+  }
+}
+
+.trust-badge .stars {
+  display: flex;
+  color: var(--amber-400);
+}
+
+.trust-badge .rating {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--amber-600);
+}
+
+.trust-badge .review-count {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+/* ==========================================
+   15. Scroll Animations
+   ========================================== */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered animation delays */
+.fade-delay-1 { transition-delay: 0.1s; }
+.fade-delay-2 { transition-delay: 0.2s; }
+.fade-delay-3 { transition-delay: 0.3s; }
+.fade-delay-4 { transition-delay: 0.4s; }
+
+/* Scale animation */
+.scale-in {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Slide in from left */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Slide in from right */
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ==========================================
+   16. Floating Animation
+   ========================================== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ==========================================
+   17. Responsive Adjustments
+   ========================================== */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  /* 모바일 터치 타겟 최소 44px */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* 모바일에서 fade-in 효과 간소화 */
+  .fade-in-up,
+  .slide-in-left,
+  .slide-in-right {
+    transform: translateY(20px);
+  }
+}
+
+/* ==========================================
+   18. Loading States
+   ========================================== */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--primary-600);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==========================================
+   19. Review Cards
+   ========================================== */
+.review-card {
+  transition: all 0.3s ease;
+}
+
+.review-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   20. Template Cards
+   ========================================== */
+.template-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.template-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--success-500), var(--success-400));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.template-card:hover::before {
+  transform: scaleX(1);
+}
+
+.template-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 30px -10px rgba(16, 185, 129, 0.15);
+}
+
+/* ==========================================
+   21. CTA Section Enhancement
+   ========================================== */
+.cta-section {
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--primary-700) 100%);
+}
+
+.cta-button {
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   22. Typing Cursor Animation
+   ========================================== */
+.typing-cursor::after {
+  content: '|';
+  animation: blink 0.7s infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  from, to { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ==========================================
+   23. Video Card Styles
+   ========================================== */
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+/* ==========================================
+   24. Line Clamp Utilities
+   ========================================== */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ==========================================
+   25. Contents Hub Enhancements
+   ========================================== */
+.contents-video-card img {
+  transition: transform 0.3s ease;
+}
+
+.contents-video-card:hover img {
+  transform: scale(1.05);
+}
+
+/* ==========================================
+   26. Carousel Styles
+   ========================================== */
+.carousel-container {
+  position: relative;
+  padding: 0 0.5rem;
+}
+
+.carousel-viewport {
+  overflow: hidden;
+  margin: 0 -0.5rem;
+  padding: 0 0.5rem;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: transform;
+}
+
+.carousel-item {
+  flex-shrink: 0;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-prev,
+.carousel-next {
+  position: absolute;
+  top: 40%;
+  transform: translateY(-50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-container:hover .carousel-prev,
+.carousel-container:hover .carousel-next {
+  opacity: 1;
+}
+
+.carousel-prev:hover,
+.carousel-next:hover {
+  background: var(--gray-50);
+  border-color: var(--gray-300);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.carousel-prev:disabled,
+.carousel-next:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.carousel-prev {
+  left: -1rem;
+}
+
+.carousel-next {
+  right: -1rem;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.carousel-indicator {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--gray-300);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-indicator:hover {
+  background: var(--gray-400);
+}
+
+.carousel-indicator.active {
+  background: var(--primary-600);
+  width: 1.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Responsive Carousel */
+@media (max-width: 768px) {
+  .carousel-item {
+    width: 85% !important;
+  }
+
+  .carousel-prev,
+  .carousel-next {
+    display: none !important;
+  }
+
+  .carousel-container {
+    padding: 0;
+  }
+
+  .carousel-viewport {
+    margin: 0;
+    padding: 0 1rem;
+    scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .carousel-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .carousel-item {
+    scroll-snap-align: center;
+  }
+
+  .carousel-track {
+    transition: none;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .carousel-track {
+    transition: none;
+  }
+
+  .carousel-prev,
+  .carousel-next,
+  .carousel-indicator {
+    transition: none;
+  }
+}
