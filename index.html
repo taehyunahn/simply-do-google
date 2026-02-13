@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SimplyDo - 익숙한 도구에 자동화를 더하다. 구글 스프레드시트 기반 업무 자동화 전문.">
+    <meta name="keywords" content="구글시트자동화, AppsScript, 업무자동화, 스프레드시트, SimplyDo">
+    <title>SimplyDo | 익숙한 도구에 자동화를 더하다</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            DEFAULT: '#1B2A4A',
+                            50: '#F0F3F8',
+                            100: '#D9E0ED',
+                            200: '#B3C1DB',
+                            300: '#6B7B95',
+                            400: '#3D4F6F',
+                            500: '#2D4A7A',
+                            600: '#243A5E',
+                            700: '#1B2A4A',
+                            800: '#0F1D33',
+                            900: '#081020',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Pretendard', 'system-ui', '-apple-system', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-white text-gray-700">
+
+    <!-- ==================== Navigation ==================== -->
+    <nav class="nav-light fixed top-0 left-0 right-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="flex-shrink-0 text-2xl font-bold tracking-tight text-navy">
+                Simply<span class="text-blue-500">Do</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-navy-300">
+                <a href="#automation" class="hover:text-navy transition">자동화란?</a>
+                <a href="#benefits" class="hover:text-navy transition">왜 SimplyDo?</a>
+                <!-- Products 드롭다운 -->
+                <div class="relative group">
+                    <button class="text-gray-600 hover:text-navy transition font-medium flex items-center gap-1">
+                        Products
+                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
+                    </button>
+                    <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <a href="#templates" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-t-xl transition">템플릿</a>
+                        <a href="#consulting" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-b-xl transition">컨설팅</a>
+                    </div>
+                </div>
+                <a href="#about" class="hover:text-navy transition">소개</a>
+                <a href="#usecases" class="hover:text-navy transition">활용 사례</a>
+            </div>
+
+            <!-- CTA -->
+            <div class="hidden md:block">
+                <a href="#templates" class="btn-primary text-sm px-5 py-2.5">제품 보기</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-navy-300 hover:text-navy focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100">
+            <div class="px-4 pt-2 pb-4 space-y-1">
+                <a href="#automation" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">자동화란?</a>
+                <a href="#benefits" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">왜 SimplyDo?</a>
+                <span class="block px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">Products</span>
+                <a href="#templates" class="block px-6 py-2 text-gray-600 hover:text-navy transition">템플릿</a>
+                <a href="#consulting" class="block px-6 py-2 text-gray-600 hover:text-navy transition">컨설팅</a>
+                <a href="#about" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">소개</a>
+                <a href="#usecases" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">활용 사례</a>
+                <div class="pt-2">
+                    <a href="#templates" class="btn-primary block text-center text-sm py-2.5">제품 보기</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ==================== Hero Section ==================== -->
+    <header class="pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left: Copy -->
+                <div class="fade-in-up">
+                    <span class="badge-navy mb-6 inline-block">Google Apps Script 자동화 전문</span>
+                    <h1 class="text-4xl md:text-5xl font-bold text-navy leading-tight tracking-tight mb-6">
+                        익숙한 도구에<br>자동화를 더하다
+                    </h1>
+                    <p class="text-lg text-gray-500 mb-10 leading-relaxed">
+                        매일 반복되는 데이터 복사, 붙여넣기, 확인 작업에 많은 시간을 쓰고 계신가요?<br class="hidden lg:inline">
+                        이미 사용 중인 <strong class="text-navy">구글 스프레드시트</strong>에서 바로 자동화를 시작하세요.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#templates" class="btn-primary text-base px-8 py-4">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                            제품 보기
+                        </a>
+                        <a href="#automation" class="btn-secondary text-base px-8 py-4">
+                            자세히 알아보기
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Dashboard Mockup -->
+                <div class="hidden md:block fade-in-up fade-delay-2">
+                    <div class="dashboard-mockup">
+                        <!-- Main spreadsheet card -->
+                        <div class="dashboard-card">
+                            <div class="dashboard-header">
+                                <div class="dashboard-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                                <span class="text-white/70 text-sm ml-3 font-medium">고객 관리 자동화 시트</span>
+                            </div>
+                            <div class="dashboard-grid">
+                                <div class="grid-header">
+                                    <span>이름</span>
+                                    <span>상태</span>
+                                    <span>자동화</span>
+                                    <span>결과</span>
+                                </div>
+                                <div class="grid-row">
+                                    <span class="text-navy font-medium">김민수</span>
+                                    <span class="status-badge status-done">완료</span>
+                                    <span class="text-gray-500">메일 발송</span>
+                                    <span class="text-green-500 font-bold">&#10003;</span>
+                                </div>
+                                <div class="grid-row">
+                                    <span class="text-navy font-medium">이지현</span>
+                                    <span class="status-badge status-pending">대기</span>
+                                    <span class="text-gray-500">리포트 생성</span>
+                                    <span class="text-amber-500 font-bold">&#8226;&#8226;&#8226;</span>
+                                </div>
+                                <div class="grid-row">
+                                    <span class="text-navy font-medium">박서연</span>
+                                    <span class="status-badge status-done">완료</span>
+                                    <span class="text-gray-500">PDF 저장</span>
+                                    <span class="text-green-500 font-bold">&#10003;</span>
+                                </div>
+                                <div class="grid-row">
+                                    <span class="text-navy font-medium">최준혁</span>
+                                    <span class="status-badge status-auto">자동</span>
+                                    <span class="text-gray-500">슬랙 알림</span>
+                                    <span class="text-green-500 font-bold">&#10003;</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating card: Gmail -->
+                        <div class="float-card -right-2 top-6 animate-float">
+                            <div class="flex items-center gap-3">
+                                <div class="float-card-icon bg-red-50">
+                                    <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-navy">자동 메일 발송</p>
+                                    <p class="text-[11px] text-gray-400">3건 완료</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating card: Calendar -->
+                        <div class="float-card -left-4 bottom-12 animate-float" style="animation-delay: 1s;">
+                            <div class="flex items-center gap-3">
+                                <div class="float-card-icon bg-blue-50">
+                                    <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-navy">리포트 생성</p>
+                                    <p class="text-[11px] text-gray-400">PDF 자동 저장</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Floating card: Slack -->
+                        <div class="float-card right-4 -bottom-2 animate-float" style="animation-delay: 1.5s;">
+                            <div class="flex items-center gap-3">
+                                <div class="float-card-icon bg-purple-50">
+                                    <svg class="w-5 h-5 text-purple-500" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+                                </div>
+                                <div>
+                                    <p class="text-xs font-bold text-navy">슬랙 알림</p>
+                                    <p class="text-[11px] text-gray-400">실시간 전송</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ==================== Trust KPI Bar ==================== -->
+    <section class="bg-gray-50 border-y border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="kpi-item fade-in-up">
+                    <div class="kpi-number">5.0</div>
+                    <p class="mt-2 text-sm text-gray-500">크몽 전체 평점 (만점)</p>
+                </div>
+                <div class="kpi-item fade-in-up fade-delay-1">
+                    <div class="kpi-number">~0원</div>
+                    <p class="mt-2 text-sm text-gray-500">월 인프라 유지 비용</p>
+                </div>
+                <div class="kpi-item fade-in-up fade-delay-2">
+                    <div class="kpi-number">100%</div>
+                    <p class="mt-2 text-sm text-gray-500">구글 워크스페이스 내부 실행</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Section 1: 자동화 소개 ==================== -->
+    <section id="automation" class="section-padding">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">What is Apps Script?</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                    엑셀보다 유연하고<br>전문 프로그램보다 가벼운 자동화
+                </h2>
+                <p class="text-lg text-gray-500 leading-relaxed">
+                    구글 스프레드시트에는 업무를 자동으로 처리해 주는 <strong class="text-navy">'Google Apps Script'</strong> 엔진이 내장되어 있습니다.
+                    별도의 프로그램 설치 없이, 지금 사용하는 시트에서 바로 자동화가 시작됩니다.
+                </p>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="card p-8 fade-in-up fade-delay-1">
+                    <div class="card-icon mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">새로운 툴을 배울 필요가 없습니다</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        이미 사용 중인 스프레드시트 환경에서 바로 작동하므로 추가적인 학습 부담이 적습니다.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="card p-8 fade-in-up fade-delay-2">
+                    <div class="card-icon mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">정해진 규칙에 따라 스스로 일합니다</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        특정 시간이 되면 알아서 메일을 발송하거나 데이터를 정리하고, 보고서를 생성해 둡니다.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="card p-8 fade-in-up fade-delay-3">
+                    <div class="card-icon mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-navy mb-3">다양한 업무 도구를 하나로 연결합니다</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        지메일, 캘린더, 슬랙 등을 연동하여 흩어져 있는 업무 과정을 하나로 이어줍니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Section 2: 3가지 이점 ==================== -->
+    <section id="benefits" class="section-padding bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">Why SimplyDo?</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4">
+                    SimplyDo가 제공하는<br>3가지 실질적 이점
+                </h2>
+            </div>
+
+            <!-- Benefit Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Benefit 1 -->
+                <div class="card p-8 fade-in-up fade-delay-1">
+                    <div class="benefit-number mb-6">1</div>
+                    <h3 class="text-xl font-bold text-navy mb-4">매월 발생하는 구독료 부담이 없습니다</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        외부 자동화 서비스를 이용하면 연결 개수에 따라 매달 비용이 발생하지만, Apps Script는 구글 계정만 있다면 추가 비용 없이 무료로 실행됩니다.
+                    </p>
+                    <p class="text-navy font-semibold text-sm mt-4">
+                        한 번의 제작으로 평생 소유하는 효율적인 시스템
+                    </p>
+                </div>
+
+                <!-- Benefit 2 -->
+                <div class="card p-8 fade-in-up fade-delay-2">
+                    <div class="benefit-number mb-6">2</div>
+                    <h3 class="text-xl font-bold text-navy mb-4">기업의 내부 데이터를 안전하게 보호합니다</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        보안 문제로 외부 툴 사용이 망설여졌다면 안심하셔도 됩니다. 모든 자동화 로직은 귀사의 구글 워크스페이스 권한 안에서만 작동합니다.
+                    </p>
+                    <p class="text-navy font-semibold text-sm mt-4">
+                        소중한 정보가 외부 서버로 유출될 걱정 없음
+                    </p>
+                </div>
+
+                <!-- Benefit 3 -->
+                <div class="card p-8 fade-in-up fade-delay-3">
+                    <div class="benefit-number mb-6">3</div>
+                    <h3 class="text-xl font-bold text-navy mb-4">실제 사용 환경을 고려한 맞춤형 설계</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        단순히 코드만 작성해 드리는 것에 그치지 않습니다. 실무자가 실제 현장에서 어떻게 사용할지를 고민하여, 가장 직관적이고 오류 없는 업무 동선을 함께 설계합니다.
+                    </p>
+                    <p class="text-navy font-semibold text-sm mt-4">
+                        현장 중심의 UX 설계
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Showcase: 실전 사례 시연 ==================== -->
+    <section id="showcase" class="section-padding bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- 섹션 헤더 -->
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">Live Demo</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                    실제로 작동하는 자동화를 확인하세요
+                </h2>
+                <p class="text-lg text-gray-500 leading-relaxed">
+                    시트에서 클릭 한 번으로 업무가 처리되는 과정을 직접 확인해 보세요.
+                </p>
+            </div>
+
+            <!-- 시연 그리드: 2열 -->
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- 시연 카드 1 -->
+                <div class="showcase-card card fade-in-up fade-delay-1">
+                    <div class="showcase-mockup">
+                        <div class="mockup-toolbar">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                            <span class="mockup-toolbar-title">Google Sheets — 견적서 자동화</span>
+                        </div>
+                        <div class="mockup-screen">
+                            <video autoplay muted loop playsinline class="w-full">
+                                <source src="assets/demo-invoice.mp4" type="video/mp4">
+                                <img src="assets/demo-invoice.gif" alt="견적서 자동화 시연" loading="lazy">
+                            </video>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-navy mt-4">견적서 자동 생성 & 발송</h3>
+                    <p class="text-gray-500 text-sm mt-1">시트 데이터 → PDF 변환 → 이메일 자동 발송</p>
+                </div>
+
+                <!-- 시연 카드 2 -->
+                <div class="showcase-card card fade-in-up fade-delay-2">
+                    <div class="showcase-mockup">
+                        <div class="mockup-toolbar">
+                            <span class="mockup-dot red"></span>
+                            <span class="mockup-dot yellow"></span>
+                            <span class="mockup-dot green"></span>
+                            <span class="mockup-toolbar-title">Google Sheets — CRM 자동화</span>
+                        </div>
+                        <div class="mockup-screen">
+                            <video autoplay muted loop playsinline class="w-full">
+                                <source src="assets/demo-crm.mp4" type="video/mp4">
+                                <img src="assets/demo-crm.gif" alt="CRM 자동화 시연" loading="lazy">
+                            </video>
+                        </div>
+                    </div>
+                    <h3 class="text-lg font-bold text-navy mt-4">고객 관리 자동 알림</h3>
+                    <p class="text-gray-500 text-sm mt-1">고객 상태 변경 → 슬랙/카톡 자동 알림</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Templates: 템플릿 캐러셀 ==================== -->
+    <section id="templates" class="section-padding">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- 섹션 헤더 -->
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">Templates</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                    바로 사용할 수 있는 자동화 템플릿
+                </h2>
+                <p class="text-lg text-gray-500 leading-relaxed">
+                    구글 시트에 복사하면 바로 시작할 수 있습니다. 전문가 세팅이 필요하면 옵션을 선택하세요.
+                </p>
+            </div>
+
+            <!-- 캐러셀 컨테이너 -->
+            <div class="relative">
+                <!-- 좌우 네비게이션 화살표 -->
+                <button id="carousel-prev" class="carousel-arrow carousel-arrow-left" aria-label="이전">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button id="carousel-next" class="carousel-arrow carousel-arrow-right" aria-label="다음">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+
+                <!-- 슬라이드 트랙 -->
+                <div class="carousel-track" id="template-carousel">
+                    <!-- 카드 1: SimplyCRM -->
+                    <div class="carousel-slide">
+                        <div class="card template-card" data-product="crm_template">
+                            <span class="badge-navy">솔라피 연동형</span>
+                            <h3 class="text-xl font-bold text-navy mt-3">스마트 CRM & 대량문자</h3>
+                            <p class="text-gray-500 text-sm mt-2">따로 로그인하지 마세요. 시트에서 이름만 확인하고 바로 발송!</p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 개별 발송 및 단체 문자 발송 기능</li>
+                                <li>✓ 자주 쓰는 문자 템플릿 저장 기능</li>
+                                <li>✓ 발송 성공/실패 여부 자동 기록</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <span class="text-2xl font-bold text-navy">89,000원</span>
+                                <span class="text-gray-400 text-sm">부터</span>
+                            </div>
+                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="crm_template">주문하기</button>
+                        </div>
+                    </div>
+
+                    <!-- 카드 2: 키워드 마스터 -->
+                    <div class="carousel-slide">
+                        <div class="card template-card" data-product="keyword_template">
+                            <span class="badge-navy">SEO 전략</span>
+                            <h3 class="text-xl font-bold text-navy mt-3">키워드 마스터</h3>
+                            <p class="text-gray-500 text-sm mt-2">상위 노출, 운에 맡기지 마세요. 데이터가 알려주는 키워드만 골라 씁니다.</p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 블루오션 키워드 추출</li>
+                                <li>✓ 연관 검색어 자동 수집</li>
+                                <li>✓ 키워드별 경쟁 강도 분석</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <span class="text-2xl font-bold text-navy">69,000원</span>
+                                <span class="text-gray-400 text-sm">부터</span>
+                            </div>
+                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="keyword_template">주문하기</button>
+                        </div>
+                    </div>
+
+                    <!-- 카드 3: 유튜브 인텔리전스 -->
+                    <div class="carousel-slide">
+                        <div class="card template-card" data-product="youtube_template">
+                            <span class="badge-navy">경쟁사 분석</span>
+                            <h3 class="text-xl font-bold text-navy mt-3">유튜브 인텔리전스</h3>
+                            <p class="text-gray-500 text-sm mt-2">경쟁 채널의 성공 방정식을 1분 만에 엑셀로 추출합니다.</p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 조회수/좋아요/댓글 분석</li>
+                                <li>✓ 급상승 영상 추출</li>
+                                <li>✓ 썸네일 및 제목 키워드 패턴 분석</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <span class="text-2xl font-bold text-navy">59,000원</span>
+                                <span class="text-gray-400 text-sm">부터</span>
+                            </div>
+                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="youtube_template">주문하기</button>
+                        </div>
+                    </div>
+
+                    <!-- 카드 4: 자동 리마인더 -->
+                    <div class="carousel-slide">
+                        <div class="card template-card" data-product="reminder_template">
+                            <span class="badge-navy">캐시플로우 관리</span>
+                            <h3 class="text-xl font-bold text-navy mt-3">자동 리마인더</h3>
+                            <p class="text-gray-500 text-sm mt-2">미납 안내, 미안해하며 직접 하지 마세요. AI 비서가 정중하게 대신 보냅니다.</p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 날짜 조건별 자동 메시지 발송</li>
+                                <li>✓ 카카오톡 알림톡/문자 연동</li>
+                                <li>✓ 발송 로그 자동 저장</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <span class="text-2xl font-bold text-navy">79,000원</span>
+                                <span class="text-gray-400 text-sm">부터</span>
+                            </div>
+                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="reminder_template">주문하기</button>
+                        </div>
+                    </div>
+
+                    <!-- 카드 5: SimplyInvoice -->
+                    <div class="carousel-slide">
+                        <div class="card template-card" data-product="invoice_template">
+                            <span class="badge-navy">견적서 자동화</span>
+                            <h3 class="text-xl font-bold text-navy mt-3">SimplyInvoice</h3>
+                            <p class="text-gray-500 text-sm mt-2">견적서·인보이스 작성부터 발송까지, 시트에서 클릭 한 번.</p>
+                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
+                                <li>✓ 견적서 자동 생성 (구글 시트 기반)</li>
+                                <li>✓ PDF 자동 변환 및 이메일 발송</li>
+                                <li>✓ 견적 이력 관리 및 상태 추적</li>
+                            </ul>
+                            <div class="mt-6 pt-4 border-t border-gray-100">
+                                <span class="text-2xl font-bold text-navy">39,000원</span>
+                                <span class="text-gray-400 text-sm">부터</span>
+                            </div>
+                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="invoice_template">주문하기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 인디케이터 도트 -->
+                <div class="flex justify-center gap-2 mt-6" id="carousel-dots">
+                    <button class="carousel-dot active" data-index="0"></button>
+                    <button class="carousel-dot" data-index="1"></button>
+                    <button class="carousel-dot" data-index="2"></button>
+                    <button class="carousel-dot" data-index="3"></button>
+                    <button class="carousel-dot" data-index="4"></button>
+                </div>
+            </div>
+
+            <!-- 템플릿 주문 폼 (기본 hidden) -->
+            <div id="template-order-section" class="hidden mt-12">
+                <div class="card p-8 max-w-4xl mx-auto" id="template-order-card">
+                    <h3 class="text-xl font-bold text-navy mb-6">
+                        <span id="template-order-title">SimplyCRM</span> 주문
+                    </h3>
+                    <form id="template-order-form" onsubmit="handleOrderSubmit(event, 'template')">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="order-form-label">성함 *</label>
+                                <input type="text" name="name" class="order-form-input w-full" required>
+                            </div>
+                            <div>
+                                <label class="order-form-label">이메일 *</label>
+                                <input type="email" name="email" class="order-form-input w-full" required>
+                            </div>
+                            <div>
+                                <label class="order-form-label">연락처 *</label>
+                                <input type="tel" name="phone" class="order-form-input w-full" required>
+                            </div>
+                            <div>
+                                <label class="order-form-label">상품</label>
+                                <input type="text" name="product" class="order-form-input w-full bg-gray-50" readonly id="template-product-name">
+                            </div>
+                        </div>
+
+                        <!-- 옵션 선택 (라디오 카드) -->
+                        <div class="mt-6">
+                            <label class="order-form-label">옵션 선택</label>
+                            <div class="grid md:grid-cols-3 gap-4" id="template-options"></div>
+                        </div>
+
+                        <!-- 예상 금액 -->
+                        <div class="mt-6 bg-gray-50 rounded-xl p-4 flex justify-between items-center">
+                            <span class="font-semibold text-navy">예상 금액</span>
+                            <span class="text-2xl font-bold text-navy" id="template-price-value">89,000원</span>
+                        </div>
+
+                        <!-- 문의 내용 -->
+                        <div class="mt-6">
+                            <label class="order-form-label">문의 내용 (선택)</label>
+                            <textarea name="message" class="order-form-input w-full" rows="3" placeholder="추가 요청사항이 있으시면 작성해 주세요."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full mt-6">주문 접수하기</button>
+                    </form>
+                </div>
+
+                <!-- 접수 완료 메시지 -->
+                <div id="template-order-confirmation" class="hidden text-center py-12">
+                    <div class="text-5xl mb-4">&#10003;</div>
+                    <h3 class="text-2xl font-bold text-navy">접수가 완료되었습니다</h3>
+                    <p class="text-gray-500 mt-3">1~2일 이내에 검토 후 결제 요청 인보이스와 안내 사항을<br>이메일/알림톡으로 보내드리겠습니다.</p>
+                    <p class="text-gray-400 text-sm mt-4">급한 문의는 simple.do.dev@gmail.com으로 연락 주세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Consulting: 컨설팅 섹션 ==================== -->
+    <section id="consulting" class="section-padding bg-gray-50">
+        <div class="max-w-6xl mx-auto px-6">
+            <!-- 섹션 헤더 -->
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">Consulting</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                    1:1 앱스 스크립트 도입 컨설팅
+                </h2>
+                <p class="text-lg text-gray-500 leading-relaxed">
+                    1시간 온라인 미팅을 통해 업무 병목 구간을 진단하고 최적의 자동화 로드맵을 설계해 드립니다.
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <!-- 좌측: 컨설팅 설명 -->
+                <div class="fade-in-up fade-delay-1">
+                    <div class="card p-8">
+                        <div class="text-3xl font-bold text-navy mb-2">150,000원</div>
+                        <p class="text-gray-500 mb-6">1시간 온라인 미팅 (Zoom/Google Meet)</p>
+
+                        <h4 class="font-bold text-navy mb-3">컨설팅 프로세스</h4>
+                        <div class="space-y-4">
+                            <div class="flex gap-3">
+                                <div class="benefit-number">1</div>
+                                <div>
+                                    <p class="font-semibold text-navy">사전 설문</p>
+                                    <p class="text-sm text-gray-500">현재 업무 환경과 사용 도구 파악</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="benefit-number">2</div>
+                                <div>
+                                    <p class="font-semibold text-navy">1:1 화상 미팅</p>
+                                    <p class="text-sm text-gray-500">업무 병목 구간 진단 및 자동화 가능 영역 식별</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-3">
+                                <div class="benefit-number">3</div>
+                                <div>
+                                    <p class="font-semibold text-navy">자동화 로드맵 리포트</p>
+                                    <p class="text-sm text-gray-500">우선순위별 자동화 계획서 + 예상 비용 안내</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-gray-400 mt-6 border-t pt-4">
+                            * 컨설팅 후 구축 서비스 진행 시, 컨설팅 비용은 전액 차감됩니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 우측: 컨설팅 신청 폼 -->
+                <div class="card p-8 fade-in-up fade-delay-2" id="consulting-form-card">
+                    <h3 class="text-xl font-bold text-navy mb-6">컨설팅 신청</h3>
+                    <form id="consulting-form" onsubmit="handleOrderSubmit(event, 'consulting')">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="order-form-label">성함 *</label>
+                                <input type="text" name="name" class="order-form-input w-full" required>
+                            </div>
+                            <div>
+                                <label class="order-form-label">이메일 *</label>
+                                <input type="email" name="email" class="order-form-input w-full" required>
+                            </div>
+                            <div>
+                                <label class="order-form-label">연락처 *</label>
+                                <input type="tel" name="phone" class="order-form-input w-full" required>
+                            </div>
+                            <div>
+                                <label class="order-form-label">회사/소속</label>
+                                <input type="text" name="company" class="order-form-input w-full" placeholder="선택 사항">
+                            </div>
+                        </div>
+
+                        <div class="mt-6 space-y-4">
+                            <div>
+                                <label class="order-form-label">현재 가장 힘든 업무 흐름은? *</label>
+                                <textarea name="pain_point" class="order-form-input w-full" rows="2" required
+                                    placeholder="예: 매주 수작업으로 거래처별 매출 보고서를 만들고 있습니다."></textarea>
+                            </div>
+                            <div>
+                                <label class="order-form-label">현재 사용 중인 도구 *</label>
+                                <input type="text" name="current_tools" class="order-form-input w-full" required
+                                    placeholder="예: Google Sheets, Gmail, Slack, 엑셀, ERP 등">
+                            </div>
+                            <div>
+                                <label class="order-form-label">자동화로 얻고 싶은 결과</label>
+                                <textarea name="desired_outcome" class="order-form-input w-full" rows="2"
+                                    placeholder="예: 보고서 작성 시간을 80% 줄이고 싶습니다."></textarea>
+                            </div>
+                        </div>
+
+                        <!-- 컨설팅 비용 -->
+                        <div class="mt-6 bg-gray-50 rounded-xl p-4 flex justify-between items-center">
+                            <span class="font-semibold text-navy">컨설팅 비용</span>
+                            <span class="text-2xl font-bold text-navy">150,000원</span>
+                        </div>
+
+                        <!-- 추가 문의 -->
+                        <div class="mt-6">
+                            <label class="order-form-label">추가 문의 (선택)</label>
+                            <textarea name="message" class="order-form-input w-full" rows="2"
+                                placeholder="희망 일정이나 추가 요청사항을 적어주세요."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-full mt-6">컨설팅 신청하기</button>
+                    </form>
+
+                    <!-- 접수 완료 -->
+                    <div id="consulting-confirmation" class="hidden text-center py-12">
+                        <div class="text-5xl mb-4">&#10003;</div>
+                        <h3 class="text-2xl font-bold text-navy">신청이 완료되었습니다</h3>
+                        <p class="text-gray-500 mt-3">1영업일 이내에 미팅 일정 확인 메일을 보내드리겠습니다.</p>
+                        <p class="text-gray-400 text-sm mt-4">급한 문의는 simple.do.dev@gmail.com으로 연락 주세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Section 3: 소개 ==================== -->
+    <section id="about" class="section-padding">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left: Title & Visual -->
+                <div class="fade-in-up">
+                    <div class="section-label">
+                        <span class="section-label-line"></span>
+                        <span class="section-label-text">About</span>
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-8">
+                        현업의 경험을 바탕으로<br>실질적인 해결책을 만듭니다
+                    </h2>
+
+                    <!-- Trust badges -->
+                    <div class="flex flex-wrap gap-3">
+                        <span class="inline-flex items-center gap-2 bg-navy text-white text-sm font-bold px-5 py-2.5 rounded-xl">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            HR SaaS 개발 경력
+                        </span>
+                        <span class="inline-flex items-center gap-2 bg-navy text-white text-sm font-bold px-5 py-2.5 rounded-xl">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            크몽 평점 5.0
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right: Content -->
+                <div class="space-y-6 fade-in-up fade-delay-1">
+                    <div class="about-highlight">
+                        <p class="text-gray-600 leading-relaxed">
+                            저는 HR SaaS 분야에서 프론트엔드와 백엔드를 아우르는 개발자로 근무하며, 시스템이 업무 효율을 얼마나 높일 수 있는지 경험했습니다.
+                        </p>
+                        <p class="text-navy font-semibold mt-3">
+                            단순히 기능을 구현하는 것을 넘어 '실제로 쓰기 편한 도구'를 만드는 데 집중합니다.
+                        </p>
+                    </div>
+
+                    <p class="text-gray-500 leading-relaxed">
+                        세 아이를 키우는 아빠이자 개발자로서 시간의 소중함을 누구보다 잘 알고 있습니다.
+                        반복적인 수기 업무는 시스템에 맡기고, 여러분은 비즈니스의 본질과 소중한 개인의 시간에 더 집중하실 수 있도록 돕겠습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Section 4: 활용 사례 ==================== -->
+    <section id="usecases" class="section-padding bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Section Header -->
+            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">Use Cases</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
+                    이런 업무가 필요하시다면<br>언제든 말씀해 주세요
+                </h2>
+            </div>
+
+            <!-- Use Case Cards -->
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Use Case 1 -->
+                <div class="usecase-card fade-in-up fade-delay-1">
+                    <div class="card-icon mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-navy mb-3">반복 엑셀 작업 자동화</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        매번 반복되는 엑셀 작업을 버튼 클릭 한 번으로 끝내고 싶을 때
+                    </p>
+                </div>
+
+                <!-- Use Case 2 -->
+                <div class="usecase-card fade-in-up fade-delay-2">
+                    <div class="card-icon mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-navy mb-3">PDF 자동 생성</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        시트의 데이터를 바탕으로 계약서나 리포트를 PDF로 자동 생성하고 싶을 때
+                    </p>
+                </div>
+
+                <!-- Use Case 3 -->
+                <div class="usecase-card fade-in-up fade-delay-3">
+                    <div class="card-icon mb-5">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-navy mb-3">자동 알림 시스템</h3>
+                    <p class="text-gray-500 leading-relaxed">
+                        데이터 업데이트 시 슬랙이나 지메일로 자동 알림을 받고 싶을 때
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Trust: 크몽 신뢰 섹션 ==================== -->
+    <section id="trust" class="cta-section text-white py-20 relative overflow-hidden">
+        <div class="cta-glow"></div>
+        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in-up">
+                크몽 누적 판매 1위 전문가의 실력을 확인하세요
+            </h2>
+            <p class="text-lg text-blue-200 mb-10 fade-in-up fade-delay-1">고객 만족도 5.0 만점 · 누적 리뷰 100건 이상</p>
+
+            <!-- 리뷰 카드 3개 -->
+            <div class="grid md:grid-cols-3 gap-6 mb-10 fade-in-up fade-delay-2">
+                <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
+                    <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="text-sm text-blue-100">"세심하게 봐주셔서 비용의 몇 배 이상의 결과를 얻었습니다."</p>
+                    <p class="text-xs text-blue-300 mt-3">— User*** · 크몽 구매 고객</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
+                    <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="text-sm text-blue-100">"복잡한 프로젝트였으나 명확한 설명과 함께 잘 마무리해주셨습니다."</p>
+                    <p class="text-xs text-blue-300 mt-3">— Kang*** · 크몽 구매 고객</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
+                    <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <p class="text-sm text-blue-100">"최고라는 말로 부족합니다. 실력자이십니다."</p>
+                    <p class="text-xs text-blue-300 mt-3">— Lee*** · 크몽 구매 고객</p>
+                </div>
+            </div>
+
+            <a href="https://kmong.com/gig/662367" target="_blank" rel="noopener"
+               class="btn-primary-light inline-flex items-center gap-2 text-lg px-8 py-4 fade-in-up fade-delay-3">
+                크몽에서 후기 더 보기
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== Footer ==================== -->
+    <footer class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-12">
+                <!-- Brand -->
+                <div>
+                    <span class="text-2xl font-bold text-navy">Simply<span class="text-blue-500">Do</span></span>
+                    <p class="mt-4 text-sm text-gray-400 leading-relaxed">
+                        크몽 평점 5.0 | 구글 스프레드시트 기반<br>
+                        업무 자동화 전문 (Google Apps Script)
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-navy font-bold mb-4">바로가기</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#automation" class="hover:text-navy transition">자동화란?</a></li>
+                        <li><a href="#benefits" class="hover:text-navy transition">왜 SimplyDo?</a></li>
+                        <li><a href="#templates" class="hover:text-navy transition">템플릿</a></li>
+                        <li><a href="#consulting" class="hover:text-navy transition">컨설팅</a></li>
+                        <li><a href="#about" class="hover:text-navy transition">소개</a></li>
+                        <li><a href="#usecases" class="hover:text-navy transition">활용 사례</a></li>
+                    </ul>
+                </div>
+
+                <!-- Business Info -->
+                <div>
+                    <h4 class="text-navy font-bold mb-4">사업자 정보</h4>
+                    <div class="business-info">
+                        <p>상호: 심플리Do</p>
+                        <p>대표: 박초롱</p>
+                        <p>사업자등록번호: 207-28-02850</p>
+                        <p>주소: 부산광역시 해운대구 수영강변대로 382, 104동 102호</p>
+                        <p>이메일: simple.do.dev@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12 pt-8 text-center text-sm text-gray-300 border-t border-gray-100">
+                <p>&copy; 2026 SimplyDo. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

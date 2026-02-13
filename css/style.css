@@ -1,0 +1,737 @@
+/* ==========================================
+   SimplyDo - Bright Professional Theme
+   Inspired by Workday's clean, trustworthy aesthetic
+   ========================================== */
+
+/* ==========================================
+   1. CSS Custom Properties
+   ========================================== */
+:root {
+  --navy: #1B2A4A;
+  --navy-hover: #243A5E;
+  --navy-light: #2D4A7A;
+  --navy-dark: #0F1D33;
+  --blue-accent: #3B82F6;
+  --bg-white: #FFFFFF;
+  --bg-gray: #F8F9FA;
+  --text-dark: #1B2A4A;
+  --text-body: #3D4F6F;
+  --text-secondary: #6B7B95;
+  --text-muted: #94A3B8;
+  --border-light: #E8ECF1;
+  --shadow-sm: 0 1px 3px rgba(27,42,74,0.06), 0 1px 2px rgba(27,42,74,0.04);
+  --shadow-md: 0 4px 12px rgba(27,42,74,0.08);
+  --shadow-lg: 0 10px 30px rgba(27,42,74,0.1);
+  --shadow-xl: 0 20px 50px rgba(27,42,74,0.12);
+}
+
+/* ==========================================
+   2. Base Styles
+   ========================================== */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.7;
+  background-color: var(--bg-white);
+  color: var(--text-body);
+}
+
+/* ==========================================
+   3. Navigation
+   ========================================== */
+.nav-light {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.nav-light.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  border-bottom-color: var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ==========================================
+   4. Section Spacing
+   ========================================== */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ==========================================
+   5. Buttons
+   ========================================== */
+.btn-primary {
+  background-color: var(--navy);
+  color: #FFFFFF;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary:hover {
+  background-color: var(--navy-hover);
+  box-shadow: 0 8px 24px rgba(27, 42, 74, 0.25);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--navy);
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  border: 1.5px solid var(--border-light);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-secondary:hover {
+  border-color: var(--navy);
+  background: rgba(27, 42, 74, 0.04);
+}
+
+.btn-primary-light {
+  background-color: #FFFFFF;
+  color: var(--navy);
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-primary-light:hover {
+  background: #F0F3F8;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ==========================================
+   6. Badge
+   ========================================== */
+.badge-navy {
+  display: inline-block;
+  background: rgba(27, 42, 74, 0.08);
+  color: var(--navy);
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+}
+
+/* ==========================================
+   7. Section Label
+   ========================================== */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.section-label-line {
+  width: 32px;
+  height: 2px;
+  background: var(--navy);
+  border-radius: 1px;
+}
+
+.section-label-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ==========================================
+   8. Cards
+   ========================================== */
+.card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(27, 42, 74, 0.15);
+}
+
+.card-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(27, 42, 74, 0.06);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--navy);
+  flex-shrink: 0;
+}
+
+/* Navy card (for benefits, about) */
+.card-navy {
+  background: var(--navy);
+  border: none;
+  border-radius: 16px;
+  color: #FFFFFF;
+  transition: all 0.3s ease;
+}
+
+.card-navy:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(27, 42, 74, 0.3);
+}
+
+/* ==========================================
+   9. KPI Bar
+   ========================================== */
+.kpi-item {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.kpi-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+@media (max-width: 768px) {
+  .kpi-number {
+    font-size: 2rem;
+  }
+}
+
+/* ==========================================
+   10. Hero Dashboard Mockup
+   ========================================== */
+.dashboard-mockup {
+  position: relative;
+  padding: 20px;
+}
+
+.dashboard-card {
+  background: #FFFFFF;
+  border-radius: 16px;
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+}
+
+.dashboard-header {
+  background: var(--navy);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dashboard-dots {
+  display: flex;
+  gap: 5px;
+}
+
+.dashboard-dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-grid {
+  padding: 16px;
+}
+
+.grid-header {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr 0.5fr;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr 1fr 0.5fr;
+  gap: 8px;
+  font-size: 13px;
+  padding: 10px 0;
+  border-bottom: 1px solid #F3F4F6;
+  align-items: center;
+}
+
+.grid-row:last-child {
+  border-bottom: none;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.status-done {
+  background: #ECFDF5;
+  color: #059669;
+}
+
+.status-pending {
+  background: #FFF7ED;
+  color: #D97706;
+}
+
+.status-auto {
+  background: rgba(27, 42, 74, 0.08);
+  color: var(--navy);
+}
+
+/* Floating notification cards */
+.float-card {
+  background: #FFFFFF;
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  padding: 12px 16px;
+  position: absolute;
+  z-index: 10;
+}
+
+.float-card-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   11. Benefit Number
+   ========================================== */
+.benefit-number {
+  width: 48px;
+  height: 48px;
+  background: var(--navy);
+  color: #FFFFFF;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   12. Use Case Card
+   ========================================== */
+.usecase-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.usecase-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--navy);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.usecase-card:hover::before {
+  transform: scaleX(1);
+}
+
+.usecase-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================
+   13. CTA Section
+   ========================================== */
+.cta-section {
+  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ==========================================
+   14. About Section
+   ========================================== */
+.about-highlight {
+  background: rgba(27, 42, 74, 0.04);
+  border-left: 4px solid var(--navy);
+  border-radius: 0 12px 12px 0;
+  padding: 24px 28px;
+}
+
+/* ==========================================
+   15. Order Form
+   ========================================== */
+.order-form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--navy);
+  margin-bottom: 8px;
+}
+
+.order-form-input {
+  border: 1.5px solid var(--border-light);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.9375rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.order-form-input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px rgba(27, 42, 74, 0.1);
+}
+
+.order-form-input.error {
+  border-color: #EF4444;
+}
+
+#template-order-card:hover,
+#consulting-form-card:hover {
+  transform: none;
+}
+
+/* ==========================================
+   16. Option Card (Radio)
+   ========================================== */
+.option-card {
+  border: 1.5px solid var(--border-light);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.option-card:hover {
+  border-color: var(--navy-light);
+}
+
+.option-card.selected {
+  border-color: var(--navy);
+  background: rgba(27, 42, 74, 0.03);
+  box-shadow: 0 0 0 3px rgba(27, 42, 74, 0.1);
+}
+
+.option-card-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--navy-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ==========================================
+   17. Template Carousel
+   ========================================== */
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 calc(33.333% - 16px);
+  min-width: 280px;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  .carousel-slide {
+    flex: 0 0 calc(50% - 12px);
+  }
+}
+
+@media (max-width: 640px) {
+  .carousel-slide {
+    flex: 0 0 100%;
+  }
+}
+
+.template-card {
+  padding: 28px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: white;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.carousel-arrow:hover {
+  background: var(--navy);
+  color: white;
+  border-color: var(--navy);
+}
+
+.carousel-arrow-left { left: -22px; }
+.carousel-arrow-right { right: -22px; }
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border-light);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.carousel-dot.active {
+  background: var(--navy);
+  width: 24px;
+  border-radius: 4px;
+}
+
+/* ==========================================
+   18. Showcase Mockup
+   ========================================== */
+.showcase-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.showcase-mockup {
+  border-radius: 12px 12px 0 0;
+  overflow: hidden;
+}
+
+.mockup-toolbar {
+  background: #f1f3f4;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mockup-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.mockup-dot.red { background: #ff5f57; }
+.mockup-dot.yellow { background: #febc2e; }
+.mockup-dot.green { background: #28c840; }
+
+.mockup-toolbar-title {
+  font-size: 11px;
+  color: #666;
+  margin-left: 8px;
+}
+
+.mockup-screen {
+  background: #fff;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+}
+
+.mockup-screen video,
+.mockup-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.showcase-card h3,
+.showcase-card p {
+  padding: 0 24px;
+}
+
+.showcase-card p:last-child {
+  padding-bottom: 24px;
+}
+
+/* ==========================================
+   19. Footer
+   ========================================== */
+.business-info {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ==========================================
+   20. Scroll Animations
+   ========================================== */
+.fade-in-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-delay-1 { transition-delay: 0.1s; }
+.fade-delay-2 { transition-delay: 0.2s; }
+.fade-delay-3 { transition-delay: 0.3s; }
+.fade-delay-4 { transition-delay: 0.4s; }
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.scale-in.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ==========================================
+   21. Float Animation
+   ========================================== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ==========================================
+   22. Mobile Menu
+   ========================================== */
+#mobile-menu {
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+}
+
+#mobile-menu.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+/* ==========================================
+   23. Spreadsheet Grid Pattern
+   ========================================== */
+.grid-pattern {
+  background-image:
+    linear-gradient(rgba(27, 42, 74, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 42, 74, 0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ==========================================
+   24. Responsive
+   ========================================== */
+@media (max-width: 768px) {
+  .fade-in-up {
+    transform: translateY(16px);
+  }
+}
+
+/* ==========================================
+   25. Reduced Motion
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-up,
+  .scale-in {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
+  .animate-float {
+    animation: none;
+  }
+}
