@@ -275,16 +275,29 @@ function handleOrderSubmit(e, type) {
 
   console.log('Order submitted:', data);
 
-  // Google Apps Script 연동 (추후 활성화)
-  // const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec';
-  // fetch(APPS_SCRIPT_URL, {
-  //   method: 'POST',
-  //   mode: 'no-cors',
-  //   headers: { 'Content-Type': 'application/json' },
-  //   body: JSON.stringify(data)
-  // }).then(() => showConfirmation(type));
+  // 제출 버튼 비활성화 (이중 클릭 방지)
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const originalBtnText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = '제출 중...';
 
-  showConfirmation(type);
+  // Google Apps Script 연동
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU48extpJX8Eb6NBjNFSOo5fHP8jnTGJ8FxKOJA-iU8FRU1PAQQlpaHTKLHNBHqb2P_A/exec';
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    showConfirmation(type);
+  })
+  .catch((error) => {
+    console.error('Submit error:', error);
+    alert('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = originalBtnText;
+  });
 }
 
 function isValidEmail(email) {
