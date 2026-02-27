@@ -7,13 +7,13 @@ const PRODUCTS = {
   custom: {
     simplybuild: {
       id: 'simplybuild',
-      name: '심플리Build',
+      name: '맞춤 제작',
       category: 'custom',
       tagline: '자동화 연동부터 웹사이트 구축까지, 필요한 만큼만 선택하세요.',
       description: '비즈니스 규모와 필요에 맞는 자동화 시스템을 단계별로 구축합니다.',
       tiers: {
         lite: {
-          name: 'Lite',
+          name: '기본형',
           subtitle: '자동화 연동',
           desc: '기존 웹사이트에 자동화 엔진만 구축',
           features: [
@@ -25,7 +25,7 @@ const PRODUCTS = {
           priceLabel: '협의'
         },
         standard: {
-          name: 'Standard',
+          name: '표준형',
           subtitle: '웹사이트 + 자동화',
           desc: '반응형 웹사이트 제작 + 실시간 알림 체계',
           features: [
@@ -37,11 +37,11 @@ const PRODUCTS = {
           priceLabel: '협의'
         },
         pro: {
-          name: 'Pro',
+          name: '프리미엄',
           subtitle: '풀 시스템 구축',
           desc: '웹사이트 + 자동화 + 구글 생태계 풀 연동',
           features: [
-            'Standard 전체 포함',
+            '표준형 전체 포함',
             '구글 드라이브/캘린더/닥스 멀티 플랫폼 연동',
             '대시보드 시각화 + 자동 리포트',
             '모바일 웹앱 UI (선택)'
@@ -59,7 +59,7 @@ const PRODUCTS = {
   templates: {
     crm_template: {
       id: 'crm_template',
-      name: 'SimplyCRM',
+      name: '고객관리 자동화',
       category: 'template',
       badge: '솔라피 연동형',
       tagline: '따로 로그인하지 마세요. 시트에서 이름만 확인하고 바로 발송!',
@@ -81,7 +81,7 @@ const PRODUCTS = {
     },
     invoice_template: {
       id: 'invoice_template',
-      name: 'SimplyInvoice',
+      name: '견적서 자동화',
       category: 'template',
       badge: '견적서 자동화',
       tagline: '견적서·인보이스 작성부터 발송까지, 시트에서 클릭 한 번.',
@@ -105,7 +105,7 @@ const PRODUCTS = {
   consulting: {
     consulting: {
       id: 'consulting',
-      name: '심플리Consulting',
+      name: '업무 진단',
       category: 'consulting',
       tagline: '막연했던 업무 자동화, 무엇부터 해야 할지 명확한 답을 드립니다.',
       description: '대표님의 비즈니스 현황을 1:1로 정밀 진단합니다. 현재의 병목 구간을 찾아내고, 비용 절감과 매출 증대를 위한 최적의 자동화 설계를 제안해 드립니다.',

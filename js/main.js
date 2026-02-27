@@ -269,10 +269,10 @@ function handleOrderSubmit(e, type) {
     data.currentTools = formData.get('current_tools');
     data.desiredOutcome = formData.get('desired_outcome') || '';
     data.message = formData.get('message') || '';
-    data.product = '컨설팅';
+    data.product = '업무 진단';
     data.option = '1:1 온라인 미팅';
   } else if (type === 'build') {
-    data.product = '심플리Build';
+    data.product = '맞춤 제작';
     data.tier = formData.get('tier') || '';
     data.websiteUrl = formData.get('website_url') || '';
     data.message = formData.get('message') || '';
@@ -326,7 +326,7 @@ function showConfirmation(type) {
 // 9. Build Consult Buttons
 // ==========================================
 function initBuildConsultButtons() {
-  const tierLabels = { lite: 'Lite — 자동화 연동', standard: 'Standard — 웹사이트 + 자동화', pro: 'Pro — 풀 시스템 구축' };
+  const tierLabels = { lite: '기본형 — 자동화 연동', standard: '표준형 — 웹사이트 + 자동화', pro: '프리미엄 — 풀 시스템 구축' };
 
   document.querySelectorAll('.build-consult-btn').forEach(btn => {
     btn.addEventListener('click', () => {
