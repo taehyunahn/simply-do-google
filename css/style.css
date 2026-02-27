@@ -1,5 +1,5 @@
 /* ==========================================
-   SimplyDo - Bright Professional Theme
+   심플리Do - Bright Professional Theme
    Inspired by Workday's clean, trustworthy aesthetic
    ========================================== */
 
@@ -498,7 +498,42 @@ body {
 }
 
 /* ==========================================
-   17. Template Carousel
+   17. Build Tier Cards
+   ========================================== */
+.build-tier-card {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.build-tier-card.recommended {
+  border: 2px solid var(--navy);
+  box-shadow: var(--shadow-md);
+}
+
+.build-tier-card.recommended:hover {
+  box-shadow: var(--shadow-xl);
+}
+
+.recommended-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--navy);
+  color: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 0 16px 0 12px;
+  z-index: 1;
+}
+
+#build-order-card:hover {
+  transform: none;
+}
+
+/* ==========================================
+   18. Template Carousel
    ========================================== */
 .carousel-track {
   display: flex;

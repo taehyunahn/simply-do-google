@@ -1,49 +1,65 @@
 /* ==========================================
-   SimplyDo - Product Data
+   심플리Do - Product Data
    ========================================== */
 
 const PRODUCTS = {
-  // 프로그램 구축 (Custom Build)
+  // 심플리Build (맞춤 구축)
   custom: {
-    crm_custom: {
-      id: 'crm_custom',
-      name: '구글 시트 기반 고객관리 자동화',
+    simplybuild: {
+      id: 'simplybuild',
+      name: '심플리Build',
       category: 'custom',
-      tagline: '엑셀 작업에 뺏기던 하루 3시간을 돌려드립니다.',
-      description: '단순 입력을 넘어 데이터 간 유기적 연동, 대시보드 시각화, 자동 보고서 생성까지 포함된 풀 패키지 자동화 시스템입니다.',
-      features: [
-        '고객 DB 구조화 및 유효성 검사 (전화번호 포맷 등)',
-        '상담 이력 타임라인 기록 및 조회',
-        '조건별(미납, 만기 등) 고객 자동 필터링 대시보드',
-        '일일/월간 현황 자동 리포트 생성 (PDF/Email)'
-      ],
-      note: '단순한 엑셀 파일이 아닙니다. 별도의 프로그램 설치 없이 구글 시트만으로 작동하는 <strong>초경량 ERP 시스템</strong>을 구축해 드립니다.',
-      price: null, // 협의
-      priceType: 'custom'
-    },
-    webapp_custom: {
-      id: 'webapp_custom',
-      name: '구글 시트 기반 웹앱 (Mobile-First)',
-      category: 'custom',
-      tagline: '내 손안의 관리자 페이지, 앱 설치 없이 바로 쓰세요.',
-      description: '현장 업무가 많은 업종을 위해 시트 데이터를 DB로 활용하여, 모바일에서 체크박스 하나로 업무를 처리하는 전용 UI를 구축합니다.',
-      features: [
-        'AppSheet 또는 Glide를 활용한 네이티브 앱 수준의 UI',
-        'QR코드 스캔, 사진 업로드, 서명 기능 연동 가능',
-        '실시간 구글 시트 데이터 동기화',
-        '직원별 권한 관리 (관리자/사용자 모드)'
-      ],
-      whyWebApp: '현장에서 노트북을 켜고 엑셀을 수정하는 것은 불가능합니다. 모바일 화면에 최적화된 버튼과 입력폼으로 현장 업무를 즉시 데이터화하세요.',
+      tagline: '자동화 연동부터 웹사이트 구축까지, 필요한 만큼만 선택하세요.',
+      description: '비즈니스 규모와 필요에 맞는 자동화 시스템을 단계별로 구축합니다.',
+      tiers: {
+        lite: {
+          name: 'Lite',
+          subtitle: '자동화 연동',
+          desc: '기존 웹사이트에 자동화 엔진만 구축',
+          features: [
+            '입력폼 → 구글시트 데이터 수집 연동',
+            '알림 채널 1개 연결 (이메일/슬랙/알림톡 중 택1)',
+            '기본 데이터 정리 자동화'
+          ],
+          price: null,
+          priceLabel: '협의'
+        },
+        standard: {
+          name: 'Standard',
+          subtitle: '웹사이트 + 자동화',
+          desc: '반응형 웹사이트 제작 + 실시간 알림 체계',
+          features: [
+            '맞춤형 반응형 웹사이트 제작',
+            '입력폼 → 구글시트 → 다중 알림 (이메일 + 메신저)',
+            '고객 요청 실시간 인지 체계'
+          ],
+          price: null,
+          priceLabel: '협의'
+        },
+        pro: {
+          name: 'Pro',
+          subtitle: '풀 시스템 구축',
+          desc: '웹사이트 + 자동화 + 구글 생태계 풀 연동',
+          features: [
+            'Standard 전체 포함',
+            '구글 드라이브/캘린더/닥스 멀티 플랫폼 연동',
+            '대시보드 시각화 + 자동 리포트',
+            '모바일 웹앱 UI (선택)'
+          ],
+          price: null,
+          priceLabel: '협의'
+        }
+      },
       price: null,
       priceType: 'custom'
     }
   },
 
-  // 템플릿 (Digital Products)
+  // SimplyKit (템플릿)
   templates: {
     crm_template: {
       id: 'crm_template',
-      name: '스마트 CRM & 대량문자',
+      name: 'SimplyCRM',
       category: 'template',
       badge: '솔라피 연동형',
       tagline: '따로 로그인하지 마세요. 시트에서 이름만 확인하고 바로 발송!',
@@ -61,63 +77,6 @@ const PRODUCTS = {
         standard: { name: 'Standard', price: 89000, desc: '파일 + 사용 가이드' },
         setup: { name: 'Setup', price: 139000, desc: '1:1 원격 세팅 지원' },
         custom: { name: 'Custom', price: null, desc: '기능 추가 (협의)' }
-      }
-    },
-    keyword_template: {
-      id: 'keyword_template',
-      name: '키워드 마스터',
-      category: 'template',
-      badge: 'SEO 전략',
-      tagline: '상위 노출, 운에 맡기지 마세요. 데이터가 알려주는 키워드만 골라 씁니다.',
-      description: '블로그 상위 노출을 위한 황금 키워드를 찾아드립니다.',
-      features: [
-        '검색량 대비 문서 수가 적은 블루오션 키워드 추출',
-        '연관 검색어 자동 수집',
-        '키워드별 경쟁 강도(상/중/하) 자동 분석'
-      ],
-      price: 69000,
-      priceType: 'fixed',
-      options: {
-        standard: { name: 'Standard', price: 69000, desc: '파일 + 사용 가이드' },
-        setup: { name: 'Setup', price: 109000, desc: '1:1 원격 세팅 지원' }
-      }
-    },
-    youtube_template: {
-      id: 'youtube_template',
-      name: '유튜브 인텔리전스',
-      category: 'template',
-      badge: '경쟁사 분석',
-      tagline: '경쟁 채널의 성공 방정식을 1분 만에 엑셀로 추출합니다.',
-      description: '경쟁 채널을 분석하여 터지는 콘텐츠의 법칙을 발견하세요.',
-      features: [
-        '채널 URL 입력 시 조회수/좋아요/댓글 분석',
-        '채널 평균 조회수 대비 급상승 영상 추출 (알고리즘 수혜 영상)',
-        '썸네일 및 제목 키워드 패턴 분석'
-      ],
-      price: 59000,
-      priceType: 'fixed',
-      options: {
-        standard: { name: 'Standard', price: 59000, desc: '파일 + 사용 가이드' },
-        setup: { name: 'Setup', price: 99000, desc: '1:1 원격 세팅 지원' }
-      }
-    },
-    reminder_template: {
-      id: 'reminder_template',
-      name: '자동 리마인더',
-      category: 'template',
-      badge: '캐시플로우 관리',
-      tagline: '미납 안내, 미안해하며 직접 하지 마세요. AI 비서가 정중하게 대신 보냅니다.',
-      description: '사람이 직접 하기 껄끄러운 미납 안내, 예약 확인을 봇(Bot)에게 맡기세요.',
-      features: [
-        '날짜 조건(D-3, D-Day 등)에 따른 자동 메시지 발송',
-        '카카오톡 알림톡 또는 문자 메시지 연동',
-        '발송 로그 자동 저장'
-      ],
-      price: 79000,
-      priceType: 'fixed',
-      options: {
-        standard: { name: 'Standard', price: 79000, desc: '파일 + 사용 가이드' },
-        setup: { name: 'Setup', price: 129000, desc: '1:1 원격 세팅 지원' }
       }
     },
     invoice_template: {
@@ -146,7 +105,7 @@ const PRODUCTS = {
   consulting: {
     consulting: {
       id: 'consulting',
-      name: '업무 효율화 진단 컨설팅',
+      name: '심플리Consulting',
       category: 'consulting',
       tagline: '막연했던 업무 자동화, 무엇부터 해야 할지 명확한 답을 드립니다.',
       description: '대표님의 비즈니스 현황을 1:1로 정밀 진단합니다. 현재의 병목 구간을 찾아내고, 비용 절감과 매출 증대를 위한 최적의 자동화 설계를 제안해 드립니다.',

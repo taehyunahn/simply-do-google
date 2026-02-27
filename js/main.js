@@ -1,5 +1,5 @@
 /* ==========================================
-   SimplyDo - Main JavaScript (Light Theme)
+   심플리Do - Main JavaScript (Light Theme)
    ========================================== */
 
 // ==========================================
@@ -223,7 +223,7 @@ function renderOptionCards(product, containerId, priceDisplayId) {
 }
 
 // ==========================================
-// 8. Form Submit (Template + Consulting)
+// 8. Form Submit (Template + Consulting + Build)
 // ==========================================
 function handleOrderSubmit(e, type) {
   e.preventDefault();
@@ -271,6 +271,11 @@ function handleOrderSubmit(e, type) {
     data.message = formData.get('message') || '';
     data.product = '컨설팅';
     data.option = '1:1 온라인 미팅';
+  } else if (type === 'build') {
+    data.product = '심플리Build';
+    data.tier = formData.get('tier') || '';
+    data.websiteUrl = formData.get('website_url') || '';
+    data.message = formData.get('message') || '';
   }
 
   console.log('Order submitted:', data);
@@ -308,6 +313,9 @@ function showConfirmation(type) {
   if (type === 'template') {
     document.getElementById('template-order-card').classList.add('hidden');
     document.getElementById('template-order-confirmation').classList.remove('hidden');
+  } else if (type === 'build') {
+    document.getElementById('build-order-form').classList.add('hidden');
+    document.getElementById('build-order-confirmation').classList.remove('hidden');
   } else {
     document.getElementById('consulting-form').classList.add('hidden');
     document.getElementById('consulting-confirmation').classList.remove('hidden');
@@ -315,7 +323,33 @@ function showConfirmation(type) {
 }
 
 // ==========================================
-// 9. Showcase Video Lazy Play
+// 9. Build Consult Buttons
+// ==========================================
+function initBuildConsultButtons() {
+  const tierLabels = { lite: 'Lite — 자동화 연동', standard: 'Standard — 웹사이트 + 자동화', pro: 'Pro — 풀 시스템 구축' };
+
+  document.querySelectorAll('.build-consult-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tier = btn.dataset.tier;
+      const section = document.getElementById('build-order-section');
+      const card = document.getElementById('build-order-card');
+      const confirmation = document.getElementById('build-order-confirmation');
+      const form = document.getElementById('build-order-form');
+      const tierInput = document.getElementById('build-tier-input');
+
+      section.classList.remove('hidden');
+      card.classList.remove('hidden');
+      form.classList.remove('hidden');
+      confirmation.classList.add('hidden');
+      tierInput.value = tierLabels[tier] || tier;
+
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+}
+
+// ==========================================
+// 10. Showcase Video Lazy Play
 // ==========================================
 function initShowcaseVideos() {
   const videos = document.querySelectorAll('.showcase-mockup video');
@@ -338,10 +372,11 @@ function initShowcaseVideos() {
 }
 
 // ==========================================
-// 10. Init All New Features
+// 11. Init All New Features
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
   initCarousel();
   initTemplateOrderButtons();
+  initBuildConsultButtons();
   initShowcaseVideos();
 });
