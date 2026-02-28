@@ -21,8 +21,8 @@ const PRODUCTS = {
             '알림 채널 1개 연결 (이메일/슬랙/알림톡 중 택1)',
             '기본 데이터 정리 자동화'
           ],
-          price: null,
-          priceLabel: '협의'
+          price: 300000,
+          priceLabel: '300,000원~'
         },
         standard: {
           name: '표준형',
@@ -33,8 +33,8 @@ const PRODUCTS = {
             '입력폼 → 구글시트 → 다중 알림 (이메일 + 메신저)',
             '고객 요청 실시간 인지 체계'
           ],
-          price: null,
-          priceLabel: '협의'
+          price: 800000,
+          priceLabel: '800,000원~'
         },
         pro: {
           name: '프리미엄',
@@ -46,8 +46,8 @@ const PRODUCTS = {
             '대시보드 시각화 + 자동 리포트',
             '모바일 웹앱 UI (선택)'
           ],
-          price: null,
-          priceLabel: '협의'
+          price: 1500000,
+          priceLabel: '1,500,000원~'
         }
       },
       price: null,
