@@ -193,7 +193,7 @@ function showConfirmation(type) {
 // 9. Build Consult Buttons
 // ==========================================
 function initBuildConsultButtons() {
-  const tierLabels = { standard: '기본형 — 업무 자동화 시작하기', deluxe: '확장형 — 외부 서비스까지 연결', premium: '스마트형 — AI가 읽고, 쓰고, 정리합니다' };
+  const tierLabels = { standard: '기본형 — 업무 효율화 환경 구축', deluxe: '확장형 — 외부 서비스 연결', premium: 'AI 활용형 — 비즈니스에 맞는 AI 도입' };
 
   document.querySelectorAll('.build-consult-btn').forEach(btn => {
     btn.addEventListener('click', () => {

@@ -14,7 +14,7 @@ const PRODUCTS = {
       tiers: {
         standard: {
           name: '기본형',
-          subtitle: '업무 자동화 시작하기',
+          subtitle: '업무 효율화 환경 구축',
           desc: '흩어진 데이터를 한곳으로 모으고, 반복되는 기초 행정 업무를 자동화합니다.',
           features: [
             '고객 및 매출 관리: 학생/회원 DB 구축, 매출 및 미수금 현황 실시간 트래킹',
@@ -27,7 +27,7 @@ const PRODUCTS = {
         },
         deluxe: {
           name: '확장형',
-          subtitle: '외부 서비스까지 연결',
+          subtitle: '외부 서비스 연결',
           desc: '사용 중인 외부 서비스와 구글 시트를 연결하여 업무의 결을 하나로 통합합니다.',
           features: [
             'Standard 모든 기능 포함',
@@ -40,8 +40,8 @@ const PRODUCTS = {
           priceLabel: '390,000원'
         },
         premium: {
-          name: '스마트형',
-          subtitle: 'AI가 읽고, 쓰고, 정리합니다',
+          name: 'AI 활용형',
+          subtitle: '비즈니스에 맞는 AI 도입',
           desc: '생성형 AI를 업무 프로세스에 직접 이식하여 단순 반복을 넘어선 지능형 업무 보조를 수행합니다.',
           features: [
             'Deluxe 모든 기능 포함',

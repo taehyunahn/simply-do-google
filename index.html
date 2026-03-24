@@ -219,26 +219,6 @@
         </div>
     </header>
 
-    <!-- ==================== Trust KPI Bar ==================== -->
-    <section class="bg-gray-50 border-y border-gray-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="kpi-item fade-in-up">
-                    <div class="kpi-number">5.0</div>
-                    <p class="mt-2 text-sm text-gray-500">크몽 전체 평점 (만점)</p>
-                </div>
-                <div class="kpi-item fade-in-up fade-delay-1">
-                    <div class="kpi-number">~0원</div>
-                    <p class="mt-2 text-sm text-gray-500">월 인프라 유지 비용</p>
-                </div>
-                <div class="kpi-item fade-in-up fade-delay-2">
-                    <div class="kpi-number">100%</div>
-                    <p class="mt-2 text-sm text-gray-500">구글 워크스페이스 내부 실행</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- ==================== 비교표: ERP vs 엑셀 vs 구글시트+Apps Script ==================== -->
     <section id="comparison" class="section-padding bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -494,7 +474,7 @@
     </section>
 
     <!-- ==================== Showcase: 실전 사례 시연 ==================== -->
-    <section id="showcase" class="section-padding bg-gray-50">
+    <section id="showcase" class="section-padding">
         <div class="max-w-6xl mx-auto px-6">
             <!-- 섹션 헤더 -->
             <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
@@ -585,15 +565,14 @@
                 <div class="build-tier-card card fade-in-up fade-delay-1 flex flex-col" data-tier="standard">
                     <div class="p-6 sm:p-8 flex flex-col flex-1">
                         <span class="badge-navy">기본형</span>
-                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">업무 자동화 시작하기</h3>
+                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">업무 효율화 환경 구축</h3>
                         <p class="text-gray-500 text-sm mt-3 leading-relaxed">
-                            흩어져 있는 고객·매출 데이터를 구글 시트 한곳에 모으고, 반복되는 기초 행정 업무를 자동으로 처리합니다.
+                            사장님의 비즈니스 환경에 맞는 데이터 관리 체계를 구글 시트 위에 세팅하고, 구글 플랫폼 앱들과 연동합니다.
                         </p>
                         <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">고객/매출 DB</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">예약/회원/매출 관리</span>
                             <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">구글폼 연동</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">자동 메일 발송</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">캘린더 자동 등록</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">캘린더/드라이브</span>
                         </div>
                         <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
                             <span class="text-3xl font-bold text-navy">250,000원</span>
@@ -609,13 +588,13 @@
                         <span class="badge-navy">확장형</span>
                         <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">외부 서비스까지 연결</h3>
                         <p class="text-gray-500 text-sm mt-3 leading-relaxed">
-                            기본형의 모든 기능에 더해, 알림톡·슬랙·노션 등 이미 쓰고 있는 외부 서비스까지 구글 시트와 하나로 연결합니다.
+                            기본형에 더해, 웹사이트 입력폼 데이터 연결과 문자/알림톡 발송, 외부 API까지 구글 시트와 하나로 연결합니다.
                         </p>
                         <div class="flex flex-wrap gap-1.5 mt-4">
                             <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">기본형 전체 포함</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">문자/알림톡 발송</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">슬랙/디스코드</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">외부 서비스 연동</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">웹사이트 입력폼 연결</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">문자/알림톡 (솔라피)</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">외부 API 연동</span>
                         </div>
                         <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
                             <span class="text-3xl font-bold text-navy">390,000원</span>
@@ -627,16 +606,15 @@
                 <!-- AI형 -->
                 <div class="build-tier-card card fade-in-up fade-delay-3 flex flex-col" data-tier="premium">
                     <div class="p-6 sm:p-8 flex flex-col flex-1">
-                        <span class="badge-navy">스마트형</span>
-                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">AI가 읽고, 쓰고, 정리합니다</h3>
+                        <span class="badge-navy">AI 활용형</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">비즈니스에 맞는 AI 도입</h3>
                         <p class="text-gray-500 text-sm mt-3 leading-relaxed">
-                            확장형의 모든 기능에 더해, AI가 긴 상담 메모를 한 줄로 요약하고 고객 안내 문자까지 대신 작성해 줍니다.
+                            ChatGPT, Gemini, Claude 등 생성형 AI를 사장님의 업무 흐름에 맞게 연결하고 세팅해 드립니다.
                         </p>
                         <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">확장형 전체</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">상담 메모 자동 요약</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">안내 문구 자동 작성</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">주간 리포트 생성</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">AI 도입 설계</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">ChatGPT / Gemini / Claude</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">맞춤 세팅</span>
                         </div>
                         <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
                             <span class="text-3xl font-bold text-navy">600,000원</span>
@@ -713,7 +691,7 @@
     </section>
 
     <!-- ==================== 무료 상담 섹션 ==================== -->
-    <section id="consulting" class="section-padding bg-gray-50">
+    <section id="consulting" class="section-padding">
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
             <div class="section-label justify-center">
                 <span class="section-label-line"></span>
@@ -725,7 +703,7 @@
             </h2>
             <p class="text-base sm:text-lg text-gray-500 leading-relaxed mb-4">
                 30분 온라인 미팅으로 현재 업무 흐름을 진단하고,<br class="hidden sm:inline">
-                자동화할 수 있는 부분과 예상 비용을 안내해 드립니다.
+                사장님의 비즈니스에 자동화를 어떻게 적용할 수 있을지 인사이트 리포트를 제공해 드립니다.
             </p>
 
             <!-- 프로세스 간략 표시 -->
@@ -742,7 +720,7 @@
                 <svg class="w-4 h-4 text-gray-300 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
                 <div class="flex items-center gap-2">
                     <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">3</span>
-                    <span class="text-sm text-gray-600 font-medium">맞춤 견적 안내</span>
+                    <span class="text-sm text-gray-600 font-medium">자동화 인사이트 리포트 제공</span>
                 </div>
             </div>
 
@@ -784,6 +762,16 @@
                         <div>
                             <label class="order-form-label">업종 / 회사명</label>
                             <input type="text" name="company" class="order-form-input w-full" placeholder="예: 영어학원, 부동산, 쇼핑몰 등">
+                        </div>
+                        <div>
+                            <label class="order-form-label">관심 서비스</label>
+                            <select name="interest_tier" class="order-form-input w-full">
+                                <option value="">선택해주세요</option>
+                                <option value="기본형">기본형 — 업무 효율화 환경 구축 (250,000원)</option>
+                                <option value="확장형">확장형 — 외부 서비스 연결 (390,000원)</option>
+                                <option value="AI 활용형">AI 활용형 — 비즈니스에 맞는 AI 도입 (600,000원~)</option>
+                                <option value="미정">아직 잘 모르겠어요</option>
+                            </select>
                         </div>
                         <div>
                             <label class="order-form-label">현재 가장 불편한 업무는? *</label>
@@ -832,27 +820,6 @@
     })();
     </script>
 
-    <!-- ==================== Section 3: 소개 ==================== -->
-    <section id="about" class="section-padding">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
-            <div class="section-label justify-center">
-                <span class="section-label-line"></span>
-                <span class="section-label-text">소개</span>
-                <span class="section-label-line"></span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                다양한 현장의 문제를<br>직접 해결해 왔습니다
-            </h2>
-            <p class="text-base sm:text-lg text-gray-500 leading-relaxed mb-8">
-                크몽을 통해 학원, 부동산, 쇼핑몰, 전문직 등<br class="hidden sm:inline">
-                다양한 업종의 업무 자동화를 구축하며 실전 경험을 쌓아왔습니다.
-            </p>
-            <div class="inline-flex items-center gap-2 bg-navy text-white text-sm font-bold px-5 py-2.5 rounded-xl">
-                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                크몽 평점 5.0
-            </div>
-        </div>
-    </section>
 
     <!-- ==================== Section 4: 활용 사례 (슬라이드) ==================== -->
     <section id="usecases" class="section-padding bg-gray-50">
@@ -865,7 +832,7 @@
                     <span class="section-label-line"></span>
                 </div>
                 <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
-                    실제 사장님들의<br>자동화 성공 스토리
+                    이런 업종에서<br>이렇게 활용하고 있습니다
                 </h2>
             </div>
 
@@ -883,13 +850,13 @@
                 <div class="overflow-hidden">
                     <div id="usecase-track" class="flex transition-transform duration-500 ease-in-out" style="gap: 24px;">
 
-                        <!-- 사례 1: 유학원 -->
+                        <!-- 사례 1: 학원/교육 -->
                         <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
                             <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">유학원</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">접수부터 서류 정리까지, 학생 관리가 한 시트에서 끝납니다</h3>
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">학원 / 교육</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">접수·등록·서류 정리를 한 시트에서 자동으로</h3>
                                 <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    매 시즌 수백 명의 접수 학생 정보를 엑셀로 옮기고, 서류를 폴더별로 나누는 작업에 매번 반나절이 걸렸습니다.
+                                    수강 접수가 들어오면 학생 DB에 자동 기록되고, 개인별 폴더 생성과 안내 메일 발송까지 한 번에 처리됩니다.
                                 </p>
                                 <div class="space-y-2">
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
@@ -898,7 +865,7 @@
                                     </p>
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        접수 현황·진행 상태를 한 화면에서 실시간 확인
+                                        접수 현황·수강 상태를 한 화면에서 실시간 확인
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5 mt-5">
@@ -913,18 +880,18 @@
                         <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
                             <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
                                 <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">부동산</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">고객별 문의 이력과 매물 매칭을 한눈에 관리합니다</h3>
+                                <h3 class="text-lg font-bold text-navy mb-3">고객 문의 이력과 상담 상태를 자동으로 관리</h3>
                                 <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    전화·카톡으로 들어오는 문의를 머릿속으로 기억하다 놓치는 일이 잦았습니다. 이제 고객별 상담 이력이 자동으로 쌓입니다.
+                                    문의가 들어올 때마다 고객 DB에 자동 기록되고, 상담 상태별로 필터링해 후속 연락이 필요한 고객을 바로 확인할 수 있습니다.
                                 </p>
                                 <div class="space-y-2">
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        고객 DB에 문의 내용·희망 조건·상담 일자 자동 기록
+                                        문의 내용·희망 조건·상담 일자 자동 기록
                                     </p>
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        상담 상태별 필터링으로 후속 연락이 필요한 고객을 바로 확인
+                                        상태별 필터링으로 놓치는 고객 없이 체계적으로 관리
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5 mt-5">
@@ -935,54 +902,106 @@
                             </div>
                         </div>
 
-                        <!-- 사례 3: 채권관리 -->
+                        <!-- 사례 3: 채권/금융 -->
                         <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
                             <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">채권관리</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">수백 명의 채무자 현황을 한 화면에서 체계적으로 관리합니다</h3>
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">채권 / 금융</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">수백 건의 상환 현황을 한 화면에서 실시간 추적</h3>
                                 <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    엑셀 파일 여러 개에 흩어져 있던 채무자 정보를 하나의 시트로 통합하고, 상환 상태와 연체 현황을 자동으로 추적합니다.
+                                    여러 파일에 흩어진 데이터를 하나의 시트로 통합하고, 상환 일정과 연체 여부를 자동으로 추적합니다.
                                 </p>
                                 <div class="space-y-2">
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        채무자별 상환 일정·금액·연체 여부 실시간 트래킹
+                                        건별 상환 일정·금액·연체 여부 실시간 트래킹
                                     </p>
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        연체 시 자동 알림, 전체 현황을 대시보드로 한눈에 파악
+                                        연체 발생 시 자동 알림, 대시보드로 전체 현황 한눈에 파악
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">채무자 DB</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">데이터 통합</span>
                                     <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상환 트래킹</span>
                                     <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">자동 알림</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- 사례 4: 파티룸 -->
+                        <!-- 사례 4: 예약 기반 서비스 -->
                         <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
                             <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">파티룸</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">예약부터 입실·퇴실 안내까지 알림톡이 자동으로 나갑니다</h3>
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">예약 서비스</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">예약 접수부터 이용 완료까지 알림톡 자동 발송</h3>
                                 <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    예약 확인 문자를 일일이 보내고, 이용 당일에 안내 전화를 돌리던 작업을 모두 자동화했습니다.
+                                    예약이 들어오면 캘린더에 자동 등록되고, 예약 확인·입실 안내·퇴실 안내·이용 후 감사 알림톡이 시점별로 자동 발송됩니다.
                                 </p>
                                 <div class="space-y-2">
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        예약 접수 → 캘린더 자동 등록 → 예약 확인 알림톡 발송
+                                        예약 접수 → 캘린더 자동 등록 → 확인 알림톡 발송
                                     </p>
                                     <p class="text-sm text-gray-600 flex items-start gap-2">
                                         <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        입실 안내 · 퇴실 안내 · 이용 후 감사 알림톡까지 시점별 자동 발송
+                                        입실·퇴실·이용 후 감사 알림까지 시점별 자동 발송
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-1.5 mt-5">
                                     <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">예약 관리</span>
                                     <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">캘린더 연동</span>
                                     <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">알림톡 자동 발송</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 사례 5: 인보이스/미수금 -->
+                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
+                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">매출 / 정산</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">인보이스 발행부터 미수금 추적까지 자동으로</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                                    거래처별 인보이스를 시트에서 바로 생성·발송하고, 미수금 현황을 실시간으로 추적해 누락 없이 관리할 수 있습니다.
+                                </p>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        시트 데이터 기반 인보이스 PDF 자동 생성 및 메일 발송
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        미수금·입금 완료 상태 자동 업데이트, 연체 시 알림
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-5">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">인보이스 자동 생성</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">미수금 트래킹</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">자동 메일 발송</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 사례 6: 인테리어/건설 -->
+                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
+                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">인테리어 / 건설</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">고객별 대량 파일을 구글 드라이브에 자동 정리</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                                    현장 사진, 도면, 계약서 등 고객마다 쌓이는 대량 파일을 자동으로 분류·정리해 필요할 때 바로 찾을 수 있습니다.
+                                </p>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        신규 고객 등록 시 드라이브에 전용 폴더 구조 자동 생성
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        시트에서 고객명 클릭 시 해당 드라이브 폴더로 바로 이동
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-5">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">드라이브 자동 정리</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">폴더 구조 자동 생성</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">고객 DB 연동</span>
                                 </div>
                             </div>
                         </div>
@@ -1147,41 +1166,40 @@
     <script>
     var tierModalData = {
         standard: {
-            title: '기본형 — 업무 자동화 시작하기',
+            title: '기본형 — 업무 효율화 환경 구축',
             price: '250,000원',
-            desc: '흩어진 데이터를 한곳으로 모으고, 반복되는 기초 행정 업무를 자동화합니다.',
+            desc: '사장님의 비즈니스 환경에 맞는 데이터 관리 체계를 구글 시트 위에 세팅하고, 구글 플랫폼 앱들과 연동합니다.',
             sections: [
-                { label: '고객 및 매출 관리', items: ['학생/회원 DB 구축 및 관리', '매출 및 미수금 현황 실시간 트래킹'] },
-                { label: '구글 플랫폼 연동', items: ['구글폼 접수 시 시트 자동 기록', '고객 감사 메일 자동 발송'] },
-                { label: '스마트 워크 환경', items: ['구글 캘린더 일정 자동 등록', '구글 드라이브 내 고객별/업체별 폴더 자동 생성 및 관리'] }
+                { label: '비즈니스 맞춤 데이터 관리', items: ['예약 관리, 회원/고객 관리, 매출 관리 등 업종에 맞는 시트 설계', '데이터 입력·조회·필터링이 쉬운 구조로 세팅'] },
+                { label: '구글 플랫폼 연동', items: ['구글폼 접수 → 시트 자동 기록', '구글 캘린더 일정 자동 등록', '구글 드라이브 고객별/업체별 폴더 자동 생성 및 관리'] },
+                { label: '자동 알림', items: ['메일 자동 발송 (접수 확인, 감사 메일 등)'] }
             ],
             target: '1인 기업가, 소규모 교습소, 관리가 필요한 개인 사업자'
         },
         deluxe: {
-            title: '확장형 — 외부 서비스까지 연결',
+            title: '확장형 — 외부 서비스 연결',
             price: '390,000원',
-            desc: '사용 중인 외부 서비스와 구글 시트를 연결하여 업무의 결을 하나로 통합합니다.',
+            desc: '기본형에 더해, 웹사이트 입력폼과 문자/알림톡 발송, 외부 서비스 API까지 구글 시트와 하나로 연결합니다.',
             sections: [
-                { label: 'Standard 전체 포함', items: [] },
-                { label: '외부 메시징 연동', items: ['문자/알림톡 발송', '텔레그램/슬랙/디스코드 실시간 업무 알림 (웹훅 활용)'] },
-                { label: '데이터 허브 구축', items: ['노션(Notion) 등 타 서비스와의 데이터 동기화', '외부 웹사이트 입력폼 제출 데이터의 시트 자동 저장'] },
-                { label: '협업 최적화', items: ['팀원 간 실시간 상태값(상담전/후, 계약진행 등) 동기화', '모바일 최적화 화면 제공'] }
+                { label: '기본형 전체 포함', items: [] },
+                { label: '웹사이트 입력폼 연결', items: ['외부 웹사이트의 문의/접수 폼 데이터를 시트에 자동 저장', '웹페이지 입력폼 제작 작업 포함'] },
+                { label: '문자/알림톡 발송 연결', items: ['솔라피(Solapi) API를 활용한 문자·알림톡 자동 발송', '예약 확인, 일정 안내, 결제 알림 등 시점별 자동 발송'] },
+                { label: '기타 외부 API 연동', items: ['텔레그램, 슬랙, 디스코드 등 실시간 업무 알림', '노션(Notion) 등 타 서비스와의 데이터 동기화'] }
             ],
             target: '직원이 있는 학원, 매물 공유가 잦은 부동산, 외부 문의가 많은 서비스업'
         },
         premium: {
-            title: '스마트형 — AI가 읽고, 쓰고, 정리합니다',
+            title: 'AI 활용형 — 비즈니스에 맞는 AI 도입',
             price: '600,000원~',
-            desc: '확장형의 모든 기능에 더해, AI가 텍스트를 읽고 정리하는 작업을 자동으로 처리합니다. 사장님의 업무에 AI를 어떻게 붙일지, 설계부터 세팅까지 도와드립니다.',
+            desc: 'ChatGPT, Gemini, Claude 등 생성형 AI를 사장님의 업무 흐름에 맞게 연결하고, 도입 설계부터 세팅까지 도와드립니다.',
             sections: [
-                { label: '확장형 전체 포함', items: [] },
-                { label: '상담 메모 자동 요약', items: ['길게 적어둔 상담 내용을 AI가 핵심만 한 줄로 정리', '문의 유형(가격, 일정, 불만 등)을 자동 분류'] },
-                { label: '안내 문구 자동 작성', items: ['고객 상황에 맞는 안내 문자·메일 문구를 AI가 초안 작성', '수강 안내, 예약 확인, 재방문 유도 등 상황별 템플릿 자동 생성'] },
-                { label: '주간/월간 리포트 자동 생성', items: ['이번 주 신규 문의·매출·미수금 현황을 AI가 요약 정리', '별도 작업 없이 매주 자동으로 리포트가 시트에 생성'] },
-                { label: '심플리Do가 도와드리는 것', items: ['사장님 업무에 AI를 어디에, 어떻게 붙일지 설계', 'AI API 연결 및 프롬프트 세팅 전체 구축', '구축 후 사용법 안내 및 프롬프트 조정 지원'] }
+                { label: 'AI 도입 설계', items: ['사장님 업무에 AI를 어디에, 어떻게 활용할지 설계', '업무 흐름에 맞는 최적의 AI 모델(ChatGPT / Gemini / Claude) 선택'] },
+                { label: 'AI API 연결 및 세팅', items: ['구글 시트에서 AI API를 호출하는 자동화 구축', '업무에 맞는 프롬프트 설계 및 세팅'] },
+                { label: '활용 예시', items: ['상담 메모 자동 요약 및 분류', '고객 안내 문구 자동 초안 작성', '주간/월간 리포트 자동 생성'] },
+                { label: '구축 후 지원', items: ['사용법 안내 및 프롬프트 조정 지원'] }
             ],
-            target: '상담 기록이 많은 학원·병원, 고객 안내가 잦은 서비스업',
-            note: 'AI 기능은 ChatGPT 또는 Gemini API를 활용하며, 사용량에 따라 소정의 API 호출 비용(월 수천 원~)이 발생할 수 있습니다. 구글 Workspace 유료 플랜이 필요한 경우 사전에 안내드립니다.'
+            target: '반복적인 텍스트 작업이 많은 업종, AI 도입을 검토 중인 사업자',
+            note: 'AI 기능은 ChatGPT, Gemini, Claude API를 활용하며, 사용량에 따라 소정의 API 호출 비용(월 수천 원~)이 발생할 수 있습니다. 유료 플랜이 필요한 경우 사전에 안내드립니다.'
         }
     };
     function openTierModal(tier) {
