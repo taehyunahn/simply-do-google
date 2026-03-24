@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="심플리Do - 익숙한 도구에 자동화를 더하다. 구글 스프레드시트 기반 업무 자동화 전문.">
+    <meta name="description" content="심플리Do - 비싼 ERP 대신, 구글 시트로 데이터 독립을 시작하세요. 구글 스프레드시트 기반 업무 자동화 전문.">
     <meta name="keywords" content="구글시트자동화, AppsScript, 업무자동화, 스프레드시트, 심플리Do">
-    <title>심플리Do | 익숙한 도구에 자동화를 더하다</title>
+    <title>심플리Do | 구글 시트로 데이터 독립을 시작하세요</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,7 +56,6 @@
 
             <!-- Desktop Menu -->
             <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-navy-300">
-                <a href="#automation" class="hover:text-navy transition">자동화란?</a>
                 <a href="#benefits" class="hover:text-navy transition">왜 심플리Do?</a>
                 <!-- Products 드롭다운 -->
                 <div class="relative group">
@@ -68,8 +67,7 @@
                     </button>
                     <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                         <a href="#simplybuild" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-t-xl transition">맞춤 제작</a>
-                        <a href="#templates" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy transition">자동화 도구</a>
-                        <a href="#consulting" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-b-xl transition">업무 진단</a>
+                        <a href="#consulting" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-b-xl transition">무료 상담</a>
                     </div>
                 </div>
                 <a href="#about" class="hover:text-navy transition">소개</a>
@@ -78,7 +76,7 @@
 
             <!-- CTA -->
             <div class="hidden md:block">
-                <a href="#templates" class="btn-primary text-sm px-5 py-2.5">제품 보기</a>
+                <button onclick="openConsultModal()" class="btn-primary text-sm px-5 py-2.5">무료 상담 신청</button>
             </div>
 
             <!-- Mobile Menu Button -->
@@ -92,16 +90,14 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100">
             <div class="px-4 pt-2 pb-4 space-y-1">
-                <a href="#automation" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">자동화란?</a>
                 <a href="#benefits" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">왜 심플리Do?</a>
                 <span class="block px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">서비스 안내</span>
                 <a href="#simplybuild" class="block px-6 py-2 text-gray-600 hover:text-navy transition">맞춤 제작</a>
-                <a href="#templates" class="block px-6 py-2 text-gray-600 hover:text-navy transition">자동화 도구</a>
-                <a href="#consulting" class="block px-6 py-2 text-gray-600 hover:text-navy transition">업무 진단</a>
+                <a href="#consulting" class="block px-6 py-2 text-gray-600 hover:text-navy transition">무료 상담</a>
                 <a href="#about" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">소개</a>
                 <a href="#usecases" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">활용 사례</a>
                 <div class="pt-2">
-                    <a href="#templates" class="btn-primary block text-center text-sm py-2.5">제품 보기</a>
+                    <button onclick="openConsultModal()" class="btn-primary block text-center text-sm py-2.5 w-full">무료 상담 신청</button>
                 </div>
             </div>
         </div>
@@ -113,24 +109,25 @@
             <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
                 <!-- Left: Copy -->
                 <div class="fade-in-up">
-                    <span class="badge-navy mb-6 inline-block">Google Apps Script 자동화 전문</span>
-                    <h1 class="text-4xl md:text-5xl font-bold text-navy leading-tight tracking-tight mb-6">
-                        익숙한 도구에<br>자동화를 더하다
+                    <span class="badge-navy mb-6 inline-block">구글 시트 기반 업무 자동화</span>
+                    <h1 class="text-3xl md:text-4xl font-bold text-navy leading-tight tracking-tight mb-6">
+                        결국 엑셀로 돌아오셨죠?<br>이번엔 그 시트 위에<br>자동화를 얹어 드립니다.
                     </h1>
                     <p class="text-lg text-gray-500 mb-10 leading-relaxed">
-                        매일 반복되는 데이터 복사, 붙여넣기, 확인 작업에 많은 시간을 쓰고 계신가요?<br class="hidden lg:inline">
-                        이미 사용 중인 <strong class="text-navy">구글 스프레드시트</strong>에서 바로 자동화를 시작하세요.
+                        엑셀보다 강력하고, ERP보다 유연합니다.<br class="hidden lg:inline">
+                        이미 익숙한 <strong class="text-navy">구글 시트</strong>가 사장님만의 업무 시스템이 됩니다.
                     </p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#templates" class="btn-primary text-base px-8 py-4">
+                        <button onclick="openConsultModal()" class="btn-primary text-base px-8 py-4">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                            제품 보기
-                        </a>
-                        <a href="#automation" class="btn-secondary text-base px-8 py-4">
-                            자세히 알아보기
+                            무료 상담 신청
+                        </button>
+                        <a href="#simplybuild" class="btn-secondary text-base px-8 py-4">
+                            서비스 둘러보기
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                         </a>
                     </div>
+                    <p class="text-sm text-gray-400 mt-4">우리 사업에도 자동화가 가능할까? 고민하지 말고 무료 상담을 신청하세요.</p>
                 </div>
 
                 <!-- Right: Dashboard Mockup -->
@@ -242,114 +239,255 @@
         </div>
     </section>
 
-    <!-- ==================== Section 1: 자동화 소개 ==================== -->
-    <section id="automation" class="section-padding">
+    <!-- ==================== 비교표: ERP vs 엑셀 vs 구글시트+Apps Script ==================== -->
+    <section id="comparison" class="section-padding bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+            <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 fade-in-up">
                 <div class="section-label justify-center">
                     <span class="section-label-line"></span>
-                    <span class="section-label-text">자동화란?</span>
+                    <span class="section-label-text">비교</span>
                     <span class="section-label-line"></span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                    엑셀보다 유연하고<br>전문 프로그램보다 가벼운 자동화
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                    ERP, 엑셀, 구글 시트<br>어디에서 멈추셨나요?
                 </h2>
-                <p class="text-lg text-gray-500 leading-relaxed">
-                    구글 스프레드시트에는 업무를 자동으로 처리해 주는 <strong class="text-navy">'Google Apps Script'</strong> 엔진이 내장되어 있습니다.
-                    별도의 프로그램 설치 없이, 지금 사용하는 시트에서 바로 자동화가 시작됩니다.
+                <p class="text-base sm:text-lg text-gray-500 leading-relaxed">
+                    각각의 장점만 모아, 사장님 업무에 딱 맞는 시스템을 만들어 드립니다.
                 </p>
             </div>
 
-            <!-- Feature Cards -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Feature 1 -->
-                <div class="card p-8 fade-in-up fade-delay-1">
-                    <div class="card-icon mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+            <!-- 비교표 - Desktop (별점 + 왼쪽 정렬) -->
+            <div class="hidden md:block max-w-5xl mx-auto fade-in-up">
+                <div class="overflow-hidden rounded-2xl bg-white" style="box-shadow: 0 4px 24px rgba(0,0,0,0.06);">
+                    <!-- 테이블 헤더 -->
+                    <div class="grid border-b border-gray-200" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-5 bg-gray-50"></div>
+                        <div class="px-5 py-5 text-center border-l border-gray-200 bg-red-50/50">
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                            </div>
+                            <p class="font-bold text-sm text-red-600">기존 ERP</p>
+                        </div>
+                        <div class="px-5 py-5 text-center border-l border-gray-200">
+                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-2">
+                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                            </div>
+                            <p class="font-bold text-sm text-gray-500">엑셀</p>
+                        </div>
+                        <div class="px-5 py-5 text-center border-l-2" style="border-left-color: var(--navy); background: linear-gradient(180deg, rgba(27,42,74,0.06) 0%, rgba(27,42,74,0.02) 100%);">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style="background: var(--navy);">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            </div>
+                            <p class="font-bold text-sm text-navy">구글시트<br><span class="text-xs font-normal text-gray-400">(+앱스스크립트)</span></p>
+                        </div>
                     </div>
-                    <h3 class="text-xl font-bold text-navy mb-3">새로운 툴을 배울 필요가 없습니다</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        이미 사용 중인 스프레드시트 환경에서 바로 작동하므로 추가적인 학습 부담이 적습니다.
-                    </p>
+                    <!-- 도입 난이도 -->
+                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">도입 난이도</span></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">교육·컨설팅 필수</p></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="text-sm text-gray-600">누구나 익숙</p></div>
+                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">엑셀과 동일한 시트 환경</p></div>
+                    </div>
+                    <!-- 자동화 -->
+                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">자동화</span></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</div><p class="text-sm text-gray-600">가능하나 커스텀 시 고비용</p></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">VBA로 가능하나 세팅 복잡, 한계 있음</p></div>
+                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">코드 기반 무한 확장</p></div>
+                    </div>
+                    <!-- 커스터마이징 -->
+                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">커스터마이징</span></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">정해진 틀 안에서만 가능</p></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</div><p class="text-sm text-gray-600">자유롭지만 전부 수동</p></div>
+                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">자유 + 자동 — 로직까지 맞춤</p></div>
+                    </div>
+                    <!-- 유지 비용 -->
+                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">유지 비용</span></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">매월 구독료 + 유지보수비</p></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">Microsoft 365 구독료 + 사람 비용</p></div>
+                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">초기 구축비만 — 유지비 0원</p></div>
+                    </div>
+                    <!-- 외부 연동 -->
+                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">외부 연동</span></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">추가 개발 비용 필요</p></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">외부 연동 불가</p></div>
+                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">캘린더·드라이브·외부 API 연동</p></div>
+                    </div>
+                    <!-- 데이터 소유 -->
+                    <div class="grid" style="grid-template-columns: 110px repeat(3, 1fr);">
+                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">데이터 소유</span></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">해지 시 데이터 소멸 위험</p></div>
+                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">내 PC 저장 — 유실 위험</p></div>
+                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">내 구글 계정에 영구 보관</p></div>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Feature 2 -->
-                <div class="card p-8 fade-in-up fade-delay-2">
-                    <div class="card-icon mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy mb-3">정해진 규칙에 따라 스스로 일합니다</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        특정 시간이 되면 알아서 메일을 발송하거나 데이터를 정리하고, 보고서를 생성해 둡니다.
-                    </p>
+            <!-- 비교표 - Mobile (별점 + 왼쪽 정렬) -->
+            <div class="md:hidden space-y-3 fade-in-up">
+                <div class="flex justify-center gap-4 mb-4 text-xs font-semibold">
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> ERP</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span> 엑셀</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background: var(--navy);"></span> 구글시트</span>
                 </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <p class="text-xs font-bold text-navy mb-3">도입 난이도</p>
+                    <div class="space-y-2.5">
+                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 교육·컨설팅 필수</p></div>
+                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: 누구나 익숙</p></div>
+                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 엑셀과 동일한 환경</p></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <p class="text-xs font-bold text-navy mb-3">자동화</p>
+                    <div class="space-y-2.5">
+                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 가능하나 고비용</p></div>
+                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: VBA 가능하나 세팅 복잡, 한계 있음</p></div>
+                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 무한 확장 가능</p></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <p class="text-xs font-bold text-navy mb-3">커스터마이징</p>
+                    <div class="space-y-2.5">
+                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 정해진 틀 안에서</p></div>
+                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: 자유롭지만 수동</p></div>
+                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 자유 + 자동</p></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <p class="text-xs font-bold text-navy mb-3">유지 비용</p>
+                    <div class="space-y-2.5">
+                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 매월 구독료 발생</p></div>
+                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: Microsoft 365 구독료 + 사람 비용</p></div>
+                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 유지비 0원</p></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <p class="text-xs font-bold text-navy mb-3">외부 연동</p>
+                    <div class="space-y-2.5">
+                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 추가 개발 필요</p></div>
+                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: 불가</p></div>
+                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: API 무제한 연동</p></div>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl p-4 shadow-sm">
+                    <p class="text-xs font-bold text-navy mb-3">데이터 소유</p>
+                    <div class="space-y-2.5">
+                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 해지 시 소멸 위험</p></div>
+                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: PC 유실 위험</p></div>
+                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 내 계정에 영구 보관</p></div>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Feature 3 -->
-                <div class="card p-8 fade-in-up fade-delay-3">
-                    <div class="card-icon mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"></path></svg>
-                    </div>
-                    <h3 class="text-xl font-bold text-navy mb-3">다양한 업무 도구를 하나로 연결합니다</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        지메일, 캘린더, 슬랙 등을 연동하여 흩어져 있는 업무 과정을 하나로 이어줍니다.
-                    </p>
-                </div>
+            <!-- 하단 강조 문구 -->
+            <div class="max-w-3xl mx-auto text-center mt-12 fade-in-up">
+                <p class="text-base sm:text-lg font-semibold text-navy">
+                    엑셀의 편리함은 그대로, ERP의 자동화는 더하고, 데이터는 온전히 사장님 것으로.
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- ==================== Section 2: 3가지 이점 ==================== -->
+    <!-- ==================== YouTube: Apps Script 소개 ==================== -->
+    <section class="section-padding">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="max-w-3xl mx-auto text-center mb-8 md:mb-12 fade-in-up">
+                <div class="section-label justify-center">
+                    <span class="section-label-line"></span>
+                    <span class="section-label-text">Google Apps Script란?</span>
+                    <span class="section-label-line"></span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
+                    3분만에 이해하는<br>구글 시트 자동화
+                </h2>
+                <p class="text-base sm:text-lg text-gray-500 leading-relaxed">
+                    비싼 ERP 대신, 이미 쓰고 있는 구글 시트를 '진짜 프로그램'처럼 쓰는 방법을 확인해 보세요.
+                </p>
+            </div>
+            <div class="fade-in-up" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+                <iframe
+                    src="https://www.youtube.com/embed/DWBLnPu3Kdk"
+                    title="비싼 ERP 대신 구글 시트를 진짜 프로그램처럼 쓰는 법"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+                ></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== Section 2: 3대 핵심 가치 ==================== -->
     <section id="benefits" class="section-padding bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+            <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 fade-in-up">
                 <div class="section-label justify-center">
                     <span class="section-label-line"></span>
                     <span class="section-label-text">왜 심플리Do?</span>
                     <span class="section-label-line"></span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4">
-                    심플리Do가 제공하는<br>3가지 실질적 이점
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4">
+                    구글 시트 하나로 완성되는<br>업무 자동화
                 </h2>
             </div>
 
-            <!-- Benefit Cards -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Benefit 1 -->
-                <div class="card p-8 fade-in-up fade-delay-1">
-                    <div class="benefit-number mb-6">1</div>
-                    <h3 class="text-xl font-bold text-navy mb-4">매월 발생하는 구독료 부담이 없습니다</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        외부 자동화 서비스를 이용하면 연결 개수에 따라 매달 비용이 발생하지만, Apps Script는 구글 계정만 있다면 추가 비용 없이 무료로 실행됩니다.
+            <!-- 3 Value Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <!-- 가치 1: 구글 플랫폼 -->
+                <div class="card p-6 sm:p-8 fade-in-up fade-delay-1 border-t-4" style="border-top-color: #4285F4;">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(66,133,244,0.1);">
+                        <svg class="w-6 h-6" style="color: #4285F4;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4" style="background: rgba(66,133,244,0.1); color: #4285F4;">구글 플랫폼</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">호스팅 비용 0원,<br>구글 보안이 지켜줍니다</h3>
+                    <p class="text-sm sm:text-base text-gray-500 leading-relaxed">
+                        별도 서버 없이 구글 계정 하나로 운영됩니다. 구글 플랫폼의 보안 위에서 동작하며, 웹앱 배포까지 추가 비용 없이 가능합니다.
                     </p>
-                    <p class="text-navy font-semibold text-sm mt-4">
-                        한 번의 제작으로 평생 소유하는 효율적인 시스템
-                    </p>
+                    <div class="flex flex-wrap gap-2 mt-5">
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">서버 비용 0원</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">구글 보안</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">웹앱 배포</span>
+                    </div>
                 </div>
 
-                <!-- Benefit 2 -->
-                <div class="card p-8 fade-in-up fade-delay-2">
-                    <div class="benefit-number mb-6">2</div>
-                    <h3 class="text-xl font-bold text-navy mb-4">기업의 내부 데이터를 안전하게 보호합니다</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        보안 문제로 외부 툴 사용이 망설여졌다면 안심하셔도 됩니다. 모든 자동화 로직은 귀사의 구글 워크스페이스 권한 안에서만 작동합니다.
+                <!-- 가치 2: 쉬운 활용 -->
+                <div class="card p-6 sm:p-8 fade-in-up fade-delay-2 border-t-4" style="border-top-color: #34A853;">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(52,168,83,0.1);">
+                        <svg class="w-6 h-6" style="color: #34A853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                    </div>
+                    <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4" style="background: rgba(52,168,83,0.1); color: #34A853;">쉬운 활용</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">엑셀처럼 쉬워서<br>교육이 필요 없습니다</h3>
+                    <p class="text-sm sm:text-base text-gray-500 leading-relaxed">
+                        직원들이 이미 익숙한 스프레드시트 환경 그대로. 새로운 프로그램을 배울 필요 없이, 기존 업무 방식 위에 자동화를 얹습니다.
                     </p>
-                    <p class="text-navy font-semibold text-sm mt-4">
-                        소중한 정보가 외부 서버로 유출될 걱정 없음
-                    </p>
+                    <div class="flex flex-wrap gap-2 mt-5">
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">교육 비용 절감</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">즉시 활용</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">낮은 진입장벽</span>
+                    </div>
                 </div>
 
-                <!-- Benefit 3 -->
-                <div class="card p-8 fade-in-up fade-delay-3">
-                    <div class="benefit-number mb-6">3</div>
-                    <h3 class="text-xl font-bold text-navy mb-4">실제 사용 환경을 고려한 맞춤형 설계</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        단순히 코드만 작성해 드리는 것에 그치지 않습니다. 실무자가 실제 현장에서 어떻게 사용할지를 고민하여, 가장 직관적이고 오류 없는 업무 동선을 함께 설계합니다.
+                <!-- 가치 3: 무한 연동 -->
+                <div class="card p-6 sm:p-8 fade-in-up fade-delay-3 border-t-4" style="border-top-color: #FBBC04;">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(251,188,4,0.1);">
+                        <svg class="w-6 h-6" style="color: #E8A800;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                    </div>
+                    <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4" style="background: rgba(251,188,4,0.1); color: #E8A800;">무한 연동</span>
+                    <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">캘린더, 드라이브,<br>외부 API까지 연결</h3>
+                    <p class="text-sm sm:text-base text-gray-500 leading-relaxed">
+                        구글 캘린더, 드라이브, 지메일은 물론 슬랙, 알림톡 등 외부 서비스까지. 하나의 시트에서 모든 업무 도구를 연결합니다.
                     </p>
-                    <p class="text-navy font-semibold text-sm mt-4">
-                        현장 중심의 UX 설계
-                    </p>
+                    <div class="flex flex-wrap gap-2 mt-5">
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">구글 앱 연동</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">외부 API</span>
+                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">실시간 알림</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -436,96 +574,88 @@
                 </p>
             </div>
 
-            <!-- 3열 Tier 카드 -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Lite -->
-                <div class="build-tier-card card fade-in-up fade-delay-1" data-tier="lite">
-                    <div class="p-8">
+            <!-- 숨겨진 상담 연결 버튼 -->
+            <button class="hidden build-consult-btn" data-tier="standard"></button>
+            <button class="hidden build-consult-btn" data-tier="deluxe"></button>
+            <button class="hidden build-consult-btn" data-tier="premium"></button>
+
+            <!-- 3열 Tier 카드 (동일 높이 + flex) -->
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <!-- 기본형 -->
+                <div class="build-tier-card card fade-in-up fade-delay-1 flex flex-col" data-tier="standard">
+                    <div class="p-6 sm:p-8 flex flex-col flex-1">
                         <span class="badge-navy">기본형</span>
-                        <h3 class="text-xl font-bold text-navy mt-3">자동화 연동</h3>
-                        <p class="text-gray-500 text-sm mt-2">기존 웹사이트에 자동화 엔진만 구축</p>
-                        <ul class="mt-6 space-y-3 text-sm text-gray-600">
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                입력폼 → 구글시트 데이터 수집 연동
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                알림 채널 1개 연결 (이메일/슬랙/알림톡 중 택1)
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                기본 데이터 정리 자동화
-                            </li>
-                        </ul>
-                        <div class="mt-8 pt-4 border-t border-gray-100">
-                            <span class="text-3xl font-bold text-navy">300,000원</span>
-                            <span class="text-gray-400 text-sm">부터</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">업무 자동화 시작하기</h3>
+                        <p class="text-gray-500 text-sm mt-3 leading-relaxed">
+                            흩어져 있는 고객·매출 데이터를 구글 시트 한곳에 모으고, 반복되는 기초 행정 업무를 자동으로 처리합니다.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">고객/매출 DB</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">구글폼 연동</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">자동 메일 발송</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">캘린더 자동 등록</span>
                         </div>
-                        <button class="btn-outline-navy w-full mt-4 build-consult-btn" data-tier="lite">상담 신청</button>
+                        <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
+                            <span class="text-3xl font-bold text-navy">250,000원</span>
+                            <button onclick="openTierModal('standard')" class="btn-outline-navy w-full mt-4">자세히 보기</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Standard (추천) -->
-                <div class="build-tier-card card recommended fade-in-up fade-delay-2" data-tier="standard">
+                <!-- 확장형 (추천) -->
+                <div class="build-tier-card card recommended fade-in-up fade-delay-2 flex flex-col" data-tier="deluxe">
                     <div class="recommended-badge">추천</div>
-                    <div class="p-8">
-                        <span class="badge-navy">표준형</span>
-                        <h3 class="text-xl font-bold text-navy mt-3">웹사이트 + 자동화</h3>
-                        <p class="text-gray-500 text-sm mt-2">반응형 웹사이트 제작 + 실시간 알림 체계</p>
-                        <ul class="mt-6 space-y-3 text-sm text-gray-600">
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                맞춤형 반응형 웹사이트 제작
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                입력폼 → 구글시트 → 다중 알림 (이메일 + 메신저)
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                고객 요청 실시간 인지 체계
-                            </li>
-                        </ul>
-                        <div class="mt-8 pt-4 border-t border-gray-100">
-                            <span class="text-3xl font-bold text-navy">800,000원</span>
-                            <span class="text-gray-400 text-sm">부터</span>
+                    <div class="p-6 sm:p-8 flex flex-col flex-1">
+                        <span class="badge-navy">확장형</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">외부 서비스까지 연결</h3>
+                        <p class="text-gray-500 text-sm mt-3 leading-relaxed">
+                            기본형의 모든 기능에 더해, 알림톡·슬랙·노션 등 이미 쓰고 있는 외부 서비스까지 구글 시트와 하나로 연결합니다.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">기본형 전체 포함</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">문자/알림톡 발송</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">슬랙/디스코드</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">외부 서비스 연동</span>
                         </div>
-                        <button class="btn-primary-inverted w-full mt-4 build-consult-btn" data-tier="standard">상담 신청</button>
+                        <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
+                            <span class="text-3xl font-bold text-navy">390,000원</span>
+                            <button onclick="openTierModal('deluxe')" class="btn-primary-inverted w-full mt-4">자세히 보기</button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Pro -->
-                <div class="build-tier-card card fade-in-up fade-delay-3" data-tier="pro">
-                    <div class="p-8">
-                        <span class="badge-navy">프리미엄</span>
-                        <h3 class="text-xl font-bold text-navy mt-3">풀 시스템 구축</h3>
-                        <p class="text-gray-500 text-sm mt-2">웹사이트 + 자동화 + 구글 생태계 풀 연동</p>
-                        <ul class="mt-6 space-y-3 text-sm text-gray-600">
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                표준형 전체 포함
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                구글 드라이브/캘린더/닥스 멀티 플랫폼 연동
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                대시보드 시각화 + 자동 리포트
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <svg class="w-5 h-5 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                                모바일 웹앱 UI (선택)
-                            </li>
-                        </ul>
-                        <div class="mt-8 pt-4 border-t border-gray-100">
-                            <span class="text-3xl font-bold text-navy">1,500,000원</span>
-                            <span class="text-gray-400 text-sm">부터</span>
-                            <p class="text-gray-400 text-xs mt-1">프로젝트 범위에 따라 맞춤 견적 안내</p>
+                <!-- AI형 -->
+                <div class="build-tier-card card fade-in-up fade-delay-3 flex flex-col" data-tier="premium">
+                    <div class="p-6 sm:p-8 flex flex-col flex-1">
+                        <span class="badge-navy">스마트형</span>
+                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">AI가 읽고, 쓰고, 정리합니다</h3>
+                        <p class="text-gray-500 text-sm mt-3 leading-relaxed">
+                            확장형의 모든 기능에 더해, AI가 긴 상담 메모를 한 줄로 요약하고 고객 안내 문자까지 대신 작성해 줍니다.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5 mt-4">
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">확장형 전체</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">상담 메모 자동 요약</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">안내 문구 자동 작성</span>
+                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">주간 리포트 생성</span>
                         </div>
-                        <button class="btn-outline-navy w-full mt-4 build-consult-btn" data-tier="pro">상담 신청</button>
+                        <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
+                            <span class="text-3xl font-bold text-navy">600,000원</span>
+                            <span class="text-gray-400 text-sm">~</span>
+                            <button onclick="openTierModal('premium')" class="btn-outline-navy w-full mt-4">자세히 보기</button>
+                        </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- 신뢰 안내 문구 -->
+            <div class="mt-12 text-center fade-in-up">
+                <div class="max-w-3xl mx-auto bg-gray-50 rounded-2xl p-8">
+                    <p class="text-sm text-gray-500 leading-relaxed">
+                        구글 인프라를 활용하여 서버 호스팅 비용을 절감해 드립니다. 다만, 시스템 구축 이후 새로운 기능 추가나 대대적인 구조 변경이 필요한 경우에는 별도의 작업 비용이 발생할 수 있습니다.
+                        <br class="hidden md:block"><br class="hidden md:block">
+                        심플리Do는 기술이 모든 문제를 해결해 줄 것이라 과장하지 않습니다.<br class="hidden md:block">
+                        사장님의 소중한 현장 노하우가 시스템에 녹아들 수 있도록 가장 정직한 도구를 설계해 드립니다.
+                    </p>
                 </div>
             </div>
         </div>
@@ -535,7 +665,7 @@
     <section id="build-order-section" class="section-padding hidden">
         <div class="max-w-2xl mx-auto px-6">
             <div class="card p-8 fade-in-up" id="build-order-card">
-                <h3 class="text-xl font-bold text-navy mb-6">맞춤 제작 상담 신청</h3>
+                <h3 class="text-xl font-bold text-navy mb-6">맞춤 제작 무료 진단 신청</h3>
                 <form id="build-order-form" onsubmit="handleOrderSubmit(event, 'build')">
                     <div class="grid md:grid-cols-2 gap-6">
                         <div>
@@ -568,7 +698,7 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn-primary w-full mt-6">상담 신청하기</button>
+                    <button type="submit" class="btn-primary w-full mt-6">무료 진단 신청하기</button>
                 </form>
 
                 <!-- 접수 완료 -->
@@ -582,396 +712,365 @@
         </div>
     </section>
 
-    <!-- ==================== SimplyKit: 템플릿 캐러셀 ==================== -->
-    <section id="templates" class="section-padding">
-        <div class="max-w-6xl mx-auto px-6">
-            <!-- 섹션 헤더 -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">자동화 도구</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                    바로 사용할 수 있는 자동화 키트
-                </h2>
-                <p class="text-lg text-gray-500 leading-relaxed">
-                    구글 시트에 복사하면 바로 시작할 수 있습니다. 전문가 세팅이 필요하면 옵션을 선택하세요.
-                </p>
-            </div>
-
-            <!-- 캐러셀 컨테이너 -->
-            <div class="relative">
-                <!-- 좌우 네비게이션 화살표 -->
-                <button id="carousel-prev" class="carousel-arrow carousel-arrow-left" aria-label="이전">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-                    </svg>
-                </button>
-                <button id="carousel-next" class="carousel-arrow carousel-arrow-right" aria-label="다음">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                    </svg>
-                </button>
-
-                <!-- 슬라이드 트랙 -->
-                <div class="carousel-track" id="template-carousel">
-                    <!-- 카드 1: SimplyCRM -->
-                    <div class="carousel-slide">
-                        <div class="card template-card" data-product="crm_template">
-                            <span class="badge-navy">솔라피 연동형</span>
-                            <h3 class="text-xl font-bold text-navy mt-3">고객관리 자동화</h3>
-                            <p class="text-gray-500 text-sm mt-2">따로 로그인하지 마세요. 시트에서 이름만 확인하고 바로 발송!</p>
-                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
-                                <li>✓ 개별 발송 및 단체 문자 발송 기능</li>
-                                <li>✓ 자주 쓰는 문자 템플릿 저장 기능</li>
-                                <li>✓ 발송 성공/실패 여부 자동 기록</li>
-                            </ul>
-                            <div class="mt-6 pt-4 border-t border-gray-100">
-                                <span class="text-2xl font-bold text-navy">89,000원</span>
-                                <span class="text-gray-400 text-sm">부터</span>
-                            </div>
-                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="crm_template">주문하기</button>
-                        </div>
-                    </div>
-
-
-                    <!-- 카드 2: SimplyInvoice -->
-                    <div class="carousel-slide">
-                        <div class="card template-card" data-product="invoice_template">
-                            <span class="badge-navy">견적서 자동화</span>
-                            <h3 class="text-xl font-bold text-navy mt-3">견적서 자동화</h3>
-                            <p class="text-gray-500 text-sm mt-2">견적서·인보이스 작성부터 발송까지, 시트에서 클릭 한 번.</p>
-                            <ul class="mt-4 space-y-2 text-sm text-gray-600">
-                                <li>✓ 견적서 자동 생성 (구글 시트 기반)</li>
-                                <li>✓ PDF 자동 변환 및 이메일 발송</li>
-                                <li>✓ 견적 이력 관리 및 상태 추적</li>
-                            </ul>
-                            <div class="mt-6 pt-4 border-t border-gray-100">
-                                <span class="text-2xl font-bold text-navy">39,000원</span>
-                                <span class="text-gray-400 text-sm">부터</span>
-                            </div>
-                            <button class="btn-primary w-full mt-4 template-order-btn" data-product="invoice_template">주문하기</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 인디케이터 도트 -->
-                <div class="flex justify-center gap-2 mt-6" id="carousel-dots">
-                    <button class="carousel-dot active" data-index="0"></button>
-                    <button class="carousel-dot" data-index="1"></button>
-                </div>
-            </div>
-
-            <!-- 템플릿 주문 폼 (기본 hidden) -->
-            <div id="template-order-section" class="hidden mt-12">
-                <div class="card p-8 max-w-4xl mx-auto" id="template-order-card">
-                    <h3 class="text-xl font-bold text-navy mb-6">
-                        <span id="template-order-title">고객관리 자동화</span> 주문
-                    </h3>
-                    <form id="template-order-form" onsubmit="handleOrderSubmit(event, 'template')">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="order-form-label">성함 *</label>
-                                <input type="text" name="name" class="order-form-input w-full" required>
-                            </div>
-                            <div>
-                                <label class="order-form-label">이메일 *</label>
-                                <input type="email" name="email" class="order-form-input w-full" required>
-                            </div>
-                            <div>
-                                <label class="order-form-label">연락처 *</label>
-                                <input type="tel" name="phone" class="order-form-input w-full" required>
-                            </div>
-                            <div>
-                                <label class="order-form-label">상품</label>
-                                <input type="text" name="product" class="order-form-input w-full bg-gray-50" readonly id="template-product-name">
-                            </div>
-                        </div>
-
-                        <!-- 옵션 선택 (라디오 카드) -->
-                        <div class="mt-6">
-                            <label class="order-form-label">옵션 선택</label>
-                            <div class="grid md:grid-cols-3 gap-4" id="template-options"></div>
-                        </div>
-
-                        <!-- 예상 금액 -->
-                        <div class="mt-6 bg-gray-50 rounded-xl p-4 flex justify-between items-center">
-                            <span class="font-semibold text-navy">예상 금액</span>
-                            <span class="text-2xl font-bold text-navy" id="template-price-value">89,000원</span>
-                        </div>
-
-                        <!-- 문의 내용 -->
-                        <div class="mt-6">
-                            <label class="order-form-label">문의 내용 (선택)</label>
-                            <textarea name="message" class="order-form-input w-full" rows="3" placeholder="추가 요청사항이 있으시면 작성해 주세요."></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-primary w-full mt-6">주문 접수하기</button>
-                    </form>
-                </div>
-
-                <!-- 접수 완료 메시지 -->
-                <div id="template-order-confirmation" class="hidden text-center py-12">
-                    <div class="text-5xl mb-4">&#10003;</div>
-                    <h3 class="text-2xl font-bold text-navy">접수가 완료되었습니다</h3>
-                    <p class="text-gray-500 mt-3">1~2일 이내에 검토 후 결제 요청 인보이스와 안내 사항을<br>이메일/알림톡으로 보내드리겠습니다.</p>
-                    <p class="text-gray-400 text-sm mt-4">급한 문의는 contact@simplydo.kr으로 연락 주세요.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== 심플리Consulting 섹션 ==================== -->
+    <!-- ==================== 무료 상담 섹션 ==================== -->
     <section id="consulting" class="section-padding bg-gray-50">
-        <div class="max-w-6xl mx-auto px-6">
-            <!-- 섹션 헤더 -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">업무 진단</span>
-                    <span class="section-label-line"></span>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
+            <div class="section-label justify-center">
+                <span class="section-label-line"></span>
+                <span class="section-label-text">무료 상담</span>
+                <span class="section-label-line"></span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                어디서부터 시작해야 할지<br>모르겠다면, 먼저 물어보세요
+            </h2>
+            <p class="text-base sm:text-lg text-gray-500 leading-relaxed mb-4">
+                30분 온라인 미팅으로 현재 업무 흐름을 진단하고,<br class="hidden sm:inline">
+                자동화할 수 있는 부분과 예상 비용을 안내해 드립니다.
+            </p>
+
+            <!-- 프로세스 간략 표시 -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-8 mb-10">
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">1</span>
+                    <span class="text-sm text-gray-600 font-medium">간단한 신청서 작성</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                    1:1 업무 자동화 도입 컨설팅
-                </h2>
-                <p class="text-lg text-gray-500 leading-relaxed">
-                    1시간 온라인 미팅을 통해 업무 병목 구간을 진단하고 최적의 자동화 로드맵을 설계해 드립니다.
-                </p>
+                <svg class="w-4 h-4 text-gray-300 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">2</span>
+                    <span class="text-sm text-gray-600 font-medium">1:1 화상 미팅 (30분)</span>
+                </div>
+                <svg class="w-4 h-4 text-gray-300 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                <div class="flex items-center gap-2">
+                    <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">3</span>
+                    <span class="text-sm text-gray-600 font-medium">맞춤 견적 안내</span>
+                </div>
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-12 items-start">
-                <!-- 좌측: 컨설팅 설명 -->
-                <div class="fade-in-up fade-delay-1">
-                    <div class="card p-8">
-                        <div class="text-3xl font-bold text-navy mb-2">150,000원</div>
-                        <p class="text-gray-500 mb-6">1시간 온라인 미팅 (Zoom/Google Meet)</p>
+            <button onclick="openConsultModal()" class="btn-primary text-base px-10 py-4">
+                무료 상담 신청하기
+            </button>
+            <p class="text-xs text-gray-400 mt-4">* 상담은 무료이며, 부담 없이 신청하세요.</p>
+        </div>
+    </section>
 
-                        <h4 class="font-bold text-navy mb-3">컨설팅 프로세스</h4>
-                        <div class="space-y-4">
-                            <div class="flex gap-3">
-                                <div class="benefit-number">1</div>
-                                <div>
-                                    <p class="font-semibold text-navy">사전 설문</p>
-                                    <p class="text-sm text-gray-500">현재 업무 환경과 사용 도구 파악</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3">
-                                <div class="benefit-number">2</div>
-                                <div>
-                                    <p class="font-semibold text-navy">1:1 화상 미팅</p>
-                                    <p class="text-sm text-gray-500">업무 병목 구간 진단 및 자동화 가능 영역 식별</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3">
-                                <div class="benefit-number">3</div>
-                                <div>
-                                    <p class="font-semibold text-navy">자동화 로드맵 리포트</p>
-                                    <p class="text-sm text-gray-500">우선순위별 자동화 계획서 + 예상 비용 안내</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <p class="text-sm text-gray-400 mt-6 border-t pt-4">
-                            * 컨설팅 후 구축 서비스 진행 시, 컨설팅 비용은 전액 차감됩니다.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 우측: 컨설팅 신청 폼 -->
-                <div class="card p-8 fade-in-up fade-delay-2" id="consulting-form-card">
-                    <h3 class="text-xl font-bold text-navy mb-6">컨설팅 신청</h3>
-                    <form id="consulting-form" onsubmit="handleOrderSubmit(event, 'consulting')">
-                        <div class="grid md:grid-cols-2 gap-6">
+    <!-- ==================== 무료 상담 모달 ==================== -->
+    <div id="consult-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
+            <!-- 모달 헤더 -->
+            <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+                <h3 class="text-lg font-bold text-navy">무료 상담 신청</h3>
+                <button onclick="document.getElementById('consult-modal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <!-- 모달 폼 -->
+            <div class="px-6 py-5" id="consult-modal-form-wrap">
+                <form id="consulting-form" onsubmit="handleOrderSubmit(event, 'consulting')">
+                    <div class="space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="order-form-label">성함 *</label>
                                 <input type="text" name="name" class="order-form-input w-full" required>
                             </div>
                             <div>
-                                <label class="order-form-label">이메일 *</label>
-                                <input type="email" name="email" class="order-form-input w-full" required>
-                            </div>
-                            <div>
                                 <label class="order-form-label">연락처 *</label>
                                 <input type="tel" name="phone" class="order-form-input w-full" required>
                             </div>
-                            <div>
-                                <label class="order-form-label">회사/소속</label>
-                                <input type="text" name="company" class="order-form-input w-full" placeholder="선택 사항">
-                            </div>
                         </div>
-
-                        <div class="mt-6 space-y-4">
-                            <div>
-                                <label class="order-form-label">현재 가장 힘든 업무 흐름은? *</label>
-                                <textarea name="pain_point" class="order-form-input w-full" rows="2" required
-                                    placeholder="예: 매주 수작업으로 거래처별 매출 보고서를 만들고 있습니다."></textarea>
-                            </div>
-                            <div>
-                                <label class="order-form-label">현재 사용 중인 도구 *</label>
-                                <input type="text" name="current_tools" class="order-form-input w-full" required
-                                    placeholder="예: Google Sheets, Gmail, Slack, 엑셀, ERP 등">
-                            </div>
-                            <div>
-                                <label class="order-form-label">자동화로 얻고 싶은 결과</label>
-                                <textarea name="desired_outcome" class="order-form-input w-full" rows="2"
-                                    placeholder="예: 보고서 작성 시간을 80% 줄이고 싶습니다."></textarea>
-                            </div>
+                        <div>
+                            <label class="order-form-label">이메일 *</label>
+                            <input type="email" name="email" class="order-form-input w-full" required>
                         </div>
-
-                        <!-- 컨설팅 비용 -->
-                        <div class="mt-6 bg-gray-50 rounded-xl p-4 flex justify-between items-center">
-                            <span class="font-semibold text-navy">컨설팅 비용</span>
-                            <span class="text-2xl font-bold text-navy">150,000원</span>
+                        <div>
+                            <label class="order-form-label">업종 / 회사명</label>
+                            <input type="text" name="company" class="order-form-input w-full" placeholder="예: 영어학원, 부동산, 쇼핑몰 등">
                         </div>
-
-                        <!-- 추가 문의 -->
-                        <div class="mt-6">
-                            <label class="order-form-label">추가 문의 (선택)</label>
+                        <div>
+                            <label class="order-form-label">현재 가장 불편한 업무는? *</label>
+                            <textarea name="pain_point" class="order-form-input w-full" rows="2" required
+                                placeholder="예: 매번 수작업으로 고객에게 문자를 보내고 있어요."></textarea>
+                        </div>
+                        <div>
+                            <label class="order-form-label">추가 요청사항 (선택)</label>
                             <textarea name="message" class="order-form-input w-full" rows="2"
-                                placeholder="희망 일정이나 추가 요청사항을 적어주세요."></textarea>
+                                placeholder="희망 일정이나 궁금한 점을 자유롭게 적어주세요."></textarea>
                         </div>
-
-                        <button type="submit" class="btn-primary w-full mt-6">컨설팅 신청하기</button>
-                    </form>
-
-                    <!-- 접수 완료 -->
-                    <div id="consulting-confirmation" class="hidden text-center py-12">
-                        <div class="text-5xl mb-4">&#10003;</div>
-                        <h3 class="text-2xl font-bold text-navy">신청이 완료되었습니다</h3>
-                        <p class="text-gray-500 mt-3">1영업일 이내에 미팅 일정 확인 메일을 보내드리겠습니다.</p>
-                        <p class="text-gray-400 text-sm mt-4">급한 문의는 contact@simplydo.kr으로 연락 주세요.</p>
                     </div>
+                    <button type="submit" class="btn-primary w-full mt-6">신청하기</button>
+                </form>
+            </div>
+            <!-- 접수 완료 -->
+            <div id="consulting-confirmation" class="hidden text-center px-6 py-12">
+                <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 </div>
+                <h3 class="text-xl font-bold text-navy">신청이 완료되었습니다</h3>
+                <p class="text-gray-500 mt-3">1영업일 이내에 미팅 일정 안내 메일을 보내드리겠습니다.</p>
+                <button onclick="document.getElementById('consult-modal').classList.add('hidden')" class="btn-outline-navy mt-6 px-8">닫기</button>
             </div>
         </div>
-    </section>
+    </div>
+
+    <script>
+    function openConsultModal() {
+        var modal = document.getElementById('consult-modal');
+        modal.classList.remove('hidden');
+        // 폼 초기 상태로 복원
+        var formWrap = document.getElementById('consult-modal-form-wrap');
+        var confirmation = document.getElementById('consulting-confirmation');
+        if (formWrap) formWrap.classList.remove('hidden');
+        if (confirmation) confirmation.classList.add('hidden');
+    }
+    (function() {
+        var modal = document.getElementById('consult-modal'); if (!modal) return;
+        modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.add('hidden'); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !modal.classList.contains('hidden')) modal.classList.add('hidden'); });
+        // URL 파라미터로 바로 모달 열기 (?consult=1)
+        if (new URLSearchParams(window.location.search).get('consult') === '1') {
+            setTimeout(openConsultModal, 500);
+        }
+    })();
+    </script>
 
     <!-- ==================== Section 3: 소개 ==================== -->
     <section id="about" class="section-padding">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <!-- Left: Title & Visual -->
-                <div class="fade-in-up">
-                    <div class="section-label">
-                        <span class="section-label-line"></span>
-                        <span class="section-label-text">소개</span>
-                    </div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-8">
-                        현업의 경험을 바탕으로<br>실질적인 해결책을 만듭니다
-                    </h2>
-
-                    <!-- Trust badges -->
-                    <div class="flex flex-wrap gap-3">
-                        <span class="inline-flex items-center gap-2 bg-navy text-white text-sm font-bold px-5 py-2.5 rounded-xl">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                            HR SaaS 개발 경력
-                        </span>
-                        <span class="inline-flex items-center gap-2 bg-navy text-white text-sm font-bold px-5 py-2.5 rounded-xl">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-                            크몽 평점 5.0
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Right: Content -->
-                <div class="space-y-6 fade-in-up fade-delay-1">
-                    <div class="about-highlight">
-                        <p class="text-gray-600 leading-relaxed">
-                            저는 HR SaaS 분야에서 프론트엔드와 백엔드를 아우르는 개발자로 근무하며, 시스템이 업무 효율을 얼마나 높일 수 있는지 경험했습니다.
-                        </p>
-                        <p class="text-navy font-semibold mt-3">
-                            단순히 기능을 구현하는 것을 넘어 '실제로 쓰기 편한 도구'를 만드는 데 집중합니다.
-                        </p>
-                    </div>
-
-                    <p class="text-gray-500 leading-relaxed">
-                        세 아이를 키우는 아빠이자 개발자로서 시간의 소중함을 누구보다 잘 알고 있습니다.
-                        반복적인 수기 업무는 시스템에 맡기고, 여러분은 비즈니스의 본질과 소중한 개인의 시간에 더 집중하실 수 있도록 돕겠습니다.
-                    </p>
-                </div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
+            <div class="section-label justify-center">
+                <span class="section-label-line"></span>
+                <span class="section-label-text">소개</span>
+                <span class="section-label-line"></span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
+                다양한 현장의 문제를<br>직접 해결해 왔습니다
+            </h2>
+            <p class="text-base sm:text-lg text-gray-500 leading-relaxed mb-8">
+                크몽을 통해 학원, 부동산, 쇼핑몰, 전문직 등<br class="hidden sm:inline">
+                다양한 업종의 업무 자동화를 구축하며 실전 경험을 쌓아왔습니다.
+            </p>
+            <div class="inline-flex items-center gap-2 bg-navy text-white text-sm font-bold px-5 py-2.5 rounded-xl">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                크몽 평점 5.0
             </div>
         </div>
     </section>
 
-    <!-- ==================== Section 4: 활용 사례 ==================== -->
+    <!-- ==================== Section 4: 활용 사례 (슬라이드) ==================== -->
     <section id="usecases" class="section-padding bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
+            <div class="max-w-3xl mx-auto text-center mb-12 fade-in-up">
                 <div class="section-label justify-center">
                     <span class="section-label-line"></span>
                     <span class="section-label-text">활용 사례</span>
                     <span class="section-label-line"></span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
-                    이런 업무가 필요하시다면<br>언제든 말씀해 주세요
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
+                    실제 사장님들의<br>자동화 성공 스토리
                 </h2>
             </div>
 
-            <!-- Use Case Cards -->
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Use Case 1 -->
-                <div class="usecase-card fade-in-up fade-delay-1">
-                    <div class="card-icon mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"></path></svg>
+            <!-- 슬라이드 컨테이너 -->
+            <div class="relative fade-in-up">
+                <!-- 좌우 버튼 -->
+                <button onclick="slideUsecase(-1)" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                </button>
+                <button onclick="slideUsecase(1)" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition">
+                    <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </button>
+
+                <!-- 슬라이드 트랙 -->
+                <div class="overflow-hidden">
+                    <div id="usecase-track" class="flex transition-transform duration-500 ease-in-out" style="gap: 24px;">
+
+                        <!-- 사례 1: 유학원 -->
+                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
+                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">유학원</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">접수부터 서류 정리까지, 학생 관리가 한 시트에서 끝납니다</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                                    매 시즌 수백 명의 접수 학생 정보를 엑셀로 옮기고, 서류를 폴더별로 나누는 작업에 매번 반나절이 걸렸습니다.
+                                </p>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        구글폼 접수 → 시트 자동 기록 → 학생별 폴더 자동 생성
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        접수 현황·진행 상태를 한 화면에서 실시간 확인
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-5">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">구글폼</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">드라이브 자동 분류</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">학생 DB</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 사례 2: 부동산 -->
+                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
+                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">부동산</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">고객별 문의 이력과 매물 매칭을 한눈에 관리합니다</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                                    전화·카톡으로 들어오는 문의를 머릿속으로 기억하다 놓치는 일이 잦았습니다. 이제 고객별 상담 이력이 자동으로 쌓입니다.
+                                </p>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        고객 DB에 문의 내용·희망 조건·상담 일자 자동 기록
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        상담 상태별 필터링으로 후속 연락이 필요한 고객을 바로 확인
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-5">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">고객 DB</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상담 이력</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상태 관리</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 사례 3: 채권관리 -->
+                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
+                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">채권관리</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">수백 명의 채무자 현황을 한 화면에서 체계적으로 관리합니다</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                                    엑셀 파일 여러 개에 흩어져 있던 채무자 정보를 하나의 시트로 통합하고, 상환 상태와 연체 현황을 자동으로 추적합니다.
+                                </p>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        채무자별 상환 일정·금액·연체 여부 실시간 트래킹
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        연체 시 자동 알림, 전체 현황을 대시보드로 한눈에 파악
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-5">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">채무자 DB</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상환 트래킹</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">자동 알림</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 사례 4: 파티룸 -->
+                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
+                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
+                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">파티룸</span>
+                                <h3 class="text-lg font-bold text-navy mb-3">예약부터 입실·퇴실 안내까지 알림톡이 자동으로 나갑니다</h3>
+                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
+                                    예약 확인 문자를 일일이 보내고, 이용 당일에 안내 전화를 돌리던 작업을 모두 자동화했습니다.
+                                </p>
+                                <div class="space-y-2">
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        예약 접수 → 캘린더 자동 등록 → 예약 확인 알림톡 발송
+                                    </p>
+                                    <p class="text-sm text-gray-600 flex items-start gap-2">
+                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                                        입실 안내 · 퇴실 안내 · 이용 후 감사 알림톡까지 시점별 자동 발송
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-1.5 mt-5">
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">예약 관리</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">캘린더 연동</span>
+                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">알림톡 자동 발송</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
-                    <h3 class="text-lg font-bold text-navy mb-3">반복 엑셀 작업 자동화</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        매번 반복되는 엑셀 작업을 버튼 클릭 한 번으로 끝내고 싶을 때
-                    </p>
                 </div>
 
-                <!-- Use Case 2 -->
-                <div class="usecase-card fade-in-up fade-delay-2">
-                    <div class="card-icon mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-navy mb-3">PDF 자동 생성</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        시트의 데이터를 바탕으로 계약서나 리포트를 PDF로 자동 생성하고 싶을 때
-                    </p>
-                </div>
-
-                <!-- Use Case 3 -->
-                <div class="usecase-card fade-in-up fade-delay-3">
-                    <div class="card-icon mb-5">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-navy mb-3">자동 알림 시스템</h3>
-                    <p class="text-gray-500 leading-relaxed">
-                        데이터 업데이트 시 슬랙이나 지메일로 자동 알림을 받고 싶을 때
-                    </p>
-                </div>
+                <!-- 인디케이터 -->
+                <div class="flex justify-center gap-2 mt-8" id="usecase-dots"></div>
             </div>
         </div>
     </section>
+
+    <script>
+    (function() {
+        var track = document.getElementById('usecase-track');
+        var dots = document.getElementById('usecase-dots');
+        if (!track || !dots) return;
+        var slides = track.querySelectorAll('.usecase-slide');
+        var current = 0;
+        var auto;
+
+        function getPerView() { return window.innerWidth >= 768 ? 2 : 1; }
+        function maxIndex() { return Math.max(0, slides.length - getPerView()); }
+
+        function goTo(i) {
+            current = Math.max(0, Math.min(i, maxIndex()));
+            var slide = slides[0];
+            var gap = 24;
+            var w = slide.offsetWidth + gap;
+            track.style.transform = 'translateX(-' + (current * w) + 'px)';
+            updateDots();
+        }
+
+        function updateDots() {
+            var total = maxIndex() + 1;
+            dots.innerHTML = '';
+            for (var i = 0; i < total; i++) {
+                var dot = document.createElement('button');
+                dot.className = 'w-2 h-2 rounded-full transition-all ' + (i === current ? 'bg-navy w-6' : 'bg-gray-300');
+                dot.onclick = (function(idx) { return function() { goTo(idx); resetAuto(); }; })(i);
+                dots.appendChild(dot);
+            }
+        }
+
+        function resetAuto() { clearInterval(auto); auto = setInterval(function() { goTo(current >= maxIndex() ? 0 : current + 1); }, 5000); }
+
+        window.slideUsecase = function(dir) { goTo(current + dir); resetAuto(); };
+
+        // 터치 스와이프
+        var startX = 0;
+        track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+        track.addEventListener('touchend', function(e) {
+            var diff = startX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { window.slideUsecase(diff > 0 ? 1 : -1); }
+        });
+
+        window.addEventListener('resize', function() { goTo(Math.min(current, maxIndex())); });
+        goTo(0);
+        resetAuto();
+    })();
+    </script>
 
     <!-- ==================== Trust: 크몽 신뢰 섹션 ==================== -->
     <section id="trust" class="cta-section text-white py-20 relative overflow-hidden">
         <div class="cta-glow"></div>
         <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
             <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in-up">
-                크몽 누적 판매 1위 전문가의 실력을 확인하세요
+                모든 프로젝트, 만점 리뷰로 마무리했습니다
             </h2>
-            <p class="text-lg text-blue-200 mb-10 fade-in-up fade-delay-1">고객 만족도 5.0 만점</p>
+            <p class="text-lg text-blue-200 mb-10 fade-in-up fade-delay-1">크몽 고객 만족도 5.0 / 5.0</p>
 
-            <!-- 리뷰 카드 3개 -->
+            <!-- 리뷰 카드 3개 (실제 크몽 리뷰) -->
             <div class="grid md:grid-cols-3 gap-6 mb-10 fade-in-up fade-delay-2">
                 <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
                     <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="text-sm text-blue-100">"세심하게 봐주셔서 비용의 몇 배 이상의 결과를 얻었습니다."</p>
-                    <p class="text-xs text-blue-300 mt-3">— User*** · 크몽 구매 고객</p>
+                    <p class="text-sm text-blue-100">"이렇게 세심하게 봐주시는 분이 계실 줄은 몰랐습니다. 비용을 감안하면 기대 이상, 몇 배 이상의 결과를 얻었습니다."</p>
+                    <p class="text-xs text-blue-300 mt-3">— 이동* · 크몽 구매 고객</p>
                 </div>
                 <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
                     <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="text-sm text-blue-100">"복잡한 프로젝트였으나 명확한 설명과 함께 잘 마무리해주셨습니다."</p>
-                    <p class="text-xs text-blue-300 mt-3">— Kang*** · 크몽 구매 고객</p>
+                    <p class="text-sm text-blue-100">"복잡한 프로젝트였으나 잘 마무리해 주셨고, 친절히 설명을 잘 해주셨습니다."</p>
+                    <p class="text-xs text-blue-300 mt-3">— 열정*** · 재구매 고객</p>
                 </div>
                 <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
                     <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="text-sm text-blue-100">"최고라는 말로 부족합니다. 실력자이십니다."</p>
-                    <p class="text-xs text-blue-300 mt-3">— Lee*** · 크몽 구매 고객</p>
+                    <p class="text-sm text-blue-100">"원하는 바를 친절하고 정성껏 구현해 주셨습니다. 실력자이십니다!"</p>
+                    <p class="text-xs text-blue-300 mt-3">— 거대*** · 크몽 구매 고객</p>
                 </div>
             </div>
 
@@ -1002,11 +1101,9 @@
                 <div>
                     <h4 class="text-navy font-bold mb-4">바로가기</h4>
                     <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#automation" class="hover:text-navy transition">자동화란?</a></li>
                         <li><a href="#benefits" class="hover:text-navy transition">왜 심플리Do?</a></li>
                         <li><a href="#simplybuild" class="hover:text-navy transition">맞춤 제작</a></li>
-                        <li><a href="#templates" class="hover:text-navy transition">자동화 도구</a></li>
-                        <li><a href="#consulting" class="hover:text-navy transition">업무 진단</a></li>
+                        <li><a href="#consulting" class="hover:text-navy transition">무료 상담</a></li>
                         <li><a href="#about" class="hover:text-navy transition">소개</a></li>
                         <li><a href="#usecases" class="hover:text-navy transition">활용 사례</a></li>
                     </ul>
@@ -1030,6 +1127,95 @@
             </div>
         </div>
     </footer>
+
+    <!-- ==================== 상품 상세 모달 ==================== -->
+    <div id="tier-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
+        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
+            <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+                <h3 id="tier-modal-title" class="text-lg font-bold text-navy"></h3>
+                <button onclick="document.getElementById('tier-modal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <div id="tier-modal-body" class="px-6 py-5"></div>
+            <div class="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 rounded-b-2xl">
+                <button id="tier-modal-cta" class="btn-primary w-full">무료 상담 신청</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    var tierModalData = {
+        standard: {
+            title: '기본형 — 업무 자동화 시작하기',
+            price: '250,000원',
+            desc: '흩어진 데이터를 한곳으로 모으고, 반복되는 기초 행정 업무를 자동화합니다.',
+            sections: [
+                { label: '고객 및 매출 관리', items: ['학생/회원 DB 구축 및 관리', '매출 및 미수금 현황 실시간 트래킹'] },
+                { label: '구글 플랫폼 연동', items: ['구글폼 접수 시 시트 자동 기록', '고객 감사 메일 자동 발송'] },
+                { label: '스마트 워크 환경', items: ['구글 캘린더 일정 자동 등록', '구글 드라이브 내 고객별/업체별 폴더 자동 생성 및 관리'] }
+            ],
+            target: '1인 기업가, 소규모 교습소, 관리가 필요한 개인 사업자'
+        },
+        deluxe: {
+            title: '확장형 — 외부 서비스까지 연결',
+            price: '390,000원',
+            desc: '사용 중인 외부 서비스와 구글 시트를 연결하여 업무의 결을 하나로 통합합니다.',
+            sections: [
+                { label: 'Standard 전체 포함', items: [] },
+                { label: '외부 메시징 연동', items: ['문자/알림톡 발송', '텔레그램/슬랙/디스코드 실시간 업무 알림 (웹훅 활용)'] },
+                { label: '데이터 허브 구축', items: ['노션(Notion) 등 타 서비스와의 데이터 동기화', '외부 웹사이트 입력폼 제출 데이터의 시트 자동 저장'] },
+                { label: '협업 최적화', items: ['팀원 간 실시간 상태값(상담전/후, 계약진행 등) 동기화', '모바일 최적화 화면 제공'] }
+            ],
+            target: '직원이 있는 학원, 매물 공유가 잦은 부동산, 외부 문의가 많은 서비스업'
+        },
+        premium: {
+            title: '스마트형 — AI가 읽고, 쓰고, 정리합니다',
+            price: '600,000원~',
+            desc: '확장형의 모든 기능에 더해, AI가 텍스트를 읽고 정리하는 작업을 자동으로 처리합니다. 사장님의 업무에 AI를 어떻게 붙일지, 설계부터 세팅까지 도와드립니다.',
+            sections: [
+                { label: '확장형 전체 포함', items: [] },
+                { label: '상담 메모 자동 요약', items: ['길게 적어둔 상담 내용을 AI가 핵심만 한 줄로 정리', '문의 유형(가격, 일정, 불만 등)을 자동 분류'] },
+                { label: '안내 문구 자동 작성', items: ['고객 상황에 맞는 안내 문자·메일 문구를 AI가 초안 작성', '수강 안내, 예약 확인, 재방문 유도 등 상황별 템플릿 자동 생성'] },
+                { label: '주간/월간 리포트 자동 생성', items: ['이번 주 신규 문의·매출·미수금 현황을 AI가 요약 정리', '별도 작업 없이 매주 자동으로 리포트가 시트에 생성'] },
+                { label: '심플리Do가 도와드리는 것', items: ['사장님 업무에 AI를 어디에, 어떻게 붙일지 설계', 'AI API 연결 및 프롬프트 세팅 전체 구축', '구축 후 사용법 안내 및 프롬프트 조정 지원'] }
+            ],
+            target: '상담 기록이 많은 학원·병원, 고객 안내가 잦은 서비스업',
+            note: 'AI 기능은 ChatGPT 또는 Gemini API를 활용하며, 사용량에 따라 소정의 API 호출 비용(월 수천 원~)이 발생할 수 있습니다. 구글 Workspace 유료 플랜이 필요한 경우 사전에 안내드립니다.'
+        }
+    };
+    function openTierModal(tier) {
+        var d = tierModalData[tier]; if (!d) return;
+        document.getElementById('tier-modal-title').textContent = d.title;
+        var html = '<p class="text-gray-500 mb-5">' + d.desc + '</p>';
+        d.sections.forEach(function(s) {
+            html += '<div class="mb-4"><p class="text-sm font-bold text-navy mb-2">' + s.label + '</p>';
+            if (s.items.length) {
+                html += '<ul class="space-y-1.5">';
+                s.items.forEach(function(item) {
+                    html += '<li class="flex items-start gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' + item + '</li>';
+                });
+                html += '</ul>';
+            }
+            html += '</div>';
+        });
+        if (d.note) { html += '<div class="mt-4 bg-amber-50 rounded-xl px-4 py-3"><p class="text-xs text-amber-700 leading-relaxed">' + d.note + '</p></div>'; }
+        html += '<div class="mt-6 pt-4 border-t border-gray-100"><p class="text-xs text-gray-400">권장 대상: ' + d.target + '</p><p class="text-2xl font-bold text-navy mt-2">' + d.price + '</p></div>';
+        document.getElementById('tier-modal-body').innerHTML = html;
+        var cta = document.getElementById('tier-modal-cta');
+        cta.onclick = function() {
+            document.getElementById('tier-modal').classList.add('hidden');
+            var btn = document.querySelector('.build-consult-btn[data-tier="' + tier + '"]');
+            if (btn) btn.click();
+        };
+        document.getElementById('tier-modal').classList.remove('hidden');
+    }
+    (function() {
+        var modal = document.getElementById('tier-modal'); if (!modal) return;
+        modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.add('hidden'); });
+        document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !modal.classList.contains('hidden')) modal.classList.add('hidden'); });
+    })();
+    </script>
 
     <!-- Scripts -->
     <script src="js/data.js"></script>

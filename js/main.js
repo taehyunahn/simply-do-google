@@ -97,133 +97,7 @@ document.addEventListener('click', (e) => {
 });
 
 // ==========================================
-// 5. Template Carousel
-// ==========================================
-function initCarousel() {
-  const track = document.getElementById('template-carousel');
-  const prevBtn = document.getElementById('carousel-prev');
-  const nextBtn = document.getElementById('carousel-next');
-  if (!track || !prevBtn || !nextBtn) return;
-
-  const slides = track.querySelectorAll('.carousel-slide');
-  let currentIndex = 0;
-
-  function getVisibleCount() {
-    if (window.innerWidth >= 1024) return 3;
-    if (window.innerWidth >= 640) return 2;
-    return 1;
-  }
-
-  function updateCarousel() {
-    const visibleCount = getVisibleCount();
-    const maxIndex = Math.max(0, slides.length - visibleCount);
-    currentIndex = Math.min(currentIndex, maxIndex);
-
-    const slideWidth = slides[0].offsetWidth + 24; // gap
-    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-
-    // 도트 업데이트
-    document.querySelectorAll('.carousel-dot').forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
-    });
-  }
-
-  prevBtn.addEventListener('click', () => {
-    currentIndex = Math.max(0, currentIndex - 1);
-    updateCarousel();
-  });
-
-  nextBtn.addEventListener('click', () => {
-    const visibleCount = getVisibleCount();
-    const maxIndex = Math.max(0, slides.length - visibleCount);
-    currentIndex = Math.min(maxIndex, currentIndex + 1);
-    updateCarousel();
-  });
-
-  // 도트 클릭
-  document.querySelectorAll('.carousel-dot').forEach(dot => {
-    dot.addEventListener('click', () => {
-      currentIndex = parseInt(dot.dataset.index);
-      updateCarousel();
-    });
-  });
-
-  // 터치 스와이프 지원
-  let touchStartX = 0;
-  track.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; });
-  track.addEventListener('touchend', (e) => {
-    const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 50) {
-      diff > 0 ? nextBtn.click() : prevBtn.click();
-    }
-  });
-
-  // 리사이즈 대응
-  window.addEventListener('resize', updateCarousel);
-}
-
-// ==========================================
-// 6. Template Order Buttons
-// ==========================================
-function initTemplateOrderButtons() {
-  document.querySelectorAll('.template-order-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const productId = btn.dataset.product;
-      const product = getProductById(productId);
-      if (!product) return;
-
-      // 폼 섹션 표시
-      document.getElementById('template-order-section').classList.remove('hidden');
-      document.getElementById('template-order-card').classList.remove('hidden');
-      document.getElementById('template-order-confirmation').classList.add('hidden');
-      document.getElementById('template-order-title').textContent = product.name;
-      document.getElementById('template-product-name').value = product.name;
-
-      // 옵션 카드 동적 렌더링
-      renderOptionCards(product, 'template-options', 'template-price-value');
-
-      // 폼으로 스크롤
-      document.getElementById('template-order-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-}
-
-// ==========================================
-// 7. Option Card Rendering
-// ==========================================
-function renderOptionCards(product, containerId, priceDisplayId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = '';
-  let isFirst = true;
-
-  Object.entries(product.options).forEach(([key, opt]) => {
-    const priceLabel = opt.priceLabel || formatPrice(opt.price);
-    const card = document.createElement('label');
-    card.className = `option-card${isFirst ? ' selected' : ''}`;
-    card.dataset.option = key;
-    card.innerHTML = `
-      <input type="radio" name="option" value="${key}" class="hidden" ${isFirst ? 'checked' : ''}>
-      <div class="option-card-badge">${opt.name}</div>
-      <div class="text-xl font-bold text-navy mt-2">${priceLabel}</div>
-      <div class="text-sm text-gray-500 mt-1">${opt.desc}</div>
-    `;
-    container.appendChild(card);
-
-    if (isFirst) {
-      document.getElementById(priceDisplayId).textContent = priceLabel;
-    }
-    isFirst = false;
-
-    card.addEventListener('click', () => {
-      container.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      document.getElementById(priceDisplayId).textContent = priceLabel;
-    });
-  });
-}
-
-// ==========================================
-// 8. Form Submit (Template + Consulting + Build)
+// 5. Form Submit (Consulting + Build)
 // ==========================================
 function handleOrderSubmit(e, type) {
   e.preventDefault();
@@ -259,17 +133,13 @@ function handleOrderSubmit(e, type) {
     submittedAt: new Date().toISOString()
   };
 
-  if (type === 'template') {
-    data.product = formData.get('product');
-    data.option = formData.get('option');
-    data.message = formData.get('message') || '';
-  } else if (type === 'consulting') {
+  if (type === 'consulting') {
     data.company = formData.get('company') || '';
     data.painPoint = formData.get('pain_point');
     data.currentTools = formData.get('current_tools');
     data.desiredOutcome = formData.get('desired_outcome') || '';
     data.message = formData.get('message') || '';
-    data.product = '업무 진단';
+    data.product = '무료 상담';
     data.option = '1:1 온라인 미팅';
   } else if (type === 'build') {
     data.product = '맞춤 제작';
@@ -310,10 +180,7 @@ function isValidEmail(email) {
 }
 
 function showConfirmation(type) {
-  if (type === 'template') {
-    document.getElementById('template-order-card').classList.add('hidden');
-    document.getElementById('template-order-confirmation').classList.remove('hidden');
-  } else if (type === 'build') {
+  if (type === 'build') {
     document.getElementById('build-order-form').classList.add('hidden');
     document.getElementById('build-order-confirmation').classList.remove('hidden');
   } else {
@@ -326,7 +193,7 @@ function showConfirmation(type) {
 // 9. Build Consult Buttons
 // ==========================================
 function initBuildConsultButtons() {
-  const tierLabels = { lite: '기본형 — 자동화 연동', standard: '표준형 — 웹사이트 + 자동화', pro: '프리미엄 — 풀 시스템 구축' };
+  const tierLabels = { standard: '기본형 — 업무 자동화 시작하기', deluxe: '확장형 — 외부 서비스까지 연결', premium: '스마트형 — AI가 읽고, 쓰고, 정리합니다' };
 
   document.querySelectorAll('.build-consult-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -375,8 +242,6 @@ function initShowcaseVideos() {
 // 11. Init All New Features
 // ==========================================
 document.addEventListener('DOMContentLoaded', () => {
-  initCarousel();
-  initTemplateOrderButtons();
   initBuildConsultButtons();
   initShowcaseVideos();
 });

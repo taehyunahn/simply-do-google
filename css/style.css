@@ -367,6 +367,20 @@ body {
   flex-shrink: 0;
 }
 
+.pain-number {
+  width: 48px;
+  height: 48px;
+  background: #FEE2E2;
+  color: #DC2626;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
 /* ==========================================
    12. Use Case Card
    ========================================== */
@@ -733,6 +747,18 @@ body {
 
 .showcase-card p:last-child {
   padding-bottom: 24px;
+}
+
+/* ==========================================
+   18b. Architecture Layer
+   ========================================== */
+.arch-layer {
+  border-left: 4px solid;
+  transition: all 0.3s ease;
+}
+
+.arch-layer:hover {
+  transform: translateX(4px);
 }
 
 /* ==========================================
