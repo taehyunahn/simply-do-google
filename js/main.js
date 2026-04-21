@@ -134,13 +134,12 @@ function handleOrderSubmit(e, type) {
   };
 
   if (type === 'consulting') {
+    var tierSelect = form.querySelector('[name="interest_tier"]');
+    var tierText = tierSelect && tierSelect.selectedIndex > 0 ? tierSelect.options[tierSelect.selectedIndex].text : '';
     data.company = formData.get('company') || '';
-    data.painPoint = formData.get('pain_point');
-    data.currentTools = formData.get('current_tools');
-    data.desiredOutcome = formData.get('desired_outcome') || '';
+    data.interest_tier = tierText || formData.get('interest_tier') || '';
+    data.pain_point = formData.get('pain_point') || '';
     data.message = formData.get('message') || '';
-    data.product = '무료 상담';
-    data.option = '1:1 온라인 미팅';
   } else if (type === 'build') {
     data.product = '맞춤 제작';
     data.tier = formData.get('tier') || '';
@@ -161,7 +160,7 @@ function handleOrderSubmit(e, type) {
   fetch(APPS_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'text/plain' },
     body: JSON.stringify(data)
   })
   .then(() => {
@@ -184,8 +183,10 @@ function showConfirmation(type) {
     document.getElementById('build-order-form').classList.add('hidden');
     document.getElementById('build-order-confirmation').classList.remove('hidden');
   } else {
-    document.getElementById('consulting-form').classList.add('hidden');
-    document.getElementById('consulting-confirmation').classList.remove('hidden');
+    var formWrap = document.getElementById('consult-modal-form-wrap');
+    var confirmation = document.getElementById('consulting-confirmation');
+    if (formWrap) formWrap.classList.add('hidden');
+    if (confirmation) confirmation.classList.remove('hidden');
   }
 }
 
