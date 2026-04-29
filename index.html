@@ -10,9 +10,10 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
 
-    <!-- Tailwind CSS (CDN) -->
+    <!-- Tailwind CSS (modals/forms still depend on it) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,807 +21,1219 @@
                 extend: {
                     colors: {
                         navy: {
-                            DEFAULT: '#1B2A4A',
-                            50: '#F0F3F8',
-                            100: '#D9E0ED',
-                            200: '#B3C1DB',
-                            300: '#6B7B95',
-                            400: '#3D4F6F',
-                            500: '#2D4A7A',
-                            600: '#243A5E',
-                            700: '#1B2A4A',
-                            800: '#0F1D33',
-                            900: '#081020',
+                            DEFAULT: '#1B2A4A', 50: '#F0F3F8', 100: '#D9E0ED', 200: '#B3C1DB',
+                            300: '#6B7B95', 400: '#3D4F6F', 500: '#2D4A7A', 600: '#243A5E',
+                            700: '#1B2A4A', 800: '#0F1D33', 900: '#081020'
                         }
                     },
-                    fontFamily: {
-                        sans: ['Pretendard', 'system-ui', '-apple-system', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Pretendard', 'system-ui', '-apple-system', 'sans-serif'] }
                 }
             }
         }
     </script>
 
-    <!-- Custom Styles -->
+    <!-- Existing utility classes (form inputs, btn-primary fallback) -->
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- ─────────────────────────────────────────
+         New Design System (handoff)
+         ───────────────────────────────────────── -->
+    <style>
+      :root {
+        --bg: oklch(0.992 0.003 80);
+        --bg-soft: oklch(0.975 0.004 80);
+        --bg-elev: #ffffff;
+        --line: oklch(0.92 0.005 80);
+        --line-strong: oklch(0.86 0.006 80);
+        --ink-1: oklch(0.18 0.008 260);
+        --ink-2: oklch(0.38 0.006 260);
+        --ink-3: oklch(0.55 0.006 260);
+        --ink-4: oklch(0.72 0.006 260);
+        --accent: oklch(0.52 0.13 165);
+        --accent-soft: oklch(0.96 0.03 165);
+        --accent-ink: oklch(0.32 0.08 165);
+        --ok: oklch(0.65 0.16 150);
+        --warn: oklch(0.78 0.14 75);
+        --radius: 10px;
+        --radius-lg: 14px;
+        --shadow-sm: 0 1px 2px rgba(15, 20, 30, 0.04), 0 1px 1px rgba(15, 20, 30, 0.03);
+        --shadow-md: 0 1px 2px rgba(15, 20, 30, 0.04), 0 8px 24px -8px rgba(15, 20, 30, 0.08);
+        --shadow-lg: 0 1px 2px rgba(15, 20, 30, 0.04), 0 24px 48px -16px rgba(15, 20, 30, 0.10);
+        --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      html, body { margin: 0; padding: 0; }
+      body {
+        font-family: var(--font-sans);
+        color: var(--ink-1);
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: "ss01", "ss02", "tnum";
+        letter-spacing: -0.01em;
+      }
+      a { color: inherit; text-decoration: none; }
+      button { font-family: inherit; cursor: pointer; }
+
+      /* ─── Top Nav ─── */
+      .nav-wrap {
+        position: sticky; top: 0; z-index: 50;
+        background: color-mix(in oklch, var(--bg) 80%, transparent);
+        backdrop-filter: saturate(180%) blur(12px);
+        -webkit-backdrop-filter: saturate(180%) blur(12px);
+        border-bottom: 1px solid color-mix(in oklch, var(--line) 60%, transparent);
+      }
+      .nav { max-width: 1200px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; gap: 32px; }
+      .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.02em; color: var(--ink-1); }
+      .brand-mark {
+        width: 22px; height: 22px; border-radius: 6px;
+        background: var(--ink-1); display: grid; place-items: center;
+        color: var(--bg); font-family: var(--font-mono); font-size: 12px; font-weight: 600;
+      }
+      .nav-links { display: flex; gap: 28px; margin-left: 12px; }
+      .nav-links a { font-size: 14px; color: var(--ink-2); transition: color .15s; }
+      .nav-links a:hover { color: var(--ink-1); }
+      .nav-spacer { flex: 1; }
+      .nav-cta {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 8px 14px; background: var(--ink-1); color: var(--bg);
+        border: 1px solid var(--ink-1); border-radius: 8px;
+        font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em;
+        transition: transform .15s, background .15s; cursor: pointer;
+      }
+      .nav-cta:hover { background: oklch(0.10 0.008 260); }
+      .nav-ghost { font-size: 14px; color: var(--ink-2); padding: 8px 0; cursor: pointer; background: none; border: none; }
+      .nav-ghost:hover { color: var(--ink-1); }
+
+      /* ─── Hero ─── */
+      .hero {
+        position: relative; max-width: 1200px; margin: 0 auto;
+        padding: 88px 32px 120px;
+        display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+        gap: 72px; align-items: center;
+      }
+      .hero::before {
+        content: ""; position: absolute; inset: 0;
+        background-image:
+          linear-gradient(to right, color-mix(in oklch, var(--line) 50%, transparent) 1px, transparent 1px),
+          linear-gradient(to bottom, color-mix(in oklch, var(--line) 50%, transparent) 1px, transparent 1px);
+        background-size: 56px 56px; background-position: -1px -1px;
+        mask-image: radial-gradient(ellipse 80% 60% at 30% 40%, #000 30%, transparent 75%);
+        -webkit-mask-image: radial-gradient(ellipse 80% 60% at 30% 40%, #000 30%, transparent 75%);
+        pointer-events: none; z-index: 0;
+      }
+      .hero-left, .hero-right { position: relative; z-index: 1; }
+      .eyebrow {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 5px 10px 5px 8px; background: var(--bg-elev);
+        border: 1px solid var(--line); border-radius: 999px;
+        font-size: 12.5px; font-weight: 500; color: var(--ink-2);
+        letter-spacing: -0.005em; box-shadow: var(--shadow-sm);
+      }
+      .eyebrow-dot { width: 6px; height: 6px; border-radius: 999px; background: var(--ok); box-shadow: 0 0 0 3px color-mix(in oklch, var(--ok) 18%, transparent); }
+      .eyebrow-mono { font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); text-transform: uppercase; letter-spacing: 0.04em; }
+
+      h1.hero-h1 {
+        margin: 22px 0 0; font-size: clamp(40px, 4.4vw, 60px);
+        line-height: 1.04; letter-spacing: -0.035em; font-weight: 600;
+        color: var(--ink-1); text-wrap: balance;
+      }
+      h1.hero-h1 .accent-mark { display: inline-block; position: relative; color: var(--ink-1); }
+      h1.hero-h1 .accent-mark::after {
+        content: ""; position: absolute; left: -2px; right: -2px; bottom: 0.05em;
+        height: 0.32em; background: var(--accent-soft); z-index: -1; border-radius: 2px;
+      }
+      .sub { margin: 24px 0 0; max-width: 480px; font-size: 17px; line-height: 1.6; color: var(--ink-2); font-weight: 400; text-wrap: pretty; }
+
+      .cta-row { margin-top: 36px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .btn-sd {
+        display: inline-flex; align-items: center; gap: 8px;
+        padding: 13px 20px; border-radius: 10px; font-size: 14.5px; font-weight: 500;
+        letter-spacing: -0.01em; border: 1px solid transparent; cursor: pointer;
+        transition: transform .15s ease, background .15s, border-color .15s, box-shadow .2s;
+        background: none;
+      }
+      .btn-sd-primary {
+        background: var(--ink-1); color: var(--bg); border-color: var(--ink-1);
+        box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, var(--shadow-sm);
+      }
+      .btn-sd-primary:hover { background: oklch(0.10 0.008 260); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+      .btn-sd-secondary { background: var(--bg-elev); color: var(--ink-1); border-color: var(--line-strong); }
+      .btn-sd-secondary:hover { border-color: var(--ink-3); }
+      .btn-sd .arrow { transition: transform .2s; }
+      .btn-sd:hover .arrow { transform: translateX(2px); }
+
+      .microproof { margin-top: 24px; display: flex; gap: 16px; align-items: center; font-size: 13px; color: var(--ink-3); flex-wrap: wrap; }
+      .microproof .stars { color: oklch(0.78 0.14 75); letter-spacing: 1px; }
+      .microproof .divider { width: 1px; height: 12px; background: var(--line-strong); }
+
+      /* ─── Sheet Demo ─── */
+      .sheet-frame {
+        position: relative; background: var(--bg-elev);
+        border: 1px solid var(--line-strong); border-radius: var(--radius-lg);
+        overflow: hidden; box-shadow: var(--shadow-lg);
+        transform: perspective(1800px) rotateY(-2deg) rotateX(1deg);
+        transform-origin: center;
+      }
+      .sheet-titlebar { display: flex; align-items: center; gap: 10px; padding: 11px 14px; background: var(--bg-soft); border-bottom: 1px solid var(--line); }
+      .traffic { display: flex; gap: 6px; }
+      .traffic span { width: 11px; height: 11px; border-radius: 999px; background: oklch(0.85 0.005 80); }
+      .sheet-tab {
+        display: inline-flex; align-items: center; gap: 8px; margin-left: 6px;
+        padding: 4px 10px; background: var(--bg-elev); border: 1px solid var(--line);
+        border-radius: 6px; font-size: 12px; font-weight: 500; color: var(--ink-2);
+        box-shadow: 0 1px 0 rgba(15,20,30,.02);
+      }
+      .sheet-tab .gicon { width: 12px; height: 12px; background: oklch(0.55 0.13 145); border-radius: 2px; display: inline-block; }
+      .sheet-toolbar { display: flex; gap: 6px; padding: 8px 14px; background: var(--bg-elev); border-bottom: 1px solid var(--line); }
+      .tool-btn { height: 24px; min-width: 24px; padding: 0 8px; border-radius: 4px; background: transparent; color: var(--ink-3); font-size: 11px; font-family: var(--font-mono); border: none; display: inline-flex; align-items: center; gap: 4px; }
+      .tool-btn.active { background: var(--accent-soft); color: var(--accent-ink); }
+      .tool-divider { width: 1px; background: var(--line); margin: 2px 4px; }
+
+      .sheet-body { display: grid; grid-template-columns: 36px 1.4fr 1fr 1fr 90px; font-family: var(--font-sans); font-size: 13px; }
+      .sheet-body .row { display: contents; }
+      .sheet-body .cell {
+        padding: 10px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+        background: var(--bg-elev); color: var(--ink-1);
+        display: flex; align-items: center; gap: 6px; min-height: 38px;
+        overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+      }
+      .sheet-body .cell.idx { background: var(--bg-soft); color: var(--ink-4); font-family: var(--font-mono); font-size: 11.5px; justify-content: center; padding: 0; }
+      .sheet-body .cell.head { background: var(--bg-soft); color: var(--ink-3); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.04em; border-bottom: 1px solid var(--line-strong); }
+      .sheet-body .cell:last-child { border-right: none; }
+      .sheet-body .row:last-child .cell { border-bottom: none; }
+
+      .sd-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 500; line-height: 1; border: 1px solid transparent; }
+      .sd-badge .b-dot { width: 5px; height: 5px; border-radius: 999px; }
+      .sd-badge.ok { background: color-mix(in oklch, var(--ok) 12%, var(--bg-elev)); color: oklch(0.38 0.12 150); border-color: color-mix(in oklch, var(--ok) 30%, var(--bg-elev)); }
+      .sd-badge.ok .b-dot { background: var(--ok); }
+      .sd-badge.run { background: color-mix(in oklch, var(--accent) 10%, var(--bg-elev)); color: var(--accent-ink); border-color: color-mix(in oklch, var(--accent) 26%, var(--bg-elev)); }
+      .sd-badge.run .b-dot { background: var(--accent); animation: pulse 1.6s infinite; }
+      .sd-badge.wait { background: var(--bg-soft); color: var(--ink-3); border-color: var(--line-strong); }
+      .sd-badge.wait .b-dot { background: var(--ink-4); }
+      @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.4); } }
+
+      .cell-mono { font-family: var(--font-mono); font-size: 12px; color: var(--ink-2); }
+      .cell.cell-formula {
+        background: linear-gradient(0deg, color-mix(in oklch, var(--accent) 6%, var(--bg-elev)), color-mix(in oklch, var(--accent) 6%, var(--bg-elev))), var(--bg-elev);
+        color: var(--accent-ink); font-family: var(--font-mono); font-size: 12px; position: relative;
+      }
+      .cell.cell-formula::before { content: ""; position: absolute; inset: 1.5px; border: 1.5px solid var(--accent); border-radius: 3px; pointer-events: none; }
+
+      .check { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 999px; background: var(--ok); color: white; font-size: 10px; font-weight: 700; }
+
+      .callout { position: absolute; background: var(--ink-1); color: var(--bg); padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; letter-spacing: -0.005em; box-shadow: var(--shadow-md); z-index: 4; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+      .callout .c-mono { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.06em; }
+      .callout::before { content: ""; position: absolute; width: 8px; height: 8px; background: var(--ink-1); transform: rotate(45deg); }
+      .callout-1 { top: -18px; right: 38px; }
+      .callout-1::before { bottom: -3px; left: 22px; }
+      .callout-2 { bottom: -18px; left: 60px; }
+      .callout-2::before { top: -3px; right: 28px; }
+
+      /* ─── Trust strip ─── */
+      .trust-strip { max-width: 1200px; margin: 0 auto; padding: 0 32px 80px; border-top: 1px dashed var(--line-strong); padding-top: 28px; }
+      .trust-row { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; color: var(--ink-3); font-size: 13px; }
+      .trust-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); }
+      .trust-row .pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border: 1px solid var(--line-strong); border-radius: 999px; background: var(--bg-elev); color: var(--ink-2); font-size: 12.5px; }
+      .trust-row .pill .p-dot { width: 5px; height: 5px; border-radius: 999px; background: var(--ink-4); }
+
+      /* ─── Section base ─── */
+      .sd-section { max-width: 1200px; margin: 0 auto; padding: 120px 32px; }
+      .section-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: 56px; align-items: end; margin-bottom: 56px; }
+      .section-eyebrow { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); display: flex; align-items: center; gap: 10px; }
+      .section-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--ink-4); }
+      .section-title { margin: 14px 0 0; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.12; letter-spacing: -0.025em; font-weight: 600; color: var(--ink-1); text-wrap: balance; }
+      .section-lede { font-size: 16px; line-height: 1.6; color: var(--ink-2); max-width: 460px; text-wrap: pretty; margin: 0; }
+
+      /* ─── Comparison ─── */
+      .compare { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-sm); }
+      .compare-grid { display: grid; grid-template-columns: 200px repeat(3, 1fr); }
+      .compare-grid > div { padding: 18px 20px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); font-size: 14px; color: var(--ink-2); display: flex; align-items: center; min-height: 64px; }
+      .compare-grid > div:nth-child(4n) { border-right: none; }
+      .compare-grid > div.row-label { background: var(--bg-soft); color: var(--ink-3); font-size: 12.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+      .compare-grid > .col-head { background: var(--bg-soft); flex-direction: column; align-items: flex-start; gap: 4px; padding-top: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--line-strong); }
+      .compare-grid > .col-head .ch-name { font-size: 15px; font-weight: 600; color: var(--ink-1); letter-spacing: -0.01em; }
+      .compare-grid > .col-head .ch-tag { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-4); text-transform: uppercase; letter-spacing: 0.06em; }
+      .compare-grid > .col-head.featured { background: color-mix(in oklch, var(--accent) 6%, var(--bg-elev)); position: relative; }
+      .compare-grid > .col-head.featured .ch-tag { color: var(--accent-ink); }
+      .compare-grid > .col-head.featured::after { content: ""; position: absolute; inset: 0; border-top: 2px solid var(--accent); pointer-events: none; }
+      .compare-grid .cell-feat { background: color-mix(in oklch, var(--accent) 4%, var(--bg-elev)); color: var(--ink-1); }
+
+      .rate { display: flex; align-items: center; gap: 10px; }
+      .rate-bar { width: 64px; height: 4px; background: var(--line); border-radius: 999px; overflow: hidden; flex-shrink: 0; }
+      .rate-bar > span { display: block; height: 100%; background: var(--ink-3); border-radius: 999px; }
+      .rate.featured .rate-bar > span { background: var(--accent); }
+      .rate-text { font-size: 13.5px; color: var(--ink-2); }
+      .rate.featured .rate-text { color: var(--ink-1); font-weight: 500; }
+
+      /* ─── Pricing ─── */
+      .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .price-card { position: relative; background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 20px; transition: border-color .15s, transform .15s; }
+      .price-card:hover { border-color: var(--ink-4); }
+      .price-card.featured { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); box-shadow: var(--shadow-md); }
+      .price-tag { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; padding: 4px 10px; border-radius: 999px; font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 500; background: var(--bg-soft); color: var(--ink-3); border: 1px solid var(--line); }
+      .price-card.featured .price-tag { background: var(--accent); color: white; border-color: var(--accent); }
+      .price-name { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; margin: 0; color: inherit; }
+      .price-desc { font-size: 14px; line-height: 1.5; color: var(--ink-2); margin: 8px 0 0; }
+      .price-card.featured .price-desc { color: oklch(0.78 0.006 260); }
+      .price-amount { font-size: 32px; font-weight: 600; letter-spacing: -0.025em; line-height: 1; display: flex; align-items: baseline; gap: 4px; }
+      .price-amount .unit { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+      .price-card.featured .price-amount .unit { color: oklch(0.72 0.006 260); }
+      .price-divider { height: 1px; background: var(--line); margin: 4px 0; }
+      .price-card.featured .price-divider { background: oklch(0.30 0.008 260); }
+      .price-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+      .price-features li { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; line-height: 1.45; color: var(--ink-2); }
+      .price-card.featured .price-features li { color: oklch(0.86 0.006 260); }
+      .price-features .pf-check { flex-shrink: 0; width: 14px; height: 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 9px; font-weight: 700; margin-top: 2px; }
+      .price-card.featured .pf-check { background: color-mix(in oklch, var(--accent) 30%, transparent); color: white; }
+      .price-cta { margin-top: auto; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 16px; border: 1px solid var(--line-strong); border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--ink-1); background: var(--bg-elev); transition: border-color .15s, background .15s; cursor: pointer; }
+      .price-cta:hover { border-color: var(--ink-3); }
+      .price-card.featured .price-cta { background: var(--bg); color: var(--ink-1); border-color: var(--bg); }
+      .price-card.featured .price-cta:hover { background: oklch(0.95 0.005 80); }
+
+      .pricing-note { margin-top: 32px; padding: 24px; background: var(--bg-soft); border: 1px dashed var(--line-strong); border-radius: var(--radius-lg); }
+      .pricing-note p { margin: 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-3); }
+      .pricing-note p + p { margin-top: 10px; }
+
+      /* ─── Use Cases ─── */
+      .uc-tabs { display: flex; gap: 4px; padding: 4px; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; margin-bottom: 32px; overflow-x: auto; }
+      .uc-tab { flex: 1; padding: 10px 14px; background: transparent; border: none; border-radius: 7px; font-size: 13.5px; font-weight: 500; color: var(--ink-3); white-space: nowrap; transition: background .15s, color .15s; letter-spacing: -0.005em; cursor: pointer; }
+      .uc-tab:hover { color: var(--ink-1); }
+      .uc-tab.active { background: var(--bg-elev); color: var(--ink-1); box-shadow: var(--shadow-sm); }
+      .uc-panel { display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); overflow: hidden; }
+      .uc-panel[hidden] { display: none !important; }
+      .uc-content { padding: 40px; display: flex; flex-direction: column; gap: 18px; }
+      .uc-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 14px; color: var(--ink-2); }
+      .uc-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; margin: 0; text-wrap: balance; color: var(--ink-1); }
+      .uc-flow { display: flex; flex-direction: column; gap: 8px; }
+      .uc-step { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+      .uc-step .step-num { flex-shrink: 0; width: 18px; height: 18px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); font-family: var(--font-mono); font-size: 10.5px; display: grid; place-items: center; font-weight: 600; margin-top: 1px; }
+      .uc-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+      .uc-tags .tag { font-size: 11.5px; padding: 4px 9px; border-radius: 999px; background: var(--bg-soft); color: var(--ink-3); border: 1px solid var(--line); font-family: var(--font-mono); letter-spacing: 0; }
+      .uc-visual { background: var(--bg-soft); border-left: 1px solid var(--line); padding: 32px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+      .uc-visual::before {
+        content: ""; position: absolute; inset: 0;
+        background-image:
+          linear-gradient(to right, color-mix(in oklch, var(--line) 60%, transparent) 1px, transparent 1px),
+          linear-gradient(to bottom, color-mix(in oklch, var(--line) 60%, transparent) 1px, transparent 1px);
+        background-size: 24px 24px;
+        mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000, transparent 80%);
+        -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000, transparent 80%);
+      }
+      .mini-flow { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 320px; }
+      .mini-card { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: 10px; padding: 14px 16px; box-shadow: var(--shadow-sm); display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--ink-2); }
+      .mini-card.highlight { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); }
+      .mini-card .mc-icon { width: 26px; height: 26px; border-radius: 6px; background: var(--bg-soft); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 11px; color: var(--ink-3); flex-shrink: 0; }
+      .mini-card.highlight .mc-icon { background: oklch(0.30 0.008 260); border-color: oklch(0.32 0.008 260); color: var(--bg); }
+      .mini-card .mc-label { font-weight: 500; color: var(--ink-1); font-size: 13.5px; }
+      .mini-card.highlight .mc-label { color: var(--bg); }
+      .mini-card .mc-sub { font-family: var(--font-mono); font-size: 11px; color: var(--ink-4); margin-left: auto; }
+      .mini-card.highlight .mc-sub { color: oklch(0.72 0.006 260); }
+      .mini-arrow { align-self: center; color: var(--ink-4); font-size: 14px; line-height: 1; }
+
+      /* ─── Final CTA ─── */
+      .final-cta { max-width: 1200px; margin: 0 auto 120px; padding: 0 32px; }
+      .final-cta-inner { background: var(--ink-1); color: var(--bg); border-radius: var(--radius-lg); padding: 64px 56px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 40px; align-items: center; position: relative; overflow: hidden; }
+      .final-cta-inner::before {
+        content: ""; position: absolute; inset: 0;
+        background-image:
+          linear-gradient(to right, oklch(0.26 0.008 260 / 0.6) 1px, transparent 1px),
+          linear-gradient(to bottom, oklch(0.26 0.008 260 / 0.6) 1px, transparent 1px);
+        background-size: 48px 48px;
+        mask-image: radial-gradient(ellipse 60% 80% at 100% 50%, #000, transparent 70%);
+        -webkit-mask-image: radial-gradient(ellipse 60% 80% at 100% 50%, #000, transparent 70%);
+        pointer-events: none;
+      }
+      .final-cta-inner > * { position: relative; z-index: 1; }
+      .final-eyebrow { font-family: var(--font-mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.1em; color: oklch(0.65 0.06 165); }
+      .final-title { margin: 12px 0 12px; font-size: clamp(28px, 3.2vw, 38px); line-height: 1.15; font-weight: 600; letter-spacing: -0.025em; text-wrap: balance; color: var(--bg); }
+      .final-sub { margin: 0; color: oklch(0.78 0.006 260); font-size: 15px; line-height: 1.55; max-width: 520px; }
+      .final-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; background: var(--bg); color: var(--ink-1); border-radius: 10px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid var(--bg); transition: transform .15s; cursor: pointer; }
+      .final-btn:hover { transform: translateY(-1px); }
+
+      /* ─── Footer ─── */
+      .sd-footer { border-top: 1px solid var(--line); background: var(--bg-soft); }
+      .footer-inner { max-width: 1200px; margin: 0 auto; padding: 48px 32px 36px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 56px; }
+      .footer-brand .brand { font-size: 16px; }
+      .footer-meta { margin-top: 14px; font-size: 12.5px; line-height: 1.7; color: var(--ink-3); }
+      .footer-col h5 { margin: 0 0 14px; font-size: 11.5px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); font-weight: 500; }
+      .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+      .footer-col a { font-size: 13.5px; color: var(--ink-2); transition: color .15s; }
+      .footer-col a:hover { color: var(--ink-1); }
+      .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px 32px 28px; border-top: 1px dashed var(--line-strong); font-size: 12px; color: var(--ink-4); font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+      /* ─── Modal ─── */
+      .sd-modal {
+        position: fixed; inset: 0; z-index: 50;
+        display: flex; align-items: center; justify-content: center;
+        padding: 16px;
+        background: oklch(0.18 0.008 260 / 0.55);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      }
+      .sd-modal.hidden { display: none; }
+      .sd-modal-card {
+        display: flex; flex-direction: column;
+        width: 100%; max-width: 560px; max-height: 90vh;
+        background: var(--bg-elev);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+      }
+      .sd-modal-header {
+        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: space-between; gap: 16px;
+        padding: 18px 24px;
+        border-bottom: 1px solid var(--line);
+        background: var(--bg-elev);
+      }
+      .sd-modal-title {
+        margin: 0;
+        font-size: 16px; font-weight: 600; color: var(--ink-1);
+        letter-spacing: -0.02em; line-height: 1.3;
+      }
+      .sd-modal-close {
+        flex-shrink: 0;
+        width: 32px; height: 32px;
+        border: none; background: transparent; border-radius: 999px;
+        color: var(--ink-3);
+        display: grid; place-items: center;
+        cursor: pointer; transition: background .15s, color .15s;
+      }
+      .sd-modal-close:hover { background: var(--bg-soft); color: var(--ink-1); }
+      .sd-modal-body {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        padding: 24px;
+      }
+      .sd-modal-footer {
+        flex-shrink: 0;
+        padding: 14px 24px 18px;
+        border-top: 1px solid var(--line);
+        background: var(--bg-elev);
+      }
+      .sd-modal-eyebrow {
+        display: flex; align-items: center; gap: 10px;
+        font-family: var(--font-mono); font-size: 11px;
+        text-transform: uppercase; letter-spacing: 0.1em;
+        color: var(--ink-4);
+        margin: 0 0 16px;
+      }
+      .sd-modal-eyebrow::before {
+        content: ""; width: 18px; height: 1px; background: var(--ink-4);
+      }
+
+      /* Tier content */
+      .tier-desc { margin: 0 0 22px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+      .tier-section { margin-bottom: 22px; }
+      .tier-section:last-child { margin-bottom: 0; }
+      .tier-section-label {
+        margin: 0 0 12px;
+        font-size: 13px; font-weight: 600; color: var(--ink-1);
+        letter-spacing: -0.005em;
+        display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      }
+      .tier-addon-tag {
+        font-family: var(--font-mono); font-size: 10px;
+        text-transform: uppercase; letter-spacing: 0.06em;
+        color: var(--accent-ink);
+        background: var(--accent-soft);
+        padding: 3px 8px;
+        border-radius: 999px;
+        border: 1px solid color-mix(in oklch, var(--accent) 22%, var(--bg-elev));
+        font-weight: 500;
+      }
+      .tier-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+      .tier-list li {
+        display: flex; align-items: flex-start; gap: 10px;
+        font-size: 13.5px; line-height: 1.55; color: var(--ink-2);
+      }
+      .tier-list .tier-check {
+        flex-shrink: 0; width: 14px; height: 14px; margin-top: 4px;
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: var(--accent-ink);
+        display: grid; place-items: center;
+        font-size: 9px; font-weight: 700;
+      }
+      .tier-addon-list { display: flex; flex-direction: column; gap: 10px; }
+      .tier-addon-card {
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        padding: 14px 16px;
+        background: var(--bg-elev);
+      }
+      .tier-addon-head {
+        display: flex; align-items: flex-start; justify-content: space-between;
+        gap: 12px; flex-wrap: wrap;
+      }
+      .tier-addon-name { font-size: 13.5px; font-weight: 600; color: var(--ink-1); letter-spacing: -0.01em; }
+      .tier-addon-price {
+        font-family: var(--font-mono); font-size: 13px; font-weight: 500;
+        color: var(--accent-ink); white-space: nowrap;
+      }
+      .tier-addon-desc { margin: 8px 0 0; font-size: 12.5px; line-height: 1.55; color: var(--ink-3); }
+      .tier-addon-emphasis {
+        margin: 14px 0 0; font-size: 12.5px; line-height: 1.55;
+        color: var(--accent-ink); font-weight: 500;
+      }
+      .tier-note {
+        margin-top: 18px;
+        padding: 12px 14px;
+        border: 1px dashed color-mix(in oklch, var(--warn) 35%, var(--line-strong));
+        background: color-mix(in oklch, var(--warn) 8%, var(--bg-elev));
+        border-radius: var(--radius);
+        font-size: 12.5px; line-height: 1.55;
+        color: oklch(0.42 0.09 75);
+      }
+      .tier-meta {
+        margin-top: 24px; padding-top: 18px;
+        border-top: 1px dashed var(--line-strong);
+      }
+      .tier-meta-target {
+        margin: 0;
+        font-family: var(--font-mono); font-size: 10.5px;
+        text-transform: uppercase; letter-spacing: 0.08em;
+        color: var(--ink-4);
+      }
+      .tier-meta-price {
+        margin: 10px 0 0;
+        font-size: 28px; font-weight: 600;
+        letter-spacing: -0.025em; color: var(--ink-1);
+        display: flex; align-items: baseline; gap: 4px;
+      }
+      .tier-meta-price .unit { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+
+      /* Modal CTA buttons */
+      .sd-modal-cta {
+        width: 100%;
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 13px 20px;
+        background: var(--ink-1); color: var(--bg);
+        border: 1px solid var(--ink-1);
+        border-radius: 10px;
+        font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em;
+        cursor: pointer;
+        transition: background .15s, transform .15s, box-shadow .2s;
+        box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, var(--shadow-sm);
+      }
+      .sd-modal-cta:hover { background: oklch(0.10 0.008 260); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+      .sd-modal-cta:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+      .sd-modal-cta-ghost {
+        display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+        padding: 11px 22px;
+        background: var(--bg-elev); color: var(--ink-1);
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        font-size: 14px; font-weight: 500; letter-spacing: -0.01em;
+        cursor: pointer; transition: border-color .15s;
+      }
+      .sd-modal-cta-ghost:hover { border-color: var(--ink-3); }
+
+      /* Form */
+      .sd-form { display: flex; flex-direction: column; gap: 14px; }
+      .sd-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+      .sd-field { display: flex; flex-direction: column; gap: 6px; }
+      .sd-label {
+        font-size: 12.5px; font-weight: 500;
+        color: var(--ink-2); letter-spacing: -0.005em;
+      }
+      .sd-label .req { color: var(--accent); margin-left: 2px; }
+      .sd-input, .sd-textarea, .sd-select {
+        width: 100%;
+        padding: 11px 13px;
+        font-family: var(--font-sans);
+        font-size: 14px; color: var(--ink-1);
+        background: var(--bg-elev);
+        border: 1px solid var(--line-strong);
+        border-radius: 8px;
+        transition: border-color .15s, box-shadow .15s;
+        outline: none;
+        letter-spacing: -0.005em;
+      }
+      .sd-input::placeholder, .sd-textarea::placeholder { color: var(--ink-4); }
+      .sd-input:focus, .sd-textarea:focus, .sd-select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px color-mix(in oklch, var(--accent) 18%, transparent);
+      }
+      .sd-input.error, .sd-textarea.error, .sd-select.error {
+        border-color: oklch(0.62 0.18 25);
+        box-shadow: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.18 25) 15%, transparent);
+      }
+      .sd-textarea { resize: vertical; min-height: 64px; line-height: 1.5; }
+      .sd-select {
+        appearance: none; -webkit-appearance: none; -moz-appearance: none;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'><path d='M3 4.5 6 7.5 9 4.5' stroke='%23878a8f' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+        background-repeat: no-repeat; background-position: right 12px center;
+        padding-right: 32px;
+      }
+
+      /* Confirmation */
+      .sd-confirm { text-align: center; padding: 24px 8px 8px; }
+      .sd-confirm-icon {
+        width: 56px; height: 56px; margin: 0 auto 18px;
+        border-radius: 999px;
+        background: var(--accent-soft); color: var(--accent-ink);
+        display: grid; place-items: center;
+      }
+      .sd-confirm-title {
+        margin: 0 0 8px;
+        font-size: 18px; font-weight: 600;
+        color: var(--ink-1); letter-spacing: -0.02em;
+      }
+      .sd-confirm-sub { margin: 0 0 22px; font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+
+      @media (max-width: 600px) {
+        .sd-modal { padding: 0; }
+        .sd-modal-card { max-width: 100%; max-height: 100vh; height: 100vh; border-radius: 0; border: none; }
+        .sd-form-row-2 { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 960px) {
+        .nav { padding: 14px 20px; }
+        .nav-links { display: none; }
+        .hero { padding: 56px 20px 80px; grid-template-columns: 1fr; gap: 56px; }
+        .sheet-frame { transform: none; }
+        .callout { display: none; }
+        .trust-strip { padding: 24px 20px 60px; }
+        .sd-section { padding: 80px 20px; }
+        .section-head { grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+        .compare { overflow-x: auto; }
+        .compare-grid { min-width: 720px; }
+        .pricing-grid { grid-template-columns: 1fr; }
+        .uc-panel { grid-template-columns: 1fr; }
+        .uc-visual { border-left: none; border-top: 1px solid var(--line); padding: 28px; }
+        .uc-content { padding: 28px; }
+        .final-cta-inner { grid-template-columns: 1fr; padding: 40px 28px; }
+        .final-cta { padding: 0 20px; margin-bottom: 80px; }
+        .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; padding: 36px 20px 24px; }
+        .footer-bottom { padding: 16px 20px 24px; flex-direction: column; }
+      }
+    </style>
 </head>
-<body class="bg-white text-gray-700">
-
-    <!-- ==================== Navigation ==================== -->
-    <nav class="nav-light fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-[72px] flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#" class="flex-shrink-0 text-2xl font-bold tracking-tight text-navy">
-                Simply<span class="text-blue-500">Do</span>
-            </a>
-
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-navy-300">
-                <a href="#benefits" class="hover:text-navy transition">왜 심플리Do?</a>
-                <!-- Products 드롭다운 -->
-                <div class="relative group">
-                    <button class="text-gray-600 hover:text-navy transition font-medium flex items-center gap-1">
-                        서비스 안내
-                        <svg class="w-4 h-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
-                    </button>
-                    <div class="absolute top-full left-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                        <a href="#simplybuild" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-t-xl transition">맞춤 제작</a>
-                        <a href="#consulting" class="block px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-navy rounded-b-xl transition">무료 상담</a>
-                    </div>
-                </div>
-                <a href="#about" class="hover:text-navy transition">소개</a>
-                <a href="#usecases" class="hover:text-navy transition">활용 사례</a>
-            </div>
-
-            <!-- CTA -->
-            <div class="hidden md:block">
-                <button onclick="openConsultModal()" class="btn-primary text-sm px-5 py-2.5">무료 상담 신청</button>
-            </div>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-navy-300 hover:text-navy focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+<body>
+    <!-- ==================== Top Nav ==================== -->
+    <div class="nav-wrap">
+      <nav class="nav">
+        <a href="#" class="brand">
+          <div class="brand-mark">S</div>
+          <span>SimplyDo</span>
+        </a>
+        <div class="nav-links">
+          <a href="#benefits">왜 심플리Do?</a>
+          <a href="#simplybuild">맞춤 제작</a>
+          <a href="#usecases">활용 사례</a>
+          <a href="#consulting">무료 상담</a>
         </div>
-
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden bg-white border-t border-gray-100">
-            <div class="px-4 pt-2 pb-4 space-y-1">
-                <a href="#benefits" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">왜 심플리Do?</a>
-                <span class="block px-3 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">서비스 안내</span>
-                <a href="#simplybuild" class="block px-6 py-2 text-gray-600 hover:text-navy transition">맞춤 제작</a>
-                <a href="#consulting" class="block px-6 py-2 text-gray-600 hover:text-navy transition">무료 상담</a>
-                <a href="#about" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">소개</a>
-                <a href="#usecases" class="block px-3 py-2.5 rounded-lg text-base font-medium text-gray-600 hover:bg-gray-50 transition">활용 사례</a>
-                <div class="pt-2">
-                    <button onclick="openConsultModal()" class="btn-primary block text-center text-sm py-2.5 w-full">무료 상담 신청</button>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- ==================== Hero Section ==================== -->
-    <header class="pt-32 pb-16 md:pt-40 md:pb-24 overflow-hidden">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <!-- Left: Copy -->
-                <div class="fade-in-up">
-                    <span class="badge-navy mb-6 inline-block">구글 시트 기반 업무 자동화</span>
-                    <h1 class="text-3xl md:text-4xl font-bold text-navy leading-tight tracking-tight mb-6">
-                        결국 엑셀로 돌아오셨죠?<br>이번엔 그 시트 위에<br>자동화를 얹어 드립니다.
-                    </h1>
-                    <p class="text-lg text-gray-500 mb-10 leading-relaxed">
-                        엑셀보다 강력하고, ERP보다 유연합니다.<br class="hidden lg:inline">
-                        이미 익숙한 <strong class="text-navy">구글 시트</strong>가 사장님만의 업무 시스템이 됩니다.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button onclick="openConsultModal()" class="btn-primary text-base px-8 py-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                            무료 상담 신청
-                        </button>
-                        <a href="#simplybuild" class="btn-secondary text-base px-8 py-4">
-                            서비스 둘러보기
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                        </a>
-                    </div>
-                    <p class="text-sm text-gray-400 mt-4">우리 사업에도 자동화가 가능할까? 고민하지 말고 무료 상담을 신청하세요.</p>
-                </div>
-
-                <!-- Right: Dashboard Mockup -->
-                <div class="hidden md:block fade-in-up fade-delay-2">
-                    <div class="dashboard-mockup">
-                        <!-- Main spreadsheet card -->
-                        <div class="dashboard-card">
-                            <div class="dashboard-header">
-                                <div class="dashboard-dots">
-                                    <span></span><span></span><span></span>
-                                </div>
-                                <span class="text-white/70 text-sm ml-3 font-medium">고객 관리 자동화 시트</span>
-                            </div>
-                            <div class="dashboard-grid">
-                                <div class="grid-header">
-                                    <span>이름</span>
-                                    <span>상태</span>
-                                    <span>자동화</span>
-                                    <span>결과</span>
-                                </div>
-                                <div class="grid-row">
-                                    <span class="text-navy font-medium">김민수</span>
-                                    <span class="status-badge status-done">완료</span>
-                                    <span class="text-gray-500">메일 발송</span>
-                                    <span class="text-green-500 font-bold">&#10003;</span>
-                                </div>
-                                <div class="grid-row">
-                                    <span class="text-navy font-medium">이지현</span>
-                                    <span class="status-badge status-pending">대기</span>
-                                    <span class="text-gray-500">리포트 생성</span>
-                                    <span class="text-amber-500 font-bold">&#8226;&#8226;&#8226;</span>
-                                </div>
-                                <div class="grid-row">
-                                    <span class="text-navy font-medium">박서연</span>
-                                    <span class="status-badge status-done">완료</span>
-                                    <span class="text-gray-500">PDF 저장</span>
-                                    <span class="text-green-500 font-bold">&#10003;</span>
-                                </div>
-                                <div class="grid-row">
-                                    <span class="text-navy font-medium">최준혁</span>
-                                    <span class="status-badge status-auto">자동</span>
-                                    <span class="text-gray-500">슬랙 알림</span>
-                                    <span class="text-green-500 font-bold">&#10003;</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Floating card: Gmail -->
-                        <div class="float-card -right-2 top-6 animate-float">
-                            <div class="flex items-center gap-3">
-                                <div class="float-card-icon bg-red-50">
-                                    <svg class="w-5 h-5 text-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-navy">자동 메일 발송</p>
-                                    <p class="text-[11px] text-gray-400">3건 완료</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Floating card: Calendar -->
-                        <div class="float-card -left-4 bottom-12 animate-float" style="animation-delay: 1s;">
-                            <div class="flex items-center gap-3">
-                                <div class="float-card-icon bg-blue-50">
-                                    <svg class="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-navy">리포트 생성</p>
-                                    <p class="text-[11px] text-gray-400">PDF 자동 저장</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Floating card: Slack -->
-                        <div class="float-card right-4 -bottom-2 animate-float" style="animation-delay: 1.5s;">
-                            <div class="flex items-center gap-3">
-                                <div class="float-card-icon bg-purple-50">
-                                    <svg class="w-5 h-5 text-purple-500" viewBox="0 0 24 24" fill="currentColor"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
-                                </div>
-                                <div>
-                                    <p class="text-xs font-bold text-navy">슬랙 알림</p>
-                                    <p class="text-[11px] text-gray-400">실시간 전송</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- ==================== 비교표: ERP vs 엑셀 vs 구글시트+Apps Script ==================== -->
-    <section id="comparison" class="section-padding bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">비교</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                    ERP, 엑셀, 구글 시트<br>어디에서 멈추셨나요?
-                </h2>
-                <p class="text-base sm:text-lg text-gray-500 leading-relaxed">
-                    각각의 장점만 모아, 사장님 업무에 딱 맞는 시스템을 만들어 드립니다.
-                </p>
-            </div>
-
-            <!-- 비교표 - Desktop (별점 + 왼쪽 정렬) -->
-            <div class="hidden md:block max-w-5xl mx-auto fade-in-up">
-                <div class="overflow-hidden rounded-2xl bg-white" style="box-shadow: 0 4px 24px rgba(0,0,0,0.06);">
-                    <!-- 테이블 헤더 -->
-                    <div class="grid border-b border-gray-200" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-5 bg-gray-50"></div>
-                        <div class="px-5 py-5 text-center border-l border-gray-200 bg-red-50/50">
-                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-2">
-                                <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                            </div>
-                            <p class="font-bold text-sm text-red-600">기존 ERP</p>
-                        </div>
-                        <div class="px-5 py-5 text-center border-l border-gray-200">
-                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-2">
-                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                            </div>
-                            <p class="font-bold text-sm text-gray-500">엑셀</p>
-                        </div>
-                        <div class="px-5 py-5 text-center border-l-2" style="border-left-color: var(--navy); background: linear-gradient(180deg, rgba(27,42,74,0.06) 0%, rgba(27,42,74,0.02) 100%);">
-                            <div class="w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-2" style="background: var(--navy);">
-                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            </div>
-                            <p class="font-bold text-sm text-navy">구글시트<br><span class="text-xs font-normal text-gray-400">(+앱스스크립트)</span></p>
-                        </div>
-                    </div>
-                    <!-- 도입 난이도 -->
-                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">도입 난이도</span></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">교육·컨설팅 필수</p></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9734;</div><p class="text-sm text-gray-600">누구나 익숙</p></div>
-                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">엑셀과 동일한 시트 환경</p></div>
-                    </div>
-                    <!-- 자동화 -->
-                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">자동화</span></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</div><p class="text-sm text-gray-600">가능하나 커스텀 시 고비용</p></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">VBA로 가능하나 세팅 복잡, 한계 있음</p></div>
-                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">코드 기반 무한 확장</p></div>
-                    </div>
-                    <!-- 커스터마이징 -->
-                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">커스터마이징</span></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">정해진 틀 안에서만 가능</p></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</div><p class="text-sm text-gray-600">자유롭지만 전부 수동</p></div>
-                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">자유 + 자동 — 로직까지 맞춤</p></div>
-                    </div>
-                    <!-- 유지 비용 -->
-                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">유지 비용</span></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">매월 구독료 + 유지보수비</p></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">Microsoft 365 구독료 + 사람 비용</p></div>
-                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">초기 구축비만 — 유지비 0원</p></div>
-                    </div>
-                    <!-- 외부 연동 -->
-                    <div class="grid border-b border-gray-100" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">외부 연동</span></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">추가 개발 비용 필요</p></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">외부 연동 불가</p></div>
-                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">캘린더·드라이브·외부 API 연동</p></div>
-                    </div>
-                    <!-- 데이터 소유 -->
-                    <div class="grid" style="grid-template-columns: 110px repeat(3, 1fr);">
-                        <div class="px-4 py-4 flex items-center bg-gray-50"><span class="text-xs font-bold text-navy leading-tight">데이터 소유</span></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">해지 시 데이터 소멸 위험</p></div>
-                        <div class="px-5 py-4 border-l border-gray-100"><div class="text-xs mb-1" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</div><p class="text-sm text-gray-600">내 PC 저장 — 유실 위험</p></div>
-                        <div class="px-5 py-4 border-l-2" style="border-left-color: var(--navy); background: rgba(27,42,74,0.02);"><div class="text-xs mb-1" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p class="text-sm text-navy font-medium">내 구글 계정에 영구 보관</p></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 비교표 - Mobile (별점 + 왼쪽 정렬) -->
-            <div class="md:hidden space-y-3 fade-in-up">
-                <div class="flex justify-center gap-4 mb-4 text-xs font-semibold">
-                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-400"></span> ERP</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-gray-300"></span> 엑셀</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full" style="background: var(--navy);"></span> 구글시트</span>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <p class="text-xs font-bold text-navy mb-3">도입 난이도</p>
-                    <div class="space-y-2.5">
-                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 교육·컨설팅 필수</p></div>
-                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: 누구나 익숙</p></div>
-                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 엑셀과 동일한 환경</p></div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <p class="text-xs font-bold text-navy mb-3">자동화</p>
-                    <div class="space-y-2.5">
-                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 가능하나 고비용</p></div>
-                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: VBA 가능하나 세팅 복잡, 한계 있음</p></div>
-                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 무한 확장 가능</p></div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <p class="text-xs font-bold text-navy mb-3">커스터마이징</p>
-                    <div class="space-y-2.5">
-                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 정해진 틀 안에서</p></div>
-                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: 자유롭지만 수동</p></div>
-                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 자유 + 자동</p></div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <p class="text-xs font-bold text-navy mb-3">유지 비용</p>
-                    <div class="space-y-2.5">
-                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 매월 구독료 발생</p></div>
-                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: Microsoft 365 구독료 + 사람 비용</p></div>
-                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 유지비 0원</p></div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <p class="text-xs font-bold text-navy mb-3">외부 연동</p>
-                    <div class="space-y-2.5">
-                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 추가 개발 필요</p></div>
-                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: 불가</p></div>
-                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: API 무제한 연동</p></div>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl p-4 shadow-sm">
-                    <p class="text-xs font-bold text-navy mb-3">데이터 소유</p>
-                    <div class="space-y-2.5">
-                        <div><span class="text-xs" style="color: #EF4444; letter-spacing: 1px;">&#9733;&#9734;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">ERP: 해지 시 소멸 위험</p></div>
-                        <div><span class="text-xs" style="color: #F59E0B; letter-spacing: 1px;">&#9733;&#9733;&#9734;&#9734;&#9734;</span><p class="text-sm text-gray-600 mt-0.5">엑셀: PC 유실 위험</p></div>
-                        <div class="bg-blue-50/50 rounded-lg px-3 py-2 -mx-1"><span class="text-xs" style="color: #10B981; letter-spacing: 1px;">&#9733;&#9733;&#9733;&#9733;&#9733;</span><p class="text-sm text-navy font-medium mt-0.5">구글시트: 내 계정에 영구 보관</p></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 하단 강조 문구 -->
-            <div class="max-w-3xl mx-auto text-center mt-12 fade-in-up">
-                <p class="text-base sm:text-lg font-semibold text-navy">
-                    엑셀의 편리함은 그대로, ERP의 자동화는 더하고, 데이터는 온전히 사장님 것으로.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== YouTube: Apps Script 소개 ==================== -->
-    <section class="section-padding">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="max-w-3xl mx-auto text-center mb-8 md:mb-12 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">Google Apps Script란?</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
-                    3분만에 이해하는<br>구글 시트 자동화
-                </h2>
-                <p class="text-base sm:text-lg text-gray-500 leading-relaxed">
-                    비싼 ERP 대신, 이미 쓰고 있는 구글 시트를 '진짜 프로그램'처럼 쓰는 방법을 확인해 보세요.
-                </p>
-            </div>
-            <div class="fade-in-up" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
-                <iframe
-                    src="https://www.youtube.com/embed/DWBLnPu3Kdk"
-                    title="비싼 ERP 대신 구글 시트를 진짜 프로그램처럼 쓰는 법"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-                ></iframe>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== Section 2: 3대 핵심 가치 ==================== -->
-    <section id="benefits" class="section-padding bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-12 md:mb-16 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">왜 심플리Do?</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4">
-                    구글 시트 하나로 완성되는<br>업무 자동화
-                </h2>
-            </div>
-
-            <!-- 3 Value Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-                <!-- 가치 1: 구글 플랫폼 -->
-                <div class="card p-6 sm:p-8 fade-in-up fade-delay-1 border-t-4" style="border-top-color: #4285F4;">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(66,133,244,0.1);">
-                        <svg class="w-6 h-6" style="color: #4285F4;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    </div>
-                    <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4" style="background: rgba(66,133,244,0.1); color: #4285F4;">구글 플랫폼</span>
-                    <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">호스팅 비용 0원,<br>구글 보안이 지켜줍니다</h3>
-                    <p class="text-sm sm:text-base text-gray-500 leading-relaxed">
-                        별도 서버 없이 구글 계정 하나로 운영됩니다. 구글 플랫폼의 보안 위에서 동작하며, 웹앱 배포까지 추가 비용 없이 가능합니다.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-5">
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">서버 비용 0원</span>
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">구글 보안</span>
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">웹앱 배포</span>
-                    </div>
-                </div>
-
-                <!-- 가치 2: 쉬운 활용 -->
-                <div class="card p-6 sm:p-8 fade-in-up fade-delay-2 border-t-4" style="border-top-color: #34A853;">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(52,168,83,0.1);">
-                        <svg class="w-6 h-6" style="color: #34A853;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                    </div>
-                    <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4" style="background: rgba(52,168,83,0.1); color: #34A853;">쉬운 활용</span>
-                    <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">엑셀처럼 쉬워서<br>교육이 필요 없습니다</h3>
-                    <p class="text-sm sm:text-base text-gray-500 leading-relaxed">
-                        직원들이 이미 익숙한 스프레드시트 환경 그대로. 새로운 프로그램을 배울 필요 없이, 기존 업무 방식 위에 자동화를 얹습니다.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-5">
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">교육 비용 절감</span>
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">즉시 활용</span>
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">낮은 진입장벽</span>
-                    </div>
-                </div>
-
-                <!-- 가치 3: 무한 연동 -->
-                <div class="card p-6 sm:p-8 fade-in-up fade-delay-3 border-t-4" style="border-top-color: #FBBC04;">
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background: rgba(251,188,4,0.1);">
-                        <svg class="w-6 h-6" style="color: #E8A800;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-                    </div>
-                    <span class="inline-block text-xs font-bold px-3 py-1 rounded-full mb-4" style="background: rgba(251,188,4,0.1); color: #E8A800;">무한 연동</span>
-                    <h3 class="text-lg sm:text-xl font-bold text-navy mb-3">캘린더, 드라이브,<br>외부 API까지 연결</h3>
-                    <p class="text-sm sm:text-base text-gray-500 leading-relaxed">
-                        구글 캘린더, 드라이브, 지메일은 물론 슬랙, 알림톡 등 외부 서비스까지. 하나의 시트에서 모든 업무 도구를 연결합니다.
-                    </p>
-                    <div class="flex flex-wrap gap-2 mt-5">
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">구글 앱 연동</span>
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">외부 API</span>
-                        <span class="text-xs px-2.5 py-1 rounded-full bg-gray-100 text-gray-600">실시간 알림</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== Showcase: 실전 사례 시연 ==================== -->
-    <section id="showcase" class="section-padding">
-        <div class="max-w-6xl mx-auto px-6">
-            <!-- 섹션 헤더 -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">실제 작동 화면</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                    실제로 작동하는 자동화를 확인하세요
-                </h2>
-                <p class="text-lg text-gray-500 leading-relaxed">
-                    시트에서 클릭 한 번으로 업무가 처리되는 과정을 직접 확인해 보세요.
-                </p>
-            </div>
-
-            <!-- 시연 그리드: 2열 -->
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- 시연 카드 1 -->
-                <div class="showcase-card card fade-in-up fade-delay-1">
-                    <div class="showcase-mockup">
-                        <div class="mockup-toolbar">
-                            <span class="mockup-dot red"></span>
-                            <span class="mockup-dot yellow"></span>
-                            <span class="mockup-dot green"></span>
-                            <span class="mockup-toolbar-title">Google Sheets — 견적서 자동화</span>
-                        </div>
-                        <div class="mockup-screen">
-                            <video autoplay muted loop playsinline class="w-full">
-                                <source src="assets/demo-invoice.mp4" type="video/mp4">
-                                <img src="assets/demo-invoice.gif" alt="견적서 자동화 시연" loading="lazy">
-                            </video>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-navy mt-4">견적서 자동 생성 & 발송</h3>
-                    <p class="text-gray-500 text-sm mt-1">시트 데이터 → PDF 변환 → 이메일 자동 발송</p>
-                </div>
-
-                <!-- 시연 카드 2 -->
-                <div class="showcase-card card fade-in-up fade-delay-2">
-                    <div class="showcase-mockup">
-                        <div class="mockup-toolbar">
-                            <span class="mockup-dot red"></span>
-                            <span class="mockup-dot yellow"></span>
-                            <span class="mockup-dot green"></span>
-                            <span class="mockup-toolbar-title">Google Sheets — CRM 자동화</span>
-                        </div>
-                        <div class="mockup-screen">
-                            <video autoplay muted loop playsinline class="w-full">
-                                <source src="assets/demo-crm.mp4" type="video/mp4">
-                                <img src="assets/demo-crm.gif" alt="CRM 자동화 시연" loading="lazy">
-                            </video>
-                        </div>
-                    </div>
-                    <h3 class="text-lg font-bold text-navy mt-4">고객 관리 자동 알림</h3>
-                    <p class="text-gray-500 text-sm mt-1">고객 상태 변경 → 슬랙/카톡 자동 알림</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== 심플리Build: 맞춤 구축 ==================== -->
-    <section id="simplybuild" class="section-padding bg-gray-50">
-        <div class="max-w-6xl mx-auto px-6">
-            <!-- 섹션 헤더 -->
-            <div class="max-w-3xl mx-auto text-center mb-16 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">맞춤 제작</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                    필요한 만큼만, 맞춤형 자동화 구축
-                </h2>
-                <p class="text-lg text-gray-500 leading-relaxed">
-                    자동화 연동부터 웹사이트 구축까지, 비즈니스 규모에 맞는 단계를 선택하세요.
-                </p>
-            </div>
-
-            <!-- 숨겨진 상담 연결 버튼 -->
-            <button class="hidden build-consult-btn" data-tier="standard"></button>
-            <button class="hidden build-consult-btn" data-tier="deluxe"></button>
-            <button class="hidden build-consult-btn" data-tier="premium"></button>
-
-            <!-- 3열 Tier 카드 (동일 높이 + flex) -->
-            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-                <!-- 기본형 -->
-                <div class="build-tier-card card fade-in-up fade-delay-1 flex flex-col" data-tier="standard">
-                    <div class="p-6 sm:p-8 flex flex-col flex-1">
-                        <span class="badge-navy">기본형</span>
-                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">업무 효율화 환경 구축</h3>
-                        <p class="text-gray-500 text-sm mt-3 leading-relaxed">
-                            사장님의 비즈니스 환경에 맞는 데이터 관리 체계를 구글 시트 위에 세팅하고, 구글 플랫폼 앱들과 연동합니다.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">예약/회원/매출 관리</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">구글폼 연동</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">캘린더/드라이브</span>
-                        </div>
-                        <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
-                            <span class="text-3xl font-bold text-navy">250,000원</span>
-                            <button onclick="openTierModal('standard')" class="btn-outline-navy w-full mt-4">자세히 보기</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 확장형 (추천) -->
-                <div class="build-tier-card card recommended fade-in-up fade-delay-2 flex flex-col" data-tier="deluxe">
-                    <div class="recommended-badge">추천</div>
-                    <div class="p-6 sm:p-8 flex flex-col flex-1">
-                        <span class="badge-navy">확장형</span>
-                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">외부 서비스까지 연결</h3>
-                        <p class="text-gray-500 text-sm mt-3 leading-relaxed">
-                            기본형에 더해, 웹사이트 입력폼 데이터 연결과 문자/알림톡 발송, 외부 API까지 구글 시트와 하나로 연결합니다.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">기본형 전체 포함</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">웹사이트 입력폼 연결</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">문자/알림톡 (솔라피)</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">외부 API 연동</span>
-                        </div>
-                        <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
-                            <span class="text-3xl font-bold text-navy">390,000원</span>
-                            <button onclick="openTierModal('deluxe')" class="btn-primary-inverted w-full mt-4">자세히 보기</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI형 -->
-                <div class="build-tier-card card fade-in-up fade-delay-3 flex flex-col" data-tier="premium">
-                    <div class="p-6 sm:p-8 flex flex-col flex-1">
-                        <span class="badge-navy">AI 활용형</span>
-                        <h3 class="text-lg sm:text-xl font-bold text-navy mt-3">비즈니스에 맞는 AI 도입</h3>
-                        <p class="text-gray-500 text-sm mt-3 leading-relaxed">
-                            ChatGPT, Gemini, Claude 등 생성형 AI를 사장님의 업무 흐름에 맞게 연결하고 세팅해 드립니다.
-                        </p>
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">AI 도입 설계</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">ChatGPT / Gemini / Claude</span>
-                            <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">맞춤 세팅</span>
-                        </div>
-                        <div class="mt-auto pt-6 border-t border-gray-100" style="margin-top: auto;">
-                            <span class="text-3xl font-bold text-navy">600,000원</span>
-                            <span class="text-gray-400 text-sm">~</span>
-                            <button onclick="openTierModal('premium')" class="btn-outline-navy w-full mt-4">자세히 보기</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 신뢰 안내 문구 -->
-            <div class="mt-12 text-center fade-in-up">
-                <div class="max-w-3xl mx-auto bg-gray-50 rounded-2xl p-8">
-                    <p class="text-sm text-gray-500 leading-relaxed">
-                        구글 인프라를 활용하여 서버 호스팅 비용을 절감해 드립니다. 다만, 시스템 구축 이후 새로운 기능 추가나 대대적인 구조 변경이 필요한 경우에는 별도의 작업 비용이 발생할 수 있습니다.
-                        <br class="hidden md:block"><br class="hidden md:block">
-                        모든 구축 작업은 데이터 정규화 및 정제 작업을 포함하며, Raw 데이터의 오염도가 심할 경우 별도의 정제 비용이 발생할 수 있습니다.
-                        <br class="hidden md:block"><br class="hidden md:block">
-                        심플리Do는 기술이 모든 문제를 해결해 줄 것이라 과장하지 않습니다.<br class="hidden md:block">
-                        사장님의 소중한 현장 노하우가 시스템에 녹아들 수 있도록 가장 정직한 도구를 설계해 드립니다.
-                    </p>
-                    <p class="text-xs text-gray-400 italic mt-6 leading-relaxed">
-                        기술의 편리함 뒤에 숨은 한계를 인정하고, 사용자의 실제 노력이 가치 있게 쓰이도록 돕습니다.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== 심플리Build: 상담 신청 폼 ==================== -->
-    <section id="build-order-section" class="section-padding hidden">
-        <div class="max-w-2xl mx-auto px-6">
-            <div class="card p-8 fade-in-up" id="build-order-card">
-                <h3 class="text-xl font-bold text-navy mb-6">맞춤 제작 무료 진단 신청</h3>
-                <form id="build-order-form" onsubmit="handleOrderSubmit(event, 'build')">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="order-form-label">성함 *</label>
-                            <input type="text" name="name" class="order-form-input w-full" required>
-                        </div>
-                        <div>
-                            <label class="order-form-label">이메일 *</label>
-                            <input type="email" name="email" class="order-form-input w-full" required>
-                        </div>
-                        <div>
-                            <label class="order-form-label">연락처 *</label>
-                            <input type="tel" name="phone" class="order-form-input w-full" required>
-                        </div>
-                        <div>
-                            <label class="order-form-label">선택 Tier</label>
-                            <input type="text" name="tier" id="build-tier-input" class="order-form-input w-full bg-gray-50" readonly>
-                        </div>
-                    </div>
-
-                    <div class="mt-6 space-y-4">
-                        <div>
-                            <label class="order-form-label">현재 웹사이트 URL (선택)</label>
-                            <input type="url" name="website_url" class="order-form-input w-full" placeholder="https://example.com">
-                        </div>
-                        <div>
-                            <label class="order-form-label">요청사항</label>
-                            <textarea name="message" class="order-form-input w-full" rows="3"
-                                placeholder="자동화하고 싶은 업무나 궁금한 점을 자유롭게 적어주세요."></textarea>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn-primary w-full mt-6">무료 진단 신청하기</button>
-                </form>
-
-                <!-- 접수 완료 -->
-                <div id="build-order-confirmation" class="hidden text-center py-12">
-                    <div class="text-5xl mb-4">&#10003;</div>
-                    <h3 class="text-2xl font-bold text-navy">신청이 완료되었습니다</h3>
-                    <p class="text-gray-500 mt-3">1영업일 이내에 상담 안내 메일을 보내드리겠습니다.</p>
-                    <p class="text-gray-400 text-sm mt-4">급한 문의는 contact@simplydo.kr으로 연락 주세요.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== 무료 상담 섹션 ==================== -->
-    <section id="consulting" class="section-padding">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center fade-in-up">
-            <div class="section-label justify-center">
-                <span class="section-label-line"></span>
-                <span class="section-label-text">무료 상담</span>
-                <span class="section-label-line"></span>
-            </div>
-            <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-6">
-                어디서부터 시작해야 할지<br>모르겠다면, 먼저 물어보세요
-            </h2>
-            <p class="text-base sm:text-lg text-gray-500 leading-relaxed mb-4">
-                30분 온라인 미팅으로 현재 업무 흐름을 진단하고,<br class="hidden sm:inline">
-                사장님의 비즈니스에 자동화를 어떻게 적용할 수 있을지 인사이트 리포트를 제공해 드립니다.
-            </p>
-
-            <!-- 프로세스 간략 표시 -->
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 mt-8 mb-10">
-                <div class="flex items-center gap-2">
-                    <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">1</span>
-                    <span class="text-sm text-gray-600 font-medium">간단한 신청서 작성</span>
-                </div>
-                <svg class="w-4 h-4 text-gray-300 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                <div class="flex items-center gap-2">
-                    <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">2</span>
-                    <span class="text-sm text-gray-600 font-medium">1:1 화상 미팅 (30분)</span>
-                </div>
-                <svg class="w-4 h-4 text-gray-300 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                <div class="flex items-center gap-2">
-                    <span class="w-7 h-7 rounded-full bg-navy text-white text-xs font-bold flex items-center justify-center">3</span>
-                    <span class="text-sm text-gray-600 font-medium">자동화 인사이트 리포트 제공</span>
-                </div>
-            </div>
-
-            <button onclick="openConsultModal()" class="btn-primary text-base px-10 py-4">
-                무료 상담 신청하기
-            </button>
-            <p class="text-xs text-gray-400 mt-4">* 상담은 무료이며, 부담 없이 신청하세요.</p>
-        </div>
-    </section>
-
-    <!-- ==================== 무료 상담 모달 ==================== -->
-    <div id="consult-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
-        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
-            <!-- 모달 헤더 -->
-            <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
-                <h3 class="text-lg font-bold text-navy">무료 상담 신청</h3>
-                <button onclick="document.getElementById('consult-modal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-            <!-- 모달 폼 -->
-            <div class="px-6 py-5" id="consult-modal-form-wrap">
-                <form id="consulting-form" onsubmit="handleOrderSubmit(event, 'consulting')">
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <label class="order-form-label">성함 *</label>
-                                <input type="text" name="name" class="order-form-input w-full" required>
-                            </div>
-                            <div>
-                                <label class="order-form-label">연락처 *</label>
-                                <input type="tel" name="phone" class="order-form-input w-full" required>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="order-form-label">이메일 *</label>
-                            <input type="email" name="email" class="order-form-input w-full" required>
-                        </div>
-                        <div>
-                            <label class="order-form-label">업종 / 회사명</label>
-                            <input type="text" name="company" class="order-form-input w-full" placeholder="예: 영어학원, 부동산, 쇼핑몰 등">
-                        </div>
-                        <div>
-                            <label class="order-form-label">관심 서비스</label>
-                            <select name="interest_tier" class="order-form-input w-full">
-                                <option value="">선택해주세요</option>
-                                <option value="기본형">기본형 — 업무 효율화 환경 구축 (250,000원)</option>
-                                <option value="확장형">확장형 — 외부 서비스 연결 (390,000원)</option>
-                                <option value="AI 활용형">AI 활용형 — 비즈니스에 맞는 AI 도입 (600,000원~)</option>
-                                <option value="미정">아직 잘 모르겠어요</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="order-form-label">현재 가장 불편한 업무는? *</label>
-                            <textarea name="pain_point" class="order-form-input w-full" rows="2" required
-                                placeholder="예: 매번 수작업으로 고객에게 문자를 보내고 있어요."></textarea>
-                        </div>
-                        <div>
-                            <label class="order-form-label">추가 요청사항 (선택)</label>
-                            <textarea name="message" class="order-form-input w-full" rows="2"
-                                placeholder="희망 일정이나 궁금한 점을 자유롭게 적어주세요."></textarea>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn-primary w-full mt-6">신청하기</button>
-                </form>
-            </div>
-            <!-- 접수 완료 -->
-            <div id="consulting-confirmation" class="hidden text-center px-6 py-12">
-                <div class="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                </div>
-                <h3 class="text-xl font-bold text-navy">신청이 완료되었습니다</h3>
-                <p class="text-gray-500 mt-3">1영업일 이내에 미팅 일정 안내 메일을 보내드리겠습니다.</p>
-                <button onclick="document.getElementById('consult-modal').classList.add('hidden')" class="btn-outline-navy mt-6 px-8">닫기</button>
-            </div>
-        </div>
+        <div class="nav-spacer"></div>
+        <button type="button" class="nav-cta" onclick="openConsultModal()">
+          무료 상담 신청
+          <span style="font-size: 14px;">→</span>
+        </button>
+      </nav>
     </div>
 
+    <!-- ==================== Hero ==================== -->
+    <section class="hero">
+      <div class="hero-left">
+        <span class="eyebrow">
+          <span class="eyebrow-dot"></span>
+          <span>구글 시트 기반 업무 자동화</span>
+          <span style="color: var(--line-strong);">·</span>
+          <span class="eyebrow-mono">v2026</span>
+        </span>
+
+        <h1 class="hero-h1">
+          엑셀로 돌아온<br>
+          사장님의 시트에,<br>
+          <span class="accent-mark">자동화</span>를 얹어 드립니다.
+        </h1>
+
+        <p class="sub">
+          ERP는 비싸고, 엑셀은 한계가 있죠. 이미 익숙한 구글 시트 위에
+          예약·고객·매출까지 자동으로 흐르는 <strong style="color: var(--ink-1); font-weight: 500;">나만의 업무 시스템</strong>을 만들어 드립니다.
+        </p>
+
+        <div class="cta-row">
+          <button type="button" class="btn-sd btn-sd-primary" onclick="openConsultModal()">
+            무료 상담 신청
+            <span class="arrow">→</span>
+          </button>
+          <a href="#simplybuild" class="btn-sd btn-sd-secondary">
+            서비스 둘러보기
+          </a>
+        </div>
+
+        <div class="microproof">
+          <span class="stars">★★★★★</span>
+          <span><strong style="color: var(--ink-2); font-weight: 500;">5.0</strong> · 크몽 만점 후기</span>
+          <span class="divider"></span>
+          <span>1영업일 내 답변</span>
+          <span class="divider"></span>
+          <span>유지비 0원</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="sheet-frame">
+          <div class="callout callout-1">
+            <span>매일 09:00 자동 실행</span>
+            <span class="c-mono">CRON</span>
+          </div>
+          <div class="callout callout-2">
+            <span class="check">✓</span>
+            <span>14건 처리됨</span>
+            <span class="c-mono">+ 6h 절감</span>
+          </div>
+
+          <div class="sheet-titlebar">
+            <div class="traffic"><span></span><span></span><span></span></div>
+            <div class="sheet-tab">
+              <span class="gicon"></span>
+              고객관리_2026.gsheet
+            </div>
+          </div>
+
+          <div class="sheet-toolbar">
+            <button type="button" class="tool-btn">파일</button>
+            <button type="button" class="tool-btn">수정</button>
+            <button type="button" class="tool-btn">보기</button>
+            <button type="button" class="tool-btn">삽입</button>
+            <div class="tool-divider"></div>
+            <button type="button" class="tool-btn active">▶ 자동화 실행</button>
+          </div>
+
+          <div class="sheet-body">
+            <div class="row">
+              <div class="cell idx head"></div>
+              <div class="cell head">고객명</div>
+              <div class="cell head">상태</div>
+              <div class="cell head">자동 작업</div>
+              <div class="cell head" style="justify-content: center;">결과</div>
+            </div>
+            <div class="row">
+              <div class="cell idx">1</div>
+              <div class="cell">김민수</div>
+              <div class="cell"><span class="sd-badge ok"><span class="b-dot"></span>완료</span></div>
+              <div class="cell cell-mono">sendInvoice()</div>
+              <div class="cell" style="justify-content: center;"><span class="check">✓</span></div>
+            </div>
+            <div class="row">
+              <div class="cell idx">2</div>
+              <div class="cell">이지현</div>
+              <div class="cell"><span class="sd-badge run"><span class="b-dot"></span>실행 중</span></div>
+              <div class="cell cell-mono">generatePDF()</div>
+              <div class="cell" style="justify-content: center; color: var(--ink-4);">···</div>
+            </div>
+            <div class="row">
+              <div class="cell idx">3</div>
+              <div class="cell">박서연</div>
+              <div class="cell"><span class="sd-badge ok"><span class="b-dot"></span>완료</span></div>
+              <div class="cell cell-mono">savePDF()</div>
+              <div class="cell" style="justify-content: center;"><span class="check">✓</span></div>
+            </div>
+            <div class="row">
+              <div class="cell idx">4</div>
+              <div class="cell">최준혁</div>
+              <div class="cell"><span class="sd-badge ok"><span class="b-dot"></span>완료</span></div>
+              <div class="cell cell-mono">notifySlack()</div>
+              <div class="cell" style="justify-content: center;"><span class="check">✓</span></div>
+            </div>
+            <div class="row">
+              <div class="cell idx">5</div>
+              <div class="cell">정유나</div>
+              <div class="cell"><span class="sd-badge wait"><span class="b-dot"></span>대기</span></div>
+              <div class="cell cell-formula">=AUTO("notify")</div>
+              <div class="cell" style="justify-content: center; color: var(--ink-4);">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Trust strip ==================== -->
+    <section class="trust-strip">
+      <div class="trust-row">
+        <span class="trust-label">함께 일한 업종</span>
+        <span class="pill"><span class="p-dot"></span>학원·교육</span>
+        <span class="pill"><span class="p-dot"></span>부동산</span>
+        <span class="pill"><span class="p-dot"></span>채권·금융</span>
+        <span class="pill"><span class="p-dot"></span>예약 서비스</span>
+        <span class="pill"><span class="p-dot"></span>매출·정산</span>
+        <span class="pill"><span class="p-dot"></span>인테리어·건설</span>
+      </div>
+    </section>
+
+    <!-- ==================== Comparison ==================== -->
+    <section class="sd-section" id="benefits">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">01 — 비교</div>
+          <h2 class="section-title">ERP, 엑셀, 그리고<br>그 사이의 답.</h2>
+        </div>
+        <p class="section-lede">
+          ERP는 비싸고, 엑셀은 한계가 있습니다. 구글 시트는 두 도구의 장점만 모은
+          가장 합리적인 선택지입니다.
+        </p>
+      </div>
+
+      <div class="compare">
+        <div class="compare-grid">
+          <div></div>
+          <div class="col-head"><span class="ch-tag">기존</span><span class="ch-name">ERP</span></div>
+          <div class="col-head"><span class="ch-tag">익숙</span><span class="ch-name">엑셀</span></div>
+          <div class="col-head featured"><span class="ch-tag">SimplyDo</span><span class="ch-name">구글 시트 + Apps Script</span></div>
+
+          <div class="row-label">도입 난이도</div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 20%;"></span></div><span class="rate-text">교육·컨설팅 필수</span></div></div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 80%;"></span></div><span class="rate-text">누구나 익숙</span></div></div>
+          <div class="cell-feat"><div class="rate featured"><div class="rate-bar"><span style="width: 100%;"></span></div><span class="rate-text">엑셀과 동일한 환경</span></div></div>
+
+          <div class="row-label">자동화</div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 60%;"></span></div><span class="rate-text">가능하나 고비용</span></div></div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 40%;"></span></div><span class="rate-text">VBA 한계</span></div></div>
+          <div class="cell-feat"><div class="rate featured"><div class="rate-bar"><span style="width: 100%;"></span></div><span class="rate-text">코드 기반 무한 확장</span></div></div>
+
+          <div class="row-label">커스터마이징</div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 40%;"></span></div><span class="rate-text">정해진 틀 안에서</span></div></div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 60%;"></span></div><span class="rate-text">자유롭지만 수동</span></div></div>
+          <div class="cell-feat"><div class="rate featured"><div class="rate-bar"><span style="width: 100%;"></span></div><span class="rate-text">자유 + 자동, 로직까지 맞춤</span></div></div>
+
+          <div class="row-label">유지 비용</div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 20%;"></span></div><span class="rate-text">매월 구독료 + 유지보수</span></div></div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 40%;"></span></div><span class="rate-text">M365 구독 + 인건비</span></div></div>
+          <div class="cell-feat"><div class="rate featured"><div class="rate-bar"><span style="width: 100%;"></span></div><span class="rate-text">초기 구축비만, 유지비 0원</span></div></div>
+
+          <div class="row-label">외부 연동</div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 40%;"></span></div><span class="rate-text">추가 개발 필요</span></div></div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 15%;"></span></div><span class="rate-text">불가</span></div></div>
+          <div class="cell-feat"><div class="rate featured"><div class="rate-bar"><span style="width: 100%;"></span></div><span class="rate-text">캘린더·드라이브·외부 API</span></div></div>
+
+          <div class="row-label">데이터 소유</div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 20%;"></span></div><span class="rate-text">해지 시 소멸 위험</span></div></div>
+          <div><div class="rate"><div class="rate-bar"><span style="width: 40%;"></span></div><span class="rate-text">PC 유실 위험</span></div></div>
+          <div class="cell-feat"><div class="rate featured"><div class="rate-bar"><span style="width: 100%;"></span></div><span class="rate-text">내 구글 계정에 영구 보관</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Pricing ==================== -->
+    <section class="sd-section" id="simplybuild" style="padding-top: 0;">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">02 — 맞춤 제작</div>
+          <h2 class="section-title">필요한 만큼만,<br>정직하게.</h2>
+        </div>
+        <p class="section-lede">
+          자동화 연동부터 AI 도입까지, 비즈니스 규모에 맞는 단계를 선택하세요.
+          모든 구축은 데이터 정제·정규화를 포함합니다.
+        </p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <span class="price-tag">Tier 01 · 기본형</span>
+          <div>
+            <h3 class="price-name">업무 효율화 환경 구축</h3>
+            <p class="price-desc">사장님 비즈니스에 맞는 데이터 관리 체계를 구글 시트 위에 세팅하고 구글 앱들과 연동합니다.</p>
+          </div>
+          <div class="price-amount">250,000<span class="unit">원~</span></div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="pf-check">✓</span>예약·회원·매출 관리 시트 구축</li>
+            <li><span class="pf-check">✓</span>구글폼 입력 자동 연동</li>
+            <li><span class="pf-check">✓</span>캘린더·드라이브 연결</li>
+            <li><span class="pf-check">✓</span>데이터 정제·정규화 포함</li>
+          </ul>
+          <button type="button" class="price-cta" onclick="openTierModal('standard')">자세히 보기 →</button>
+        </div>
+
+        <div class="price-card featured">
+          <span class="price-tag">Tier 02 · 확장형 · 추천</span>
+          <div>
+            <h3 class="price-name">외부 서비스까지 연결</h3>
+            <p class="price-desc">기본형 + 웹사이트 입력폼 연동, 문자/알림톡 발송, 외부 API까지 하나로 연결합니다.</p>
+          </div>
+          <div class="price-amount">390,000<span class="unit">원~</span></div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="pf-check">✓</span>기본형 전체 포함</li>
+            <li><span class="pf-check">✓</span>웹사이트 입력폼 연결</li>
+            <li><span class="pf-check">✓</span>문자/알림톡 (솔라피)</li>
+            <li><span class="pf-check">✓</span>외부 API 무제한 연동</li>
+          </ul>
+          <button type="button" class="price-cta" onclick="openTierModal('deluxe')">자세히 보기 →</button>
+        </div>
+
+        <div class="price-card">
+          <span class="price-tag">Tier 03 · AI 활용형</span>
+          <div>
+            <h3 class="price-name">비즈니스에 맞는 AI 도입</h3>
+            <p class="price-desc">ChatGPT·Gemini·Claude 등 생성형 AI를 사장님의 업무 흐름에 맞게 연결하고 세팅해 드립니다.</p>
+          </div>
+          <div class="price-amount">600,000<span class="unit">원~</span></div>
+          <div class="price-divider"></div>
+          <ul class="price-features">
+            <li><span class="pf-check">✓</span>AI 도입 설계·컨설팅</li>
+            <li><span class="pf-check">✓</span>ChatGPT / Gemini / Claude</li>
+            <li><span class="pf-check">✓</span>업무 흐름 맞춤 세팅</li>
+            <li><span class="pf-check">✓</span>운영 가이드 제공</li>
+          </ul>
+          <button type="button" class="price-cta" onclick="openTierModal('premium')">자세히 보기 →</button>
+        </div>
+      </div>
+
+      <div class="pricing-note">
+        <p>구글 인프라를 활용하여 서버 호스팅 비용을 절감해 드립니다. 시스템 구축 이후 새로운 기능 추가나 대대적인 구조 변경이 필요한 경우에는 별도의 작업 비용이 발생할 수 있습니다.</p>
+        <p>모든 구축 작업은 데이터 정규화 및 정제 작업을 포함하며, Raw 데이터의 오염도가 심할 경우 별도의 정제 비용이 발생할 수 있습니다.</p>
+      </div>
+    </section>
+
+    <!-- ==================== Use Cases ==================== -->
+    <section class="sd-section" id="usecases" style="padding-top: 0;">
+      <div class="section-head">
+        <div>
+          <div class="section-eyebrow">03 — 활용 사례</div>
+          <h2 class="section-title">이런 업종에서<br>이렇게 쓰고 있어요.</h2>
+        </div>
+        <p class="section-lede">
+          실제 1인 사업자·소상공인이 심플리Do로 구축한 자동화 흐름입니다.
+          업종을 골라 자세히 보세요.
+        </p>
+      </div>
+
+      <div class="uc-tabs" role="tablist">
+        <button type="button" class="uc-tab active" data-uc="academy">학원·교육</button>
+        <button type="button" class="uc-tab" data-uc="realty">부동산</button>
+        <button type="button" class="uc-tab" data-uc="finance">채권·금융</button>
+        <button type="button" class="uc-tab" data-uc="booking">예약 서비스</button>
+        <button type="button" class="uc-tab" data-uc="invoice">매출·정산</button>
+        <button type="button" class="uc-tab" data-uc="interior">인테리어·건설</button>
+      </div>
+
+      <div class="uc-panel" data-panel="academy">
+        <div class="uc-content">
+          <div class="uc-icon">A</div>
+          <h3 class="uc-title">접수·등록·서류 정리를 한 시트에서 자동으로</h3>
+          <div class="uc-flow">
+            <div class="uc-step"><span class="step-num">1</span><span>구글폼으로 수강 접수가 들어오면 학생 DB에 자동 기록</span></div>
+            <div class="uc-step"><span class="step-num">2</span><span>학생별 드라이브 폴더 자동 생성, 안내 메일 발송</span></div>
+            <div class="uc-step"><span class="step-num">3</span><span>접수 현황·수강 상태를 한 화면에서 실시간 확인</span></div>
+          </div>
+          <div class="uc-tags">
+            <span class="tag">구글폼</span>
+            <span class="tag">드라이브 자동분류</span>
+            <span class="tag">학생 DB</span>
+          </div>
+        </div>
+        <div class="uc-visual">
+          <div class="mini-flow">
+            <div class="mini-card"><div class="mc-icon">F</div><div class="mc-label">구글폼 접수</div><span class="mc-sub">trigger</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card highlight"><div class="mc-icon">S</div><div class="mc-label">학생 DB 자동 기록</div><span class="mc-sub">+ 메일</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card"><div class="mc-icon">D</div><div class="mc-label">드라이브 폴더 생성</div><span class="mc-sub">/students/김00</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-panel" data-panel="realty" hidden>
+        <div class="uc-content">
+          <div class="uc-icon">R</div>
+          <h3 class="uc-title">고객 문의 이력과 상담 상태를 자동 관리</h3>
+          <div class="uc-flow">
+            <div class="uc-step"><span class="step-num">1</span><span>웹사이트 문의가 들어오면 고객 DB에 자동 기록</span></div>
+            <div class="uc-step"><span class="step-num">2</span><span>문의 내용·희망 조건·상담 일자가 자동으로 정리</span></div>
+            <div class="uc-step"><span class="step-num">3</span><span>상담 상태별 필터링으로 후속 연락 대상 한눈에 확인</span></div>
+          </div>
+          <div class="uc-tags">
+            <span class="tag">고객 DB</span>
+            <span class="tag">상담 이력</span>
+            <span class="tag">상태 관리</span>
+          </div>
+        </div>
+        <div class="uc-visual">
+          <div class="mini-flow">
+            <div class="mini-card"><div class="mc-icon">W</div><div class="mc-label">웹사이트 문의</div><span class="mc-sub">webhook</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card highlight"><div class="mc-icon">C</div><div class="mc-label">고객 DB 자동기록</div><span class="mc-sub">상태:신규</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card"><div class="mc-icon">⚑</div><div class="mc-label">후속 연락 알림</div><span class="mc-sub">+3일</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-panel" data-panel="finance" hidden>
+        <div class="uc-content">
+          <div class="uc-icon">$</div>
+          <h3 class="uc-title">수백 건의 상환 현황을 한 화면에서 실시간 추적</h3>
+          <div class="uc-flow">
+            <div class="uc-step"><span class="step-num">1</span><span>여러 파일에 흩어진 데이터를 하나의 시트로 통합</span></div>
+            <div class="uc-step"><span class="step-num">2</span><span>건별 상환 일정·금액·연체 여부 자동 트래킹</span></div>
+            <div class="uc-step"><span class="step-num">3</span><span>연체 발생 시 자동 알림, 대시보드로 전체 현황 파악</span></div>
+          </div>
+          <div class="uc-tags">
+            <span class="tag">데이터 통합</span>
+            <span class="tag">상환 트래킹</span>
+            <span class="tag">자동 알림</span>
+          </div>
+        </div>
+        <div class="uc-visual">
+          <div class="mini-flow">
+            <div class="mini-card"><div class="mc-icon">∑</div><div class="mc-label">파일 통합</div><span class="mc-sub">N → 1</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card highlight"><div class="mc-icon">⏱</div><div class="mc-label">상환 일정 자동 계산</div><span class="mc-sub">daily</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card"><div class="mc-icon">!</div><div class="mc-label">연체 발생 알림</div><span class="mc-sub">slack</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-panel" data-panel="booking" hidden>
+        <div class="uc-content">
+          <div class="uc-icon">B</div>
+          <h3 class="uc-title">예약 접수부터 이용 완료까지 알림톡 자동 발송</h3>
+          <div class="uc-flow">
+            <div class="uc-step"><span class="step-num">1</span><span>예약이 들어오면 캘린더에 자동 등록, 확인 알림톡 발송</span></div>
+            <div class="uc-step"><span class="step-num">2</span><span>입실·퇴실·이용 후 감사 알림까지 시점별 자동 발송</span></div>
+            <div class="uc-step"><span class="step-num">3</span><span>고객별 이용 이력이 자동으로 시트에 누적</span></div>
+          </div>
+          <div class="uc-tags">
+            <span class="tag">예약 관리</span>
+            <span class="tag">캘린더 연동</span>
+            <span class="tag">알림톡 자동발송</span>
+          </div>
+        </div>
+        <div class="uc-visual">
+          <div class="mini-flow">
+            <div class="mini-card"><div class="mc-icon">📅</div><div class="mc-label">예약 접수</div><span class="mc-sub">→ 캘린더</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card highlight"><div class="mc-icon">💬</div><div class="mc-label">시점별 알림톡</div><span class="mc-sub">4단계</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card"><div class="mc-icon">★</div><div class="mc-label">이용 후 감사 메시지</div><span class="mc-sub">+1d</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-panel" data-panel="invoice" hidden>
+        <div class="uc-content">
+          <div class="uc-icon">¥</div>
+          <h3 class="uc-title">인보이스 발행부터 미수금 추적까지 자동으로</h3>
+          <div class="uc-flow">
+            <div class="uc-step"><span class="step-num">1</span><span>거래처별 인보이스를 시트 데이터 기반으로 PDF 자동 생성</span></div>
+            <div class="uc-step"><span class="step-num">2</span><span>이메일로 자동 발송, 발송 이력 자동 기록</span></div>
+            <div class="uc-step"><span class="step-num">3</span><span>미수금·입금 완료 상태 자동 업데이트, 연체 시 알림</span></div>
+          </div>
+          <div class="uc-tags">
+            <span class="tag">인보이스 자동생성</span>
+            <span class="tag">미수금 트래킹</span>
+            <span class="tag">자동 메일</span>
+          </div>
+        </div>
+        <div class="uc-visual">
+          <div class="mini-flow">
+            <div class="mini-card"><div class="mc-icon">📄</div><div class="mc-label">PDF 자동 생성</div><span class="mc-sub">/invoice</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card highlight"><div class="mc-icon">@</div><div class="mc-label">이메일 발송</div><span class="mc-sub">gmail api</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card"><div class="mc-icon">$</div><div class="mc-label">미수금 트래킹</div><span class="mc-sub">상태 자동</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="uc-panel" data-panel="interior" hidden>
+        <div class="uc-content">
+          <div class="uc-icon">I</div>
+          <h3 class="uc-title">고객별 대량 파일을 구글 드라이브에 자동 정리</h3>
+          <div class="uc-flow">
+            <div class="uc-step"><span class="step-num">1</span><span>신규 고객 등록 시 드라이브에 전용 폴더 구조 자동 생성</span></div>
+            <div class="uc-step"><span class="step-num">2</span><span>현장 사진·도면·계약서를 자동 분류·정리</span></div>
+            <div class="uc-step"><span class="step-num">3</span><span>시트에서 고객명 클릭 시 해당 폴더로 즉시 이동</span></div>
+          </div>
+          <div class="uc-tags">
+            <span class="tag">드라이브 자동정리</span>
+            <span class="tag">폴더 자동생성</span>
+            <span class="tag">고객 DB 연동</span>
+          </div>
+        </div>
+        <div class="uc-visual">
+          <div class="mini-flow">
+            <div class="mini-card"><div class="mc-icon">+</div><div class="mc-label">신규 고객 등록</div><span class="mc-sub">trigger</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card highlight"><div class="mc-icon">📁</div><div class="mc-label">폴더 구조 자동 생성</div><span class="mc-sub">/photos /docs</span></div>
+            <div class="mini-arrow">↓</div>
+            <div class="mini-card"><div class="mc-icon">↗</div><div class="mc-label">시트 → 폴더 링크</div><span class="mc-sub">deep link</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Final CTA ==================== -->
+    <section class="final-cta" id="consulting">
+      <div class="final-cta-inner">
+        <div>
+          <div class="final-eyebrow">/ free consultation</div>
+          <h2 class="final-title">
+            어디서부터 시작할지 모르겠다면,<br>
+            먼저 30분만 이야기해요.
+          </h2>
+          <p class="final-sub">
+            현재 업무 흐름을 진단하고, 사장님 비즈니스에 자동화를 어떻게 적용할 수 있을지
+            1:1 화상 미팅 후 인사이트 리포트를 보내드립니다. 부담 없이 신청하세요.
+          </p>
+        </div>
+        <button type="button" class="final-btn" onclick="openConsultModal()">
+          무료 상담 신청
+          <span style="font-size: 16px;">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================== Footer ==================== -->
+    <footer class="sd-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="#" class="brand">
+            <div class="brand-mark">S</div>
+            <span>SimplyDo</span>
+          </a>
+          <div class="footer-meta">
+            크몽 평점 5.0 · 구글 스프레드시트 기반 업무 자동화 전문<br>
+            (Google Apps Script)<br><br>
+            상호: 심플리Do · 대표: 박초롱<br>
+            사업자등록번호: 207-28-02850<br>
+            주소: 부산광역시 해운대구 수영강변대로 382, 104동 102호<br>
+            contact@simplydo.kr
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>바로가기</h5>
+          <ul>
+            <li><a href="#benefits">왜 심플리Do?</a></li>
+            <li><a href="#simplybuild">맞춤 제작</a></li>
+            <li><a href="#consulting">무료 상담</a></li>
+            <li><a href="#usecases">활용 사례</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>리소스</h5>
+          <ul>
+            <li><a href="https://kmong.com/gig/662367" target="_blank" rel="noopener">크몽 후기</a></li>
+            <li><a href="#usecases">활용 사례</a></li>
+            <li><a href="mailto:contact@simplydo.kr">문의하기</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SimplyDo. All rights reserved.</span>
+        <span>BUSAN · KOREA</span>
+      </div>
+    </footer>
+
+    <!-- ==================== 무료 상담 모달 ==================== -->
+    <div id="consult-modal" class="sd-modal hidden">
+      <div class="sd-modal-card" onclick="event.stopPropagation()">
+        <div class="sd-modal-header">
+          <h3 class="sd-modal-title">무료 상담 신청</h3>
+          <button type="button" class="sd-modal-close" onclick="document.getElementById('consult-modal').classList.add('hidden')" aria-label="닫기">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div class="sd-modal-body" id="consult-modal-form-wrap">
+          <div class="sd-modal-eyebrow">/ free consultation</div>
+          <form id="consulting-form" class="sd-form" onsubmit="handleOrderSubmit(event, 'consulting')">
+            <div class="sd-form-row-2">
+              <div class="sd-field">
+                <label class="sd-label">성함<span class="req">*</span></label>
+                <input type="text" name="name" class="sd-input" required>
+              </div>
+              <div class="sd-field">
+                <label class="sd-label">연락처<span class="req">*</span></label>
+                <input type="tel" name="phone" class="sd-input" required>
+              </div>
+            </div>
+            <div class="sd-field">
+              <label class="sd-label">이메일<span class="req">*</span></label>
+              <input type="email" name="email" class="sd-input" required>
+            </div>
+            <div class="sd-field">
+              <label class="sd-label">업종 / 회사명</label>
+              <input type="text" name="company" class="sd-input" placeholder="예: 영어학원, 부동산, 쇼핑몰 등">
+            </div>
+            <div class="sd-field">
+              <label class="sd-label">관심 서비스</label>
+              <select name="interest_tier" class="sd-select">
+                <option value="">선택해주세요</option>
+                <option value="기본형">기본형 — 업무 효율화 환경 구축 (250,000원)</option>
+                <option value="확장형">확장형 — 외부 서비스 연결 (390,000원)</option>
+                <option value="AI 활용형">AI 활용형 — 비즈니스에 맞는 AI 도입 (600,000원~)</option>
+                <option value="미정">아직 잘 모르겠어요</option>
+              </select>
+            </div>
+            <div class="sd-field">
+              <label class="sd-label">현재 가장 불편한 업무는?<span class="req">*</span></label>
+              <textarea name="pain_point" class="sd-textarea" rows="2" required placeholder="예: 매번 수작업으로 고객에게 문자를 보내고 있어요."></textarea>
+            </div>
+            <div class="sd-field">
+              <label class="sd-label">추가 요청사항 (선택)</label>
+              <textarea name="message" class="sd-textarea" rows="2" placeholder="희망 일정이나 궁금한 점을 자유롭게 적어주세요."></textarea>
+            </div>
+            <button type="submit" class="sd-modal-cta" style="margin-top: 8px;">신청하기</button>
+          </form>
+        </div>
+        <div id="consulting-confirmation" class="sd-modal-body hidden">
+          <div class="sd-confirm">
+            <div class="sd-confirm-icon">
+              <svg width="26" height="26" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.4" d="m5 13 4 4L19 7"/></svg>
+            </div>
+            <h4 class="sd-confirm-title">신청이 완료되었습니다</h4>
+            <p class="sd-confirm-sub">1영업일 이내에 미팅 일정 안내 메일을 보내드리겠습니다.<br>급한 문의는 contact@simplydo.kr으로 연락 주세요.</p>
+            <button type="button" class="sd-modal-cta-ghost" onclick="document.getElementById('consult-modal').classList.add('hidden')">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== 상품 상세 모달 ==================== -->
+    <div id="tier-modal" class="sd-modal hidden">
+      <div class="sd-modal-card" onclick="event.stopPropagation()">
+        <div class="sd-modal-header">
+          <h3 id="tier-modal-title" class="sd-modal-title"></h3>
+          <button type="button" class="sd-modal-close" onclick="document.getElementById('tier-modal').classList.add('hidden')" aria-label="닫기">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <div id="tier-modal-body" class="sd-modal-body"></div>
+        <div class="sd-modal-footer">
+          <button type="button" id="tier-modal-cta" class="sd-modal-cta">
+            무료 상담 신청
+            <span style="font-size: 14px;">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== Scripts ==================== -->
     <script>
-    function openConsultModal() {
+    // 무료 상담 모달
+    function openConsultModal(preselectTier) {
         var modal = document.getElementById('consult-modal');
         var formWrap = document.getElementById('consult-modal-form-wrap');
         var confirmation = document.getElementById('consulting-confirmation');
         var form = document.getElementById('consulting-form');
-        // 폼 초기 상태로 복원
         if (formWrap) formWrap.classList.remove('hidden');
         if (confirmation) confirmation.classList.add('hidden');
-        // 폼 입력값 초기화 + 제출 버튼 복원
         if (form) {
             form.reset();
             form.classList.remove('hidden');
             var btn = form.querySelector('button[type="submit"]');
             if (btn) { btn.disabled = false; btn.textContent = '신청하기'; }
+            if (preselectTier) {
+                var sel = form.querySelector('select[name="interest_tier"]');
+                if (sel) sel.value = preselectTier;
+            }
         }
-        // 모달 스크롤 상단으로
         var scrollArea = modal.querySelector('.overflow-y-auto');
         if (scrollArea) scrollArea.scrollTop = 0;
         modal.classList.remove('hidden');
@@ -829,361 +1242,30 @@
         var modal = document.getElementById('consult-modal'); if (!modal) return;
         modal.addEventListener('click', function(e) { if (e.target === modal) modal.classList.add('hidden'); });
         document.addEventListener('keydown', function(e) { if (e.key === 'Escape' && !modal.classList.contains('hidden')) modal.classList.add('hidden'); });
-        // URL 파라미터로 바로 모달 열기 (?consult=1)
         if (new URLSearchParams(window.location.search).get('consult') === '1') {
-            setTimeout(openConsultModal, 500);
+            setTimeout(function() { openConsultModal(); }, 500);
         }
     })();
-    </script>
 
-
-    <!-- ==================== Section 4: 활용 사례 (슬라이드) ==================== -->
-    <section id="usecases" class="section-padding bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="max-w-3xl mx-auto text-center mb-12 fade-in-up">
-                <div class="section-label justify-center">
-                    <span class="section-label-line"></span>
-                    <span class="section-label-text">활용 사례</span>
-                    <span class="section-label-line"></span>
-                </div>
-                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-navy mt-4 mb-4">
-                    이런 업종에서<br>이렇게 활용하고 있습니다
-                </h2>
-            </div>
-
-            <!-- 슬라이드 컨테이너 -->
-            <div class="relative fade-in-up">
-                <!-- 좌우 버튼 -->
-                <button onclick="slideUsecase(-1)" class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition">
-                    <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
-                </button>
-                <button onclick="slideUsecase(1)" class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition">
-                    <svg class="w-5 h-5 text-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                </button>
-
-                <!-- 슬라이드 트랙 -->
-                <div class="overflow-hidden">
-                    <div id="usecase-track" class="flex transition-transform duration-500 ease-in-out" style="gap: 24px;">
-
-                        <!-- 사례 1: 학원/교육 -->
-                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
-                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">학원 / 교육</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">접수·등록·서류 정리를 한 시트에서 자동으로</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    수강 접수가 들어오면 학생 DB에 자동 기록되고, 개인별 폴더 생성과 안내 메일 발송까지 한 번에 처리됩니다.
-                                </p>
-                                <div class="space-y-2">
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        구글폼 접수 → 시트 자동 기록 → 학생별 폴더 자동 생성
-                                    </p>
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        접수 현황·수강 상태를 한 화면에서 실시간 확인
-                                    </p>
-                                </div>
-                                <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">구글폼</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">드라이브 자동 분류</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">학생 DB</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 사례 2: 부동산 -->
-                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
-                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">부동산</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">고객 문의 이력과 상담 상태를 자동으로 관리</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    문의가 들어올 때마다 고객 DB에 자동 기록되고, 상담 상태별로 필터링해 후속 연락이 필요한 고객을 바로 확인할 수 있습니다.
-                                </p>
-                                <div class="space-y-2">
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        문의 내용·희망 조건·상담 일자 자동 기록
-                                    </p>
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        상태별 필터링으로 놓치는 고객 없이 체계적으로 관리
-                                    </p>
-                                </div>
-                                <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">고객 DB</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상담 이력</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상태 관리</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 사례 3: 채권/금융 -->
-                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
-                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">채권 / 금융</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">수백 건의 상환 현황을 한 화면에서 실시간 추적</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    여러 파일에 흩어진 데이터를 하나의 시트로 통합하고, 상환 일정과 연체 여부를 자동으로 추적합니다.
-                                </p>
-                                <div class="space-y-2">
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        건별 상환 일정·금액·연체 여부 실시간 트래킹
-                                    </p>
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        연체 발생 시 자동 알림, 대시보드로 전체 현황 한눈에 파악
-                                    </p>
-                                </div>
-                                <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">데이터 통합</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">상환 트래킹</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">자동 알림</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 사례 4: 예약 기반 서비스 -->
-                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
-                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">예약 서비스</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">예약 접수부터 이용 완료까지 알림톡 자동 발송</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    예약이 들어오면 캘린더에 자동 등록되고, 예약 확인·입실 안내·퇴실 안내·이용 후 감사 알림톡이 시점별로 자동 발송됩니다.
-                                </p>
-                                <div class="space-y-2">
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        예약 접수 → 캘린더 자동 등록 → 확인 알림톡 발송
-                                    </p>
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        입실·퇴실·이용 후 감사 알림까지 시점별 자동 발송
-                                    </p>
-                                </div>
-                                <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">예약 관리</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">캘린더 연동</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">알림톡 자동 발송</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 사례 5: 인보이스/미수금 -->
-                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
-                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">매출 / 정산</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">인보이스 발행부터 미수금 추적까지 자동으로</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    거래처별 인보이스를 시트에서 바로 생성·발송하고, 미수금 현황을 실시간으로 추적해 누락 없이 관리할 수 있습니다.
-                                </p>
-                                <div class="space-y-2">
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        시트 데이터 기반 인보이스 PDF 자동 생성 및 메일 발송
-                                    </p>
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        미수금·입금 완료 상태 자동 업데이트, 연체 시 알림
-                                    </p>
-                                </div>
-                                <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">인보이스 자동 생성</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">미수금 트래킹</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">자동 메일 발송</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- 사례 6: 인테리어/건설 -->
-                        <div class="usecase-slide flex-shrink-0 w-full md:w-[calc(50%-12px)]">
-                            <div class="bg-white rounded-2xl p-6 sm:p-8 h-full shadow-sm">
-                                <span class="inline-block text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full mb-4">인테리어 / 건설</span>
-                                <h3 class="text-lg font-bold text-navy mb-3">고객별 대량 파일을 구글 드라이브에 자동 정리</h3>
-                                <p class="text-sm text-gray-500 leading-relaxed mb-4">
-                                    현장 사진, 도면, 계약서 등 고객마다 쌓이는 대량 파일을 자동으로 분류·정리해 필요할 때 바로 찾을 수 있습니다.
-                                </p>
-                                <div class="space-y-2">
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        신규 고객 등록 시 드라이브에 전용 폴더 구조 자동 생성
-                                    </p>
-                                    <p class="text-sm text-gray-600 flex items-start gap-2">
-                                        <svg class="w-4 h-4 text-green-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-                                        시트에서 고객명 클릭 시 해당 드라이브 폴더로 바로 이동
-                                    </p>
-                                </div>
-                                <div class="flex flex-wrap gap-1.5 mt-5">
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">드라이브 자동 정리</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">폴더 구조 자동 생성</span>
-                                    <span class="text-xs px-2 py-0.5 rounded-full bg-gray-100 text-gray-500">고객 DB 연동</span>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-                <!-- 인디케이터 -->
-                <div class="flex justify-center gap-2 mt-8" id="usecase-dots"></div>
-            </div>
-        </div>
-    </section>
-
-    <script>
-    (function() {
-        var track = document.getElementById('usecase-track');
-        var dots = document.getElementById('usecase-dots');
-        if (!track || !dots) return;
-        var slides = track.querySelectorAll('.usecase-slide');
-        var current = 0;
-        var auto;
-
-        function getPerView() { return window.innerWidth >= 768 ? 2 : 1; }
-        function maxIndex() { return Math.max(0, slides.length - getPerView()); }
-
-        function goTo(i) {
-            current = Math.max(0, Math.min(i, maxIndex()));
-            var slide = slides[0];
-            var gap = 24;
-            var w = slide.offsetWidth + gap;
-            track.style.transform = 'translateX(-' + (current * w) + 'px)';
-            updateDots();
-        }
-
-        function updateDots() {
-            var total = maxIndex() + 1;
-            dots.innerHTML = '';
-            for (var i = 0; i < total; i++) {
-                var dot = document.createElement('button');
-                dot.className = 'w-2 h-2 rounded-full transition-all ' + (i === current ? 'bg-navy w-6' : 'bg-gray-300');
-                dot.onclick = (function(idx) { return function() { goTo(idx); resetAuto(); }; })(i);
-                dots.appendChild(dot);
-            }
-        }
-
-        function resetAuto() { clearInterval(auto); auto = setInterval(function() { goTo(current >= maxIndex() ? 0 : current + 1); }, 5000); }
-
-        window.slideUsecase = function(dir) { goTo(current + dir); resetAuto(); };
-
-        // 터치 스와이프
-        var startX = 0;
-        track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-        track.addEventListener('touchend', function(e) {
-            var diff = startX - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 50) { window.slideUsecase(diff > 0 ? 1 : -1); }
+    // 활용 사례 탭
+    document.addEventListener('click', function(e) {
+        var tab = e.target.closest('.uc-tab');
+        if (!tab) return;
+        var id = tab.dataset.uc;
+        document.querySelectorAll('.uc-tab').forEach(function(t) {
+            t.classList.toggle('active', t === tab);
         });
+        document.querySelectorAll('.uc-panel').forEach(function(p) {
+            p.hidden = (p.dataset.panel !== id);
+        });
+    });
 
-        window.addEventListener('resize', function() { goTo(Math.min(current, maxIndex())); });
-        goTo(0);
-        resetAuto();
-    })();
-    </script>
-
-    <!-- ==================== Trust: 크몽 신뢰 섹션 ==================== -->
-    <section id="trust" class="cta-section text-white py-20 relative overflow-hidden">
-        <div class="cta-glow"></div>
-        <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 fade-in-up">
-                모든 프로젝트, 만점 리뷰로 마무리했습니다
-            </h2>
-            <p class="text-lg text-blue-200 mb-10 fade-in-up fade-delay-1">크몽 고객 만족도 5.0 / 5.0</p>
-
-            <!-- 리뷰 카드 3개 (실제 크몽 리뷰) -->
-            <div class="grid md:grid-cols-3 gap-6 mb-10 fade-in-up fade-delay-2">
-                <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
-                    <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="text-sm text-blue-100">"이렇게 세심하게 봐주시는 분이 계실 줄은 몰랐습니다. 비용을 감안하면 기대 이상, 몇 배 이상의 결과를 얻었습니다."</p>
-                    <p class="text-xs text-blue-300 mt-3">— 이동* · 크몽 구매 고객</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
-                    <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="text-sm text-blue-100">"복잡한 프로젝트였으나 잘 마무리해 주셨고, 친절히 설명을 잘 해주셨습니다."</p>
-                    <p class="text-xs text-blue-300 mt-3">— 열정*** · 재구매 고객</p>
-                </div>
-                <div class="bg-white/10 backdrop-blur rounded-xl p-6 text-left">
-                    <div class="flex gap-1 mb-3 text-yellow-400">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-                    <p class="text-sm text-blue-100">"원하는 바를 친절하고 정성껏 구현해 주셨습니다. 실력자이십니다!"</p>
-                    <p class="text-xs text-blue-300 mt-3">— 거대*** · 크몽 구매 고객</p>
-                </div>
-            </div>
-
-            <a href="https://kmong.com/gig/662367" target="_blank" rel="noopener"
-               class="btn-primary-light inline-flex items-center gap-2 text-lg px-8 py-4 fade-in-up fade-delay-3">
-                크몽에서 후기 더 보기
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                </svg>
-            </a>
-        </div>
-    </section>
-
-    <!-- ==================== Footer ==================== -->
-    <footer class="py-16 bg-white border-t border-gray-100">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-3 gap-12">
-                <!-- Brand -->
-                <div>
-                    <span class="text-2xl font-bold text-navy">Simply<span class="text-blue-500">Do</span></span>
-                    <p class="mt-4 text-sm text-gray-400 leading-relaxed">
-                        크몽 평점 5.0 | 구글 스프레드시트 기반<br>
-                        업무 자동화 전문 (Google Apps Script)
-                    </p>
-                </div>
-
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="text-navy font-bold mb-4">바로가기</h4>
-                    <ul class="space-y-2 text-sm text-gray-400">
-                        <li><a href="#benefits" class="hover:text-navy transition">왜 심플리Do?</a></li>
-                        <li><a href="#simplybuild" class="hover:text-navy transition">맞춤 제작</a></li>
-                        <li><a href="#consulting" class="hover:text-navy transition">무료 상담</a></li>
-                        <li><a href="#about" class="hover:text-navy transition">소개</a></li>
-                        <li><a href="#usecases" class="hover:text-navy transition">활용 사례</a></li>
-                    </ul>
-                </div>
-
-                <!-- Business Info -->
-                <div>
-                    <h4 class="text-navy font-bold mb-4">사업자 정보</h4>
-                    <div class="business-info">
-                        <p>상호: 심플리Do</p>
-                        <p>대표: 박초롱</p>
-                        <p>사업자등록번호: 207-28-02850</p>
-                        <p>주소: 부산광역시 해운대구 수영강변대로 382, 104동 102호</p>
-                        <p>이메일: contact@simplydo.kr</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-12 pt-8 text-center text-sm text-gray-300 border-t border-gray-100">
-                <p>&copy; 2026 심플리Do. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- ==================== 상품 상세 모달 ==================== -->
-    <div id="tier-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);">
-        <div class="bg-white rounded-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl" onclick="event.stopPropagation()">
-            <div class="sticky top-0 bg-white border-b border-gray-100 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
-                <h3 id="tier-modal-title" class="text-lg font-bold text-navy"></h3>
-                <button onclick="document.getElementById('tier-modal').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
-                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-            <div id="tier-modal-body" class="px-6 py-5"></div>
-            <div class="sticky bottom-0 bg-white border-t border-gray-100 px-6 py-4 rounded-b-2xl">
-                <button id="tier-modal-cta" class="btn-primary w-full">무료 상담 신청</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
+    // 상품 상세 모달
     var tierModalData = {
         standard: {
             title: '기본형 — 업무 효율화 환경 구축',
             price: '250,000원',
+            consultValue: '기본형',
             desc: '사장님의 비즈니스 환경에 맞는 데이터 관리 체계를 구글 시트 위에 세팅하고, 구글 플랫폼 앱들과 연동합니다.',
             sections: [
                 { label: '비즈니스 맞춤 데이터 관리', items: ['예약 관리, 회원/고객 관리, 매출 관리 등 업종에 맞는 시트 설계', '데이터 입력·조회·필터링이 쉬운 구조로 세팅'] },
@@ -1199,6 +1281,7 @@
         deluxe: {
             title: '확장형 — 외부 서비스 연결',
             price: '390,000원',
+            consultValue: '확장형',
             desc: '기본형에 더해, 웹사이트 입력폼과 문자/알림톡 발송, 외부 서비스 API까지 구글 시트와 하나로 연결합니다.',
             sections: [
                 { label: '기본형 전체 포함', items: [] },
@@ -1207,8 +1290,7 @@
                 { label: '기타 외부 API 연동', items: ['텔레그램, 슬랙, 디스코드 등 실시간 업무 알림', '노션(Notion) 등 타 서비스와의 데이터 동기화'] },
                 { label: '카카오톡 연동으로 고객 경험 완성', type: 'addons', items: [
                     { name: '카카오 알림톡 자동 발송', price: '+150,000원~', desc: '시트 상태 변화(결제 완료 등)에 따른 자동 안내 발송. 템플릿 등록 및 API 연동 일체 포함.' },
-                    { name: '카카오 챗봇 시나리오 구축', price: '+250,000원~', desc: '24시간 고객 응대 비서. 고객이 카톡에서 예약 조회나 위치 문의 시 시트 데이터를 읽어 실시간으로 답변합니다.' },
-                    { name: '통합 알림톡+챗봇 패키지', price: '+350,000원', desc: '알림 발송과 챗봇 응대를 하나의 카카오 채널에서 동시 운영. 개별 구축 대비 비용이 절감됩니다.' }
+                    { name: '카카오 챗봇 시나리오 구축', price: '+250,000원~', desc: '24시간 고객 응대 비서. 고객이 카톡에서 예약 조회나 위치 문의 시 시트 데이터를 읽어 실시간으로 답변합니다.' }
                 ], emphasis: '불필요한 수동 응대를 줄이고 본질적인 업무에 집중할 수 있는 환경을 만듭니다.' }
             ],
             target: '직원이 있는 학원, 매물 공유가 잦은 부동산, 외부 문의가 많은 서비스업'
@@ -1216,6 +1298,7 @@
         premium: {
             title: 'AI 활용형 — 비즈니스에 맞는 AI 도입',
             price: '600,000원~',
+            consultValue: 'AI 활용형',
             desc: 'ChatGPT, Gemini, Claude 등 생성형 AI를 사장님의 업무 흐름에 맞게 연결하고, 도입 설계부터 세팅까지 도와드립니다.',
             sections: [
                 { label: 'AI 도입 설계', items: ['사장님 업무에 AI를 어디에, 어떻게 활용할지 설계', '업무 흐름에 맞는 최적의 AI 모델(ChatGPT / Gemini / Claude) 선택'] },
@@ -1227,48 +1310,59 @@
             note: 'AI 기능은 ChatGPT, Gemini, Claude API를 활용하며, 사용량에 따라 소정의 API 호출 비용(월 수천 원~)이 발생할 수 있습니다. 유료 플랜이 필요한 경우 사전에 안내드립니다.'
         }
     };
+    function escapeHtml(str) {
+        return String(str == null ? '' : str)
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
     function openTierModal(tier) {
         var d = tierModalData[tier]; if (!d) return;
         document.getElementById('tier-modal-title').textContent = d.title;
-        var html = '<p class="text-gray-500 mb-5">' + d.desc + '</p>';
+
+        var html = '<p class="tier-desc">' + escapeHtml(d.desc) + '</p>';
         d.sections.forEach(function(s) {
-            html += '<div class="mb-4">';
+            html += '<div class="tier-section">';
             if (s.type === 'addons') {
-                html += '<div class="flex items-center gap-2 mb-2 flex-wrap"><p class="text-sm font-bold text-navy">' + s.label + '</p><span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-50 text-amber-700 font-semibold whitespace-nowrap">추가 옵션</span></div>';
+                html += '<p class="tier-section-label">' + escapeHtml(s.label) + '<span class="tier-addon-tag">추가 옵션</span></p>';
                 if (s.items.length) {
-                    html += '<div class="space-y-2.5">';
+                    html += '<div class="tier-addon-list">';
                     s.items.forEach(function(it) {
-                        html += '<div class="border border-gray-200 rounded-xl p-3.5 bg-white">'
-                             + '<div class="flex items-start justify-between gap-3 flex-wrap">'
-                             + '<span class="text-sm font-semibold text-navy">' + it.name + '</span>'
-                             + '<span class="text-sm font-bold text-navy whitespace-nowrap">' + it.price + '</span>'
-                             + '</div>';
-                        if (it.desc) html += '<p class="text-xs text-gray-500 leading-relaxed mt-1.5">' + it.desc + '</p>';
+                        html += '<div class="tier-addon-card">'
+                             +   '<div class="tier-addon-head">'
+                             +     '<span class="tier-addon-name">' + escapeHtml(it.name) + '</span>'
+                             +     '<span class="tier-addon-price">' + escapeHtml(it.price) + '</span>'
+                             +   '</div>';
+                        if (it.desc) html += '<p class="tier-addon-desc">' + escapeHtml(it.desc) + '</p>';
                         html += '</div>';
                     });
                     html += '</div>';
                 }
-                if (s.emphasis) html += '<p class="text-xs text-navy font-semibold mt-3 leading-relaxed">' + s.emphasis + '</p>';
+                if (s.emphasis) html += '<p class="tier-addon-emphasis">' + escapeHtml(s.emphasis) + '</p>';
             } else {
-                html += '<p class="text-sm font-bold text-navy mb-2">' + s.label + '</p>';
+                html += '<p class="tier-section-label">' + escapeHtml(s.label) + '</p>';
                 if (s.items.length) {
-                    html += '<ul class="space-y-1.5">';
+                    html += '<ul class="tier-list">';
                     s.items.forEach(function(item) {
-                        html += '<li class="flex items-start gap-2 text-sm text-gray-600"><svg class="w-4 h-4 text-navy flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>' + item + '</li>';
+                        html += '<li><span class="tier-check">✓</span><span>' + escapeHtml(item) + '</span></li>';
                     });
                     html += '</ul>';
                 }
             }
             html += '</div>';
         });
-        if (d.note) { html += '<div class="mt-4 bg-amber-50 rounded-xl px-4 py-3"><p class="text-xs text-amber-700 leading-relaxed">' + d.note + '</p></div>'; }
-        html += '<div class="mt-6 pt-4 border-t border-gray-100"><p class="text-xs text-gray-400">권장 대상: ' + d.target + '</p><p class="text-2xl font-bold text-navy mt-2">' + d.price + '</p></div>';
+        if (d.note) html += '<p class="tier-note">' + escapeHtml(d.note) + '</p>';
+        html += '<div class="tier-meta">'
+             +   '<p class="tier-meta-target">권장 대상 — ' + escapeHtml(d.target) + '</p>'
+             +   '<p class="tier-meta-price">' + escapeHtml(d.price) + '</p>'
+             + '</div>';
+
         document.getElementById('tier-modal-body').innerHTML = html;
+        var bodyEl = document.getElementById('tier-modal-body');
+        if (bodyEl) bodyEl.scrollTop = 0;
         var cta = document.getElementById('tier-modal-cta');
         cta.onclick = function() {
             document.getElementById('tier-modal').classList.add('hidden');
-            var btn = document.querySelector('.build-consult-btn[data-tier="' + tier + '"]');
-            if (btn) btn.click();
+            openConsultModal(d.consultValue);
         };
         document.getElementById('tier-modal').classList.remove('hidden');
     }
@@ -1279,7 +1373,6 @@
     })();
     </script>
 
-    <!-- Scripts -->
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 </body>
