@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="사업 소개부터 문의 접수까지, 매출로 이어지는 1페이지 웹사이트. 모바일 최적화, 상담 폼 연동, 구글 시트 자동 저장까지.">
+    <meta name="keywords" content="랜딩페이지제작, 소규모사업웹사이트, 1페이지웹사이트, 반응형웹, 심플리Do">
+    <title>랜딩페이지 제작 | 심플리Do</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg: oklch(0.992 0.003 80); --bg-soft: oklch(0.975 0.004 80); --bg-elev: #ffffff;
+        --line: oklch(0.92 0.005 80); --line-strong: oklch(0.86 0.006 80);
+        --ink-1: oklch(0.18 0.008 260); --ink-2: oklch(0.38 0.006 260);
+        --ink-3: oklch(0.55 0.006 260); --ink-4: oklch(0.72 0.006 260);
+        --accent: oklch(0.52 0.13 165); --accent-soft: oklch(0.96 0.03 165); --accent-ink: oklch(0.32 0.08 165);
+        --ok: oklch(0.65 0.16 150); --warn: oklch(0.78 0.14 75);
+        --radius: 10px; --radius-lg: 14px;
+        --shadow-sm: 0 1px 2px rgba(15,20,30,.04), 0 1px 1px rgba(15,20,30,.03);
+        --shadow-md: 0 1px 2px rgba(15,20,30,.04), 0 8px 24px -8px rgba(15,20,30,.08);
+        --shadow-lg: 0 1px 2px rgba(15,20,30,.04), 0 24px 48px -16px rgba(15,20,30,.10);
+        --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      html, body { margin: 0; padding: 0; }
+      body { font-family: var(--font-sans); color: var(--ink-1); background: var(--bg); -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","tnum"; letter-spacing: -0.01em; }
+      a { color: inherit; text-decoration: none; }
+      button { font-family: inherit; cursor: pointer; }
+      *, *::before, *::after { box-sizing: border-box; }
+
+      /* ─── Nav ─── */
+      .nav-wrap { position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, var(--bg) 80%, transparent); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid color-mix(in oklch, var(--line) 60%, transparent); }
+      .nav { max-width: 1200px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; gap: 32px; }
+      .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.02em; color: var(--ink-1); }
+      .brand-mark { width: 22px; height: 22px; border-radius: 6px; background: var(--ink-1); display: grid; place-items: center; color: var(--bg); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+      .nav-links { display: flex; gap: 28px; margin-left: 12px; }
+      .nav-links a { font-size: 14px; color: var(--ink-2); transition: color .15s; }
+      .nav-links a:hover { color: var(--ink-1); }
+      .nav-spacer { flex: 1; }
+      .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--ink-1); color: var(--bg); border: 1px solid var(--ink-1); border-radius: 8px; font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em; transition: transform .15s, background .15s; }
+      .nav-cta:hover { background: oklch(0.10 0.008 260); }
+
+      /* ─── Layout ─── */
+      .sd-section { max-width: 1200px; margin: 0 auto; padding: 100px 32px; }
+      .sd-section + .sd-section { padding-top: 0; }
+
+      /* ─── Detail Hero ─── */
+      .detail-hero { max-width: 1200px; margin: 0 auto; padding: 80px 32px 100px; display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: start; }
+      .detail-hero-content { max-width: 640px; }
+      .detail-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-3); margin-bottom: 24px; }
+      .detail-breadcrumb a:hover { color: var(--ink-1); }
+      .detail-breadcrumb .sep { color: var(--ink-4); }
+      .detail-h1 { margin: 0; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; letter-spacing: -0.035em; font-weight: 600; text-wrap: balance; }
+      .detail-sub { margin: 20px 0 0; font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 540px; }
+      .detail-cta-row { margin-top: 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .btn-sd { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 10px; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s, box-shadow .2s; background: none; }
+      .btn-sd-primary { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, var(--shadow-sm); }
+      .btn-sd-primary:hover { background: oklch(0.10 0.008 260); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+      .btn-sd-secondary { background: var(--bg-elev); color: var(--ink-1); border-color: var(--line-strong); }
+      .btn-sd-secondary:hover { border-color: var(--ink-3); }
+      .btn-sd .arrow { transition: transform .2s; }
+      .btn-sd:hover .arrow { transform: translateX(2px); }
+
+      .detail-price-badge { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); text-align: center; min-width: 240px; }
+      .detail-price-badge .dpb-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); }
+      .detail-price-badge .dpb-price { margin: 12px 0 4px; font-size: 36px; font-weight: 600; letter-spacing: -0.025em; }
+      .detail-price-badge .dpb-unit { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+      .detail-price-badge .dpb-note { margin-top: 8px; font-size: 13px; color: var(--ink-3); }
+
+      /* ─── Section Headings ─── */
+      .sec-eyebrow { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); display: flex; align-items: center; gap: 10px; }
+      .sec-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--ink-4); }
+      .sec-title { margin: 14px 0 0; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 600; text-wrap: balance; }
+      .sec-desc { margin: 16px 0 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 560px; }
+
+      /* ─── Cards ─── */
+      .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+      .info-card { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 14px; transition: border-color .15s; }
+      .info-card:hover { border-color: var(--ink-4); }
+      .info-card .ic-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 14px; color: var(--ink-2); }
+      .info-card .ic-title { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+      .info-card .ic-desc { font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+      /* ─── Process Steps ─── */
+      .process-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+      .process-step { display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px solid var(--line); }
+      .process-step:first-child { padding-top: 0; }
+      .process-step:last-child { border-bottom: none; }
+      .ps-num { width: 40px; height: 40px; border-radius: 10px; background: var(--ink-1); color: var(--bg); font-family: var(--font-mono); font-size: 15px; font-weight: 600; display: grid; place-items: center; }
+      .ps-title { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+      .ps-desc { font-size: 14.5px; line-height: 1.65; color: var(--ink-2); margin: 0; }
+
+      /* ─── Topics ─── */
+      .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 40px; }
+      .topic-item { display: flex; align-items: flex-start; gap: 12px; padding: 18px 20px; background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius); font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+      .topic-item .ti-check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 10px; font-weight: 700; margin-top: 1px; }
+
+      /* ─── Pricing Detail ─── */
+      .pricing-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+      .pd-card { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 28px; }
+      .pd-card.featured { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); }
+      .pd-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); }
+      .pd-card.featured .pd-label { color: oklch(0.65 0.06 165); }
+      .pd-price { margin: 14px 0 6px; font-size: 32px; font-weight: 600; letter-spacing: -0.025em; }
+      .pd-unit { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+      .pd-card.featured .pd-unit { color: oklch(0.72 0.006 260); }
+      .pd-desc { margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+      .pd-card.featured .pd-desc { color: oklch(0.78 0.006 260); }
+      .pd-includes { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+      .pd-includes li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; list-style: none; }
+      .pd-card.featured .pd-includes li { color: oklch(0.86 0.006 260); }
+      .pd-check { flex-shrink: 0; width: 14px; height: 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 9px; font-weight: 700; margin-top: 2px; }
+      .pd-card.featured .pd-check { background: color-mix(in oklch, var(--accent) 30%, transparent); color: white; }
+
+      /* ─── FAQ ─── */
+      .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+      .faq-item { border-bottom: 1px solid var(--line); }
+      .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; background: none; border: none; font-size: 15px; font-weight: 600; color: var(--ink-1); text-align: left; letter-spacing: -0.01em; cursor: pointer; transition: color .15s; }
+      .faq-q:hover { color: var(--accent-ink); }
+      .faq-q .faq-arrow { font-size: 18px; color: var(--ink-4); transition: transform .2s; flex-shrink: 0; }
+      .faq-item.open .faq-arrow { transform: rotate(45deg); }
+      .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; }
+      .faq-item.open .faq-a { max-height: 300px; }
+      .faq-a-inner { padding: 0 0 22px; font-size: 14.5px; line-height: 1.7; color: var(--ink-2); }
+
+      /* ─── Final CTA ─── */
+      .detail-cta { max-width: 1200px; margin: 0 auto 100px; padding: 0 32px; }
+      .detail-cta-inner { background: var(--ink-1); color: var(--bg); border-radius: var(--radius-lg); padding: 56px; text-align: center; position: relative; overflow: hidden; }
+      .detail-cta-inner::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, oklch(0.26 0.008 260 / 0.6) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.26 0.008 260 / 0.6) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000, transparent 70%); pointer-events: none; }
+      .detail-cta-inner > * { position: relative; z-index: 1; }
+      .detail-cta-title { margin: 0; font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; }
+      .detail-cta-sub { margin: 14px auto 0; color: oklch(0.78 0.006 260); font-size: 15px; line-height: 1.55; max-width: 480px; }
+      .detail-cta-btn { margin-top: 28px; display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--bg); color: var(--ink-1); border-radius: 10px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid var(--bg); transition: transform .15s; cursor: pointer; }
+      .detail-cta-btn:hover { transform: translateY(-1px); }
+
+      /* ─── Footer ─── */
+      .sd-footer { border-top: 1px solid var(--line); background: var(--bg-soft); }
+      .footer-inner { max-width: 1200px; margin: 0 auto; padding: 48px 32px 36px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 56px; }
+      .footer-brand .brand { font-size: 16px; }
+      .footer-meta { margin-top: 14px; font-size: 12.5px; line-height: 1.7; color: var(--ink-3); }
+      .footer-col h5 { margin: 0 0 14px; font-size: 11.5px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); font-weight: 500; }
+      .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+      .footer-col a { font-size: 13.5px; color: var(--ink-2); transition: color .15s; }
+      .footer-col a:hover { color: var(--ink-1); }
+      .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px 32px 28px; border-top: 1px dashed var(--line-strong); font-size: 12px; color: var(--ink-4); font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+      /* ─── Responsive ─── */
+      @media (max-width: 960px) {
+        .nav { padding: 14px 20px; }
+        .nav-links { display: none; }
+        .detail-hero { padding: 48px 20px 64px; grid-template-columns: 1fr; gap: 32px; }
+        .detail-price-badge { text-align: left; display: flex; align-items: center; gap: 20px; }
+        .sd-section { padding: 80px 20px; }
+        .card-grid-3 { grid-template-columns: 1fr; }
+        .topic-grid { grid-template-columns: 1fr; }
+        .pricing-detail { grid-template-columns: 1fr; }
+        .detail-cta { padding: 0 20px; margin-bottom: 60px; }
+        .detail-cta-inner { padding: 40px 28px; }
+        .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; padding: 36px 20px 24px; }
+        .footer-bottom { padding: 16px 20px 24px; flex-direction: column; }
+      }
+    </style>
+</head>
+<body>
+    <!-- ==================== Nav ==================== -->
+    <div class="nav-wrap">
+      <nav class="nav">
+        <a href="index.html" class="brand">
+          <div class="brand-mark">S</div>
+          <span>SimplyDo</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#benefits">왜 심플리Do?</a>
+          <a href="index.html#products" style="color: var(--ink-1); font-weight: 500;">상품</a>
+          <a href="index.html#pricing">맞춤 제작</a>
+          <a href="index.html#consulting">무료 상담</a>
+        </div>
+        <div class="nav-spacer"></div>
+        <a href="index.html?consult=1" class="nav-cta">
+          무료 상담 신청
+          <span style="font-size: 14px;">→</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- ==================== Hero ==================== -->
+    <section class="detail-hero">
+      <div class="detail-hero-content">
+        <div class="detail-breadcrumb">
+          <a href="index.html">홈</a>
+          <span class="sep">/</span>
+          <a href="index.html#products">상품</a>
+          <span class="sep">/</span>
+          <span style="color: var(--ink-1); font-weight: 500;">랜딩페이지 제작</span>
+        </div>
+
+        <h1 class="detail-h1">
+          문의가 들어오면<br>
+          시트에 자동으로 쌓이는<br>
+          랜딩페이지.
+        </h1>
+
+        <p class="detail-sub">
+          단순한 소개 페이지가 아닙니다. 고객이 폼을 작성하면 <strong style="color: var(--ink-1);">구글 시트에 자동 저장</strong>되고,
+          운영자에게 알림 메일이 발송됩니다. 이 웹사이트(simplydo.kr)가 바로 그 결과물입니다.
+          수기 정리 없이 고객 데이터가 체계적으로 쌓이는 랜딩페이지를 만들어 드립니다.
+        </p>
+
+        <div class="detail-cta-row">
+          <a href="index.html?consult=1&tier=랜딩페이지 제작" class="btn-sd btn-sd-primary">
+            직접 신청하기
+            <span class="arrow">→</span>
+          </a>
+          <a href="https://kmong.com/gig/662367" target="_blank" rel="noopener" class="btn-sd btn-sd-secondary">
+            크몽 안전결제 →
+          </a>
+        </div>
+      </div>
+
+      <div class="detail-price-badge">
+        <div class="dpb-label">Landing Page</div>
+        <div class="dpb-price">390,000<span class="dpb-unit">원~</span></div>
+      </div>
+    </section>
+
+    <!-- ==================== 왜 랜딩페이지가 필요한가요? ==================== -->
+    <section class="sd-section">
+      <div class="sec-eyebrow">Difference</div>
+      <h2 class="sec-title">아임웹·워드프레스와<br>뭐가 다른가요?</h2>
+      <p class="sec-desc">일반 랜딩페이지는 보여주기만 합니다. 심플리Do의 랜딩페이지는 데이터를 모읍니다.</p>
+
+      <div class="card-grid-3">
+        <div class="info-card">
+          <div class="ic-icon">📊</div>
+          <h3 class="ic-title">폼 입력 → 구글 시트<br>자동 저장</h3>
+          <p class="ic-desc">고객이 문의 폼을 작성하면 구글 시트에 실시간으로 쌓입니다. 별도 CRM 없이도 고객 DB가 자동으로 구축됩니다.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-icon">📬</div>
+          <h3 class="ic-title">접수 즉시<br>자동 알림 발송</h3>
+          <p class="ic-desc">문의가 들어오면 운영자에게 알림 메일이, 고객에게는 접수 확인 메일이 자동 발송됩니다. 하나도 놓치지 않습니다.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-icon">0원</div>
+          <h3 class="ic-title">월 구독료 0원<br>코드 100% 소유</h3>
+          <p class="ic-desc">아임웹·워드프레스처럼 매달 요금이 나가지 않습니다. 코드를 직접 소유하므로 플랫폼 종속 없이 영구 사용 가능합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 이런 결과물을 만들어 드립니다 ==================== -->
+    <section class="sd-section">
+      <div class="sec-eyebrow">What you get</div>
+      <h2 class="sec-title">이런 결과물을 만들어 드립니다</h2>
+
+      <div class="topic-grid">
+        <div class="topic-item"><span class="ti-check">✓</span>비즈니스에 맞춘 1페이지 반응형 디자인</div>
+        <div class="topic-item"><span class="ti-check">✓</span>모바일 · 태블릿 · PC 완벽 대응</div>
+        <div class="topic-item"><span class="ti-check">✓</span>문의/접수 폼 → 구글 시트 자동 저장</div>
+        <div class="topic-item"><span class="ti-check">✓</span>접수 시 고객 확인 메일 + 운영자 알림 발송</div>
+        <div class="topic-item"><span class="ti-check">✓</span>무료 호스팅 세팅 (GitHub Pages)</div>
+        <div class="topic-item"><span class="ti-check">✓</span>SEO 기본 설정 (메타태그, 오픈그래프)</div>
+        <div class="topic-item"><span class="ti-check">✓</span>구글 애널리틱스 방문자 추적 연동</div>
+        <div class="topic-item"><span class="ti-check">✓</span>납품 후 텍스트·이미지 수정 가이드 제공</div>
+      </div>
+    </section>
+
+    <!-- ==================== 진행 프로세스 ==================== -->
+    <section class="sd-section" id="process">
+      <div class="sec-eyebrow">Process</div>
+      <h2 class="sec-title">진행 프로세스</h2>
+
+      <div class="process-list">
+        <div class="process-step">
+          <div class="ps-num">1</div>
+          <div>
+            <h3 class="ps-title">사전 상담 및 자료 접수</h3>
+            <p class="ps-desc">사업 소개, 원하는 분위기, 참고 사이트, 로고/이미지 등 기초 자료를 전달해 주세요. 화상 미팅으로 방향을 잡습니다.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">2</div>
+          <div>
+            <h3 class="ps-title">디자인 & 개발 (5~7일)</h3>
+            <p class="ps-desc">전달받은 자료를 바탕으로 페이지를 제작합니다. 중간 시안을 공유하여 방향을 확인합니다.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">3</div>
+          <div>
+            <h3 class="ps-title">수정 및 검수</h3>
+            <p class="ps-desc">텍스트, 이미지, 레이아웃 등 피드백을 반영합니다. 모바일·PC에서 최종 확인 후 마무리합니다.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">4</div>
+          <div>
+            <h3 class="ps-title">배포 및 인수인계</h3>
+            <p class="ps-desc">무료 호스팅(GitHub Pages)에 배포하고, 도메인을 연결합니다. 간단한 수정 방법을 안내해 드립니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 가격 안내 ==================== -->
+    <section class="sd-section" id="price">
+      <div class="sec-eyebrow">Pricing</div>
+      <h2 class="sec-title">가격 안내</h2>
+
+      <div class="pricing-detail">
+        <div class="pd-card featured">
+          <div class="pd-label">기본 패키지</div>
+          <div class="pd-price">390,000<span class="pd-unit">원</span></div>
+          <div class="pd-unit">1페이지 · 반응형 · 폼 연동</div>
+          <ul class="pd-includes">
+            <li><span class="pd-check">✓</span>섹션 5~7개 구성 (히어로, 소개, 서비스, 후기, CTA 등)</li>
+            <li><span class="pd-check">✓</span>문의 폼 → 구글 시트 + 메일 알림</li>
+            <li><span class="pd-check">✓</span>모바일 반응형 디자인</li>
+            <li><span class="pd-check">✓</span>GitHub Pages 무료 호스팅</li>
+            <li><span class="pd-check">✓</span>SEO + 애널리틱스 기본 세팅</li>
+          </ul>
+        </div>
+
+        <div class="pd-card">
+          <div class="pd-label">추가 옵션</div>
+          <ul class="pd-includes" style="margin-top: 18px;">
+            <li><span class="pd-check">✓</span>추가 섹션 (1개당): 50,000원</li>
+            <li><span class="pd-check">✓</span>커스텀 도메인 연결: 30,000원</li>
+            <li><span class="pd-check">✓</span>문자/알림톡 연동 (솔라피): 100,000원~</li>
+            <li><span class="pd-check">✓</span>다국어 페이지 (영문 등): 200,000원~</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section class="sd-section">
+      <div class="sec-eyebrow">FAQ</div>
+      <h2 class="sec-title">자주 묻는 질문</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            기존에 도메인이 없어도 되나요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">네, GitHub Pages 기본 URL(username.github.io)로 바로 사용 가능합니다. 별도 도메인을 원하시면 추가 옵션으로 연결해 드립니다.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            납품 후 내용 수정은 어떻게 하나요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">텍스트나 이미지 변경 방법을 담은 수정 가이드를 제공합니다. 간단한 수정은 직접 하실 수 있고, 구조적인 변경이 필요하면 별도 문의해 주세요.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            아임웹이나 워드프레스와 뭐가 다른가요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">월 구독료가 없고, 코드를 직접 소유하므로 플랫폼 종속이 없습니다. 속도가 빠르고, 구글 시트 연동 같은 커스텀 기능을 자유롭게 추가할 수 있습니다.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            제작 기간은 얼마나 걸리나요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">자료 접수 후 보통 5~7일이면 완성됩니다. 수정 피드백 기간에 따라 최종 배포까지 1~2주 정도 소요됩니다.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            환불이 가능한가요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">크몽 안전결제로 구매하신 경우, 결과물 확인 후 만족하지 못하시면 크몽을 통해 전액 환불됩니다.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Final CTA ==================== -->
+    <section class="detail-cta">
+      <div class="detail-cta-inner">
+        <h2 class="detail-cta-title">
+          사업의 얼굴, 지금 만들어 보세요.
+        </h2>
+        <p class="detail-cta-sub">
+          한 번 만들면 유지비 0원. 24시간 고객을 맞이하는 나만의 웹사이트.
+        </p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+          <a href="index.html?consult=1&tier=랜딩페이지 제작" class="detail-cta-btn">
+            직접 신청하기 →
+          </a>
+          <a href="https://kmong.com/gig/662367" target="_blank" rel="noopener" class="detail-cta-btn" style="background: transparent; color: var(--bg); border-color: oklch(0.40 0.008 260);">
+            크몽 안전결제 →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Footer ==================== -->
+    <footer class="sd-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <div class="brand-mark">S</div>
+            <span>SimplyDo</span>
+          </a>
+          <div class="footer-meta">
+            크몽 평점 5.0 · 구글 스프레드시트 기반 업무 자동화 전문<br>
+            (Google Apps Script)<br><br>
+            상호: 심플리Do · 대표: 박초롱<br>
+            사업자등록번호: 207-28-02850<br>
+            주소: 부산광역시 해운대구 수영강변대로 382, 104동 102호<br>
+            contact@simplydo.kr
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>서비스</h5>
+          <ul>
+            <li><a href="index.html#products">상품</a></li>
+            <li><a href="index.html#pricing">맞춤 제작</a></li>
+            <li><a href="index.html#consulting">무료 상담</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>리소스</h5>
+          <ul>
+            <li><a href="https://kmong.com/gig/662367" target="_blank" rel="noopener">크몽 후기</a></li>
+            <li><a href="index.html#usecases">활용 사례</a></li>
+            <li><a href="mailto:contact@simplydo.kr">문의하기</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SimplyDo. All rights reserved.</span>
+        <span>BUSAN · KOREA</span>
+      </div>
+    </footer>
+</body>
+</html>

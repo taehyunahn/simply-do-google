@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="회사 도메인으로 프로페셔널한 이메일 환경을 구축해 드립니다. 도메인 연결부터 보안 설정, 사용법 안내까지 원스톱.">
+    <meta name="keywords" content="구글워크스페이스, Google Workspace, 회사이메일, 도메인이메일, 이메일세팅, 심플리Do">
+    <title>구글워크스페이스 회사 이메일 세팅 | 심플리Do</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg: oklch(0.992 0.003 80); --bg-soft: oklch(0.975 0.004 80); --bg-elev: #ffffff;
+        --line: oklch(0.92 0.005 80); --line-strong: oklch(0.86 0.006 80);
+        --ink-1: oklch(0.18 0.008 260); --ink-2: oklch(0.38 0.006 260);
+        --ink-3: oklch(0.55 0.006 260); --ink-4: oklch(0.72 0.006 260);
+        --accent: oklch(0.52 0.13 165); --accent-soft: oklch(0.96 0.03 165); --accent-ink: oklch(0.32 0.08 165);
+        --ok: oklch(0.65 0.16 150); --warn: oklch(0.78 0.14 75);
+        --radius: 10px; --radius-lg: 14px;
+        --shadow-sm: 0 1px 2px rgba(15,20,30,.04), 0 1px 1px rgba(15,20,30,.03);
+        --shadow-md: 0 1px 2px rgba(15,20,30,.04), 0 8px 24px -8px rgba(15,20,30,.08);
+        --shadow-lg: 0 1px 2px rgba(15,20,30,.04), 0 24px 48px -16px rgba(15,20,30,.10);
+        --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      html, body { margin: 0; padding: 0; }
+      body { font-family: var(--font-sans); color: var(--ink-1); background: var(--bg); -webkit-font-smoothing: antialiased; font-feature-settings: "ss01","ss02","tnum"; letter-spacing: -0.01em; }
+      a { color: inherit; text-decoration: none; }
+      button { font-family: inherit; cursor: pointer; }
+      *, *::before, *::after { box-sizing: border-box; }
+
+      /* ─── Nav ─── */
+      .nav-wrap { position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, var(--bg) 80%, transparent); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid color-mix(in oklch, var(--line) 60%, transparent); }
+      .nav { max-width: 1200px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; gap: 32px; }
+      .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.02em; color: var(--ink-1); }
+      .brand-mark { width: 22px; height: 22px; border-radius: 6px; background: var(--ink-1); display: grid; place-items: center; color: var(--bg); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+      .nav-links { display: flex; gap: 28px; margin-left: 12px; }
+      .nav-links a { font-size: 14px; color: var(--ink-2); transition: color .15s; }
+      .nav-links a:hover { color: var(--ink-1); }
+      .nav-spacer { flex: 1; }
+      .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--ink-1); color: var(--bg); border: 1px solid var(--ink-1); border-radius: 8px; font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em; transition: transform .15s, background .15s; }
+      .nav-cta:hover { background: oklch(0.10 0.008 260); }
+
+      /* ─── Layout ─── */
+      .sd-section { max-width: 1200px; margin: 0 auto; padding: 100px 32px; }
+      .sd-section + .sd-section { padding-top: 0; }
+
+      /* ─── Detail Hero ─── */
+      .detail-hero { max-width: 1200px; margin: 0 auto; padding: 80px 32px 100px; display: grid; grid-template-columns: 1fr auto; gap: 56px; align-items: start; }
+      .detail-hero-content { max-width: 640px; }
+      .detail-breadcrumb { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-3); margin-bottom: 24px; }
+      .detail-breadcrumb a:hover { color: var(--ink-1); }
+      .detail-breadcrumb .sep { color: var(--ink-4); }
+      .detail-h1 { margin: 0; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; letter-spacing: -0.035em; font-weight: 600; text-wrap: balance; }
+      .detail-sub { margin: 20px 0 0; font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 540px; }
+      .detail-cta-row { margin-top: 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+      .btn-sd { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 10px; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s, box-shadow .2s; background: none; }
+      .btn-sd-primary { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, var(--shadow-sm); }
+      .btn-sd-primary:hover { background: oklch(0.10 0.008 260); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+      .btn-sd-secondary { background: var(--bg-elev); color: var(--ink-1); border-color: var(--line-strong); }
+      .btn-sd-secondary:hover { border-color: var(--ink-3); }
+      .btn-sd .arrow { transition: transform .2s; }
+      .btn-sd:hover .arrow { transform: translateX(2px); }
+
+      .detail-price-badge { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 32px; box-shadow: var(--shadow-md); text-align: center; min-width: 240px; }
+      .detail-price-badge .dpb-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); }
+      .detail-price-badge .dpb-price { margin: 12px 0 4px; font-size: 36px; font-weight: 600; letter-spacing: -0.025em; }
+      .detail-price-badge .dpb-unit { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+      .detail-price-badge .dpb-note { margin-top: 8px; font-size: 13px; color: var(--ink-3); }
+
+      /* ─── Section Headings ─── */
+      .sec-eyebrow { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); display: flex; align-items: center; gap: 10px; }
+      .sec-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--ink-4); }
+      .sec-title { margin: 14px 0 0; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 600; text-wrap: balance; }
+      .sec-desc { margin: 16px 0 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 560px; }
+
+      /* ─── Cards ─── */
+      .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
+      .info-card { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 28px; display: flex; flex-direction: column; gap: 14px; transition: border-color .15s; }
+      .info-card:hover { border-color: var(--ink-4); }
+      .info-card .ic-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 14px; color: var(--ink-2); }
+      .info-card .ic-title { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
+      .info-card .ic-desc { font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+
+      /* ─── Process Steps ─── */
+      .process-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
+      .process-step { display: grid; grid-template-columns: 56px 1fr; gap: 24px; padding: 32px 0; border-bottom: 1px solid var(--line); }
+      .process-step:first-child { padding-top: 0; }
+      .process-step:last-child { border-bottom: none; }
+      .ps-num { width: 40px; height: 40px; border-radius: 10px; background: var(--ink-1); color: var(--bg); font-family: var(--font-mono); font-size: 15px; font-weight: 600; display: grid; place-items: center; }
+      .ps-title { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+      .ps-desc { font-size: 14.5px; line-height: 1.65; color: var(--ink-2); margin: 0; }
+
+      /* ─── Topics ─── */
+      .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 40px; }
+      .topic-item { display: flex; align-items: flex-start; gap: 12px; padding: 18px 20px; background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius); font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+      .topic-item .ti-check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 10px; font-weight: 700; margin-top: 1px; }
+
+      /* ─── Pricing Detail ─── */
+      .pricing-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 40px; }
+      .pd-card { background: var(--bg-elev); border: 1px solid var(--line-strong); border-radius: var(--radius-lg); padding: 28px; }
+      .pd-card.featured { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); }
+      .pd-label { font-family: var(--font-mono); font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); }
+      .pd-card.featured .pd-label { color: oklch(0.65 0.06 165); }
+      .pd-price { margin: 14px 0 6px; font-size: 32px; font-weight: 600; letter-spacing: -0.025em; }
+      .pd-unit { font-size: 14px; font-weight: 500; color: var(--ink-3); }
+      .pd-card.featured .pd-unit { color: oklch(0.72 0.006 260); }
+      .pd-desc { margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+      .pd-card.featured .pd-desc { color: oklch(0.78 0.006 260); }
+      .pd-includes { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+      .pd-includes li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; list-style: none; }
+      .pd-card.featured .pd-includes li { color: oklch(0.86 0.006 260); }
+      .pd-check { flex-shrink: 0; width: 14px; height: 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 9px; font-weight: 700; margin-top: 2px; }
+      .pd-card.featured .pd-check { background: color-mix(in oklch, var(--accent) 30%, transparent); color: white; }
+
+      /* ─── FAQ ─── */
+      .faq-list { margin-top: 40px; display: flex; flex-direction: column; gap: 0; }
+      .faq-item { border-bottom: 1px solid var(--line); }
+      .faq-q { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0; background: none; border: none; font-size: 15px; font-weight: 600; color: var(--ink-1); text-align: left; letter-spacing: -0.01em; cursor: pointer; transition: color .15s; }
+      .faq-q:hover { color: var(--accent-ink); }
+      .faq-q .faq-arrow { font-size: 18px; color: var(--ink-4); transition: transform .2s; flex-shrink: 0; }
+      .faq-item.open .faq-arrow { transform: rotate(45deg); }
+      .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; }
+      .faq-item.open .faq-a { max-height: 300px; }
+      .faq-a-inner { padding: 0 0 22px; font-size: 14.5px; line-height: 1.7; color: var(--ink-2); }
+
+      /* ─── Final CTA ─── */
+      .detail-cta { max-width: 1200px; margin: 0 auto 100px; padding: 0 32px; }
+      .detail-cta-inner { background: var(--ink-1); color: var(--bg); border-radius: var(--radius-lg); padding: 56px; text-align: center; position: relative; overflow: hidden; }
+      .detail-cta-inner::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, oklch(0.26 0.008 260 / 0.6) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.26 0.008 260 / 0.6) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000, transparent 70%); pointer-events: none; }
+      .detail-cta-inner > * { position: relative; z-index: 1; }
+      .detail-cta-title { margin: 0; font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; }
+      .detail-cta-sub { margin: 14px auto 0; color: oklch(0.78 0.006 260); font-size: 15px; line-height: 1.55; max-width: 480px; }
+      .detail-cta-btns { margin-top: 28px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+      .detail-cta-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--bg); color: var(--ink-1); border-radius: 10px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid var(--bg); transition: transform .15s; cursor: pointer; }
+      .detail-cta-btn:hover { transform: translateY(-1px); }
+      .detail-cta-btn-secondary { display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: transparent; color: oklch(0.86 0.006 260); border-radius: 10px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid oklch(0.36 0.006 260); transition: transform .15s, border-color .15s; cursor: pointer; }
+      .detail-cta-btn-secondary:hover { transform: translateY(-1px); border-color: oklch(0.55 0.006 260); }
+
+      /* ─── Footer ─── */
+      .sd-footer { border-top: 1px solid var(--line); background: var(--bg-soft); }
+      .footer-inner { max-width: 1200px; margin: 0 auto; padding: 48px 32px 36px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 56px; }
+      .footer-brand .brand { font-size: 16px; }
+      .footer-meta { margin-top: 14px; font-size: 12.5px; line-height: 1.7; color: var(--ink-3); }
+      .footer-col h5 { margin: 0 0 14px; font-size: 11.5px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); font-weight: 500; }
+      .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+      .footer-col a { font-size: 13.5px; color: var(--ink-2); transition: color .15s; }
+      .footer-col a:hover { color: var(--ink-1); }
+      .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px 32px 28px; border-top: 1px dashed var(--line-strong); font-size: 12px; color: var(--ink-4); font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+      /* ─── Responsive ─── */
+      @media (max-width: 960px) {
+        .nav { padding: 14px 20px; }
+        .nav-links { display: none; }
+        .detail-hero { padding: 48px 20px 64px; grid-template-columns: 1fr; gap: 32px; }
+        .detail-price-badge { text-align: left; display: flex; align-items: center; gap: 20px; }
+        .sd-section { padding: 80px 20px; }
+        .card-grid-3 { grid-template-columns: 1fr; }
+        .topic-grid { grid-template-columns: 1fr; }
+        .pricing-detail { grid-template-columns: 1fr; }
+        .detail-cta { padding: 0 20px; margin-bottom: 60px; }
+        .detail-cta-inner { padding: 40px 28px; }
+        .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; padding: 36px 20px 24px; }
+        .footer-bottom { padding: 16px 20px 24px; flex-direction: column; }
+      }
+    </style>
+</head>
+<body>
+    <!-- ==================== Nav ==================== -->
+    <div class="nav-wrap">
+      <nav class="nav">
+        <a href="index.html" class="brand">
+          <div class="brand-mark">S</div>
+          <span>SimplyDo</span>
+        </a>
+        <div class="nav-links">
+          <a href="index.html#benefits">왜 심플리Do?</a>
+          <a href="index.html#products" style="color: var(--ink-1); font-weight: 500;">상품</a>
+          <a href="index.html#pricing">맞춤 제작</a>
+          <a href="index.html#consulting">무료 상담</a>
+        </div>
+        <div class="nav-spacer"></div>
+        <a href="index.html?consult=1" class="nav-cta">
+          무료 상담 신청
+          <span style="font-size: 14px;">→</span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- ==================== Hero ==================== -->
+    <section class="detail-hero">
+      <div class="detail-hero-content">
+        <div class="detail-breadcrumb">
+          <a href="index.html">홈</a>
+          <span class="sep">/</span>
+          <a href="index.html#products">상품</a>
+          <span class="sep">/</span>
+          <span style="color: var(--ink-1); font-weight: 500;">구글워크스페이스 이메일 세팅</span>
+        </div>
+
+        <h1 class="detail-h1">
+          회사 이메일,<br>
+          하루면 세팅 완료.
+        </h1>
+
+        <p class="detail-sub">
+          info@회사명.com — 신뢰감 있는 회사 이메일을 구글워크스페이스로 세팅해 드립니다.
+          도메인 연결부터 보안 설정, 관리자 교육까지 원스톱으로 진행합니다.
+        </p>
+
+        <div class="detail-cta-row">
+          <a href="index.html?consult=1&tier=워크스페이스 세팅" class="btn-sd btn-sd-primary">
+            직접 신청하기
+            <span class="arrow">→</span>
+          </a>
+          <a href="https://kmong.com/gig/662367" target="_blank" rel="noopener" class="btn-sd btn-sd-secondary">
+            크몽 안전결제
+            <span class="arrow">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="detail-price-badge">
+        <div class="dpb-label">Workspace Setup</div>
+        <div class="dpb-price">95,000<span class="dpb-unit">원</span></div>
+        <div class="dpb-unit">도메인 1개 · 계정 5개 기준</div>
+      </div>
+    </section>
+
+    <!-- ==================== 이런 분께 필요합니다 ==================== -->
+    <section class="sd-section">
+      <div class="sec-eyebrow">Who it's for</div>
+      <h2 class="sec-title">이런 분께 필요합니다</h2>
+
+      <div class="card-grid-3">
+        <div class="info-card">
+          <div class="ic-icon" style="font-family: inherit; font-size: 18px;">🏢</div>
+          <h3 class="ic-title">사업 초기 대표님</h3>
+          <p class="ic-desc">gmail.com 대신 회사 도메인 이메일로 거래처에 전문적인 인상을 주고 싶은 분. 명함에 넣을 공식 이메일이 필요한 분.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-icon" style="font-family: inherit; font-size: 18px;">👥</div>
+          <h3 class="ic-title">팀원이 생긴 소규모 기업</h3>
+          <p class="ic-desc">직원별 이메일 계정을 만들고, 공유 캘린더와 드라이브까지 한번에 세팅하고 싶은 분.</p>
+        </div>
+
+        <div class="info-card">
+          <div class="ic-icon" style="font-family: inherit; font-size: 18px;">🔒</div>
+          <h3 class="ic-title">보안이 걱정되는 분</h3>
+          <p class="ic-desc">기존 무료 이메일의 보안이 불안하거나, 퇴사자 계정 관리가 필요한 분. 2단계 인증과 관리자 콘솔로 해결.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 세팅 범위 ==================== -->
+    <section class="sd-section">
+      <div class="sec-eyebrow">What's included</div>
+      <h2 class="sec-title">세팅 범위</h2>
+
+      <div class="topic-grid">
+        <div class="topic-item"><span class="ti-check">✓</span>도메인 DNS / MX 레코드 설정</div>
+        <div class="topic-item"><span class="ti-check">✓</span>사용자 계정 생성 및 초기 비밀번호 세팅</div>
+        <div class="topic-item"><span class="ti-check">✓</span>조직 단위(OU) 구조 설정</div>
+        <div class="topic-item"><span class="ti-check">✓</span>2단계 인증 및 보안 정책 설정</div>
+        <div class="topic-item"><span class="ti-check">✓</span>관리자 콘솔 사용법 1:1 안내</div>
+        <div class="topic-item"><span class="ti-check">✓</span>이메일 서명 템플릿 제작 및 적용</div>
+        <div class="topic-item"><span class="ti-check">✓</span>기존 이메일 → 워크스페이스 마이그레이션</div>
+        <div class="topic-item"><span class="ti-check">✓</span>공유 캘린더 · 드라이브 기본 세팅</div>
+      </div>
+    </section>
+
+    <!-- ==================== 진행 프로세스 ==================== -->
+    <section class="sd-section" id="process">
+      <div class="sec-eyebrow">Process</div>
+      <h2 class="sec-title">진행 프로세스</h2>
+
+      <div class="process-list">
+        <div class="process-step">
+          <div class="ps-num">1</div>
+          <div>
+            <h3 class="ps-title">사전 접수</h3>
+            <p class="ps-desc">회사 도메인, 필요한 계정 수, 현재 이메일 환경 등을 미리 알려주세요.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">2</div>
+          <div>
+            <h3 class="ps-title">세팅 진행 (1~2일)</h3>
+            <p class="ps-desc">Google Workspace 관리자 콘솔에서 도메인 연결, 계정 생성, 보안 설정을 진행합니다. 화면 공유로 함께 확인하실 수 있습니다.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="ps-num">3</div>
+          <div>
+            <h3 class="ps-title">인수인계 및 교육</h3>
+            <p class="ps-desc">관리자 콘솔 사용법, 사용자 추가/삭제 방법, 이메일 서명 변경 방법 등을 안내합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 가격 안내 ==================== -->
+    <section class="sd-section" id="price">
+      <div class="sec-eyebrow">Pricing</div>
+      <h2 class="sec-title">가격 안내</h2>
+
+      <div class="pricing-detail">
+        <div class="pd-card featured">
+          <div class="pd-label">기본 세팅</div>
+          <div class="pd-price">95,000<span class="pd-unit">원</span></div>
+          <div class="pd-unit">도메인 1개 · 계정 5개까지</div>
+          <ul class="pd-includes">
+            <li><span class="pd-check">✓</span>도메인 연결 및 DNS 설정</li>
+            <li><span class="pd-check">✓</span>사용자 계정 생성 (5개까지)</li>
+            <li><span class="pd-check">✓</span>2단계 인증 설정</li>
+            <li><span class="pd-check">✓</span>관리자 콘솔 사용법 안내</li>
+            <li><span class="pd-check">✓</span>이메일 서명 템플릿 1종</li>
+          </ul>
+        </div>
+
+        <div class="pd-card">
+          <div class="pd-label">추가 옵션</div>
+          <ul class="pd-includes" style="margin-top: 18px;">
+            <li><span class="pd-check">✓</span>추가 계정 (6개~): 계정당 10,000원</li>
+            <li><span class="pd-check">✓</span>이메일 마이그레이션: 50,000원~</li>
+            <li><span class="pd-check">✓</span>공유 드라이브 구조 설계: 50,000원</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section class="sd-section">
+      <div class="sec-eyebrow">FAQ</div>
+      <h2 class="sec-title">자주 묻는 질문</h2>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            이미 도메인이 있어야 하나요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">네, 회사 도메인(예: example.com)이 필요합니다. 도메인이 없으시면 구매 방법도 안내해 드립니다.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            Google Workspace 구독료는 별도인가요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">네, Google Workspace 자체 구독료(월 $7.20~/사용자)는 구글에 직접 결제하시는 비용입니다. 저희 세팅 비용과는 별도입니다.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            기존 이메일 내용을 옮길 수 있나요?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">네, 기존 Gmail이나 타 이메일 서비스의 메일을 워크스페이스로 마이그레이션할 수 있습니다. 추가 옵션으로 진행됩니다.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button type="button" class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            세팅 후 문제가 생기면?
+            <span class="faq-arrow">+</span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">세팅 완료 후 2주간 무상 A/S를 제공합니다. 이후에도 간단한 질문은 이메일로 답변 드립니다.</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Final CTA ==================== -->
+    <section class="detail-cta">
+      <div class="detail-cta-inner">
+        <h2 class="detail-cta-title">
+          회사 이메일, 더 이상 미루지 마세요.
+        </h2>
+        <p class="detail-cta-sub">
+          하루면 세팅 완료. 전문적인 비즈니스 이메일을 시작하세요.
+        </p>
+        <div class="detail-cta-btns">
+          <a href="index.html?consult=1&tier=워크스페이스 세팅" class="detail-cta-btn">
+            직접 신청하기
+            <span style="font-size: 16px;">→</span>
+          </a>
+          <a href="https://kmong.com/gig/662367" target="_blank" rel="noopener" class="detail-cta-btn-secondary">
+            크몽 안전결제
+            <span style="font-size: 16px;">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== Footer ==================== -->
+    <footer class="sd-footer">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a href="index.html" class="brand">
+            <div class="brand-mark">S</div>
+            <span>SimplyDo</span>
+          </a>
+          <div class="footer-meta">
+            크몽 평점 5.0 · 구글 스프레드시트 기반 업무 자동화 전문<br>
+            (Google Apps Script)<br><br>
+            상호: 심플리Do · 대표: 박초롱<br>
+            사업자등록번호: 207-28-02850<br>
+            주소: 부산광역시 해운대구 수영강변대로 382, 104동 102호<br>
+            contact@simplydo.kr
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>서비스</h5>
+          <ul>
+            <li><a href="index.html#products">상품</a></li>
+            <li><a href="index.html#pricing">맞춤 제작</a></li>
+            <li><a href="index.html#consulting">무료 상담</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>리소스</h5>
+          <ul>
+            <li><a href="https://kmong.com/gig/662367" target="_blank" rel="noopener">크몽 후기</a></li>
+            <li><a href="index.html#usecases">활용 사례</a></li>
+            <li><a href="mailto:contact@simplydo.kr">문의하기</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 SimplyDo. All rights reserved.</span>
+        <span>BUSAN · KOREA</span>
+      </div>
+    </footer>
+</body>
+</html>
