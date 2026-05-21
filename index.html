@@ -904,7 +904,7 @@
       <div class="product-carousel-wrap">
         <div class="product-carousel" id="product-carousel">
 
-          <div class="product-card" onclick="location.href='product-001.html'">
+          <div class="product-card" data-product-id="invoice" onclick="location.href='product-001.html'">
             <div class="product-thumb" style="background: linear-gradient(135deg, oklch(0.35 0.08 230), oklch(0.48 0.10 200));">
               <span class="pt-tag">템플릿</span>
               <h3 class="pt-title">스마트 인보이스</h3>
@@ -918,7 +918,7 @@
             </div>
           </div>
 
-          <div class="product-card" onclick="location.href='product-002.html'">
+          <div class="product-card" data-product-id="tutoring" onclick="location.href='product-002.html'">
             <div class="product-thumb" style="background: linear-gradient(135deg, oklch(0.20 0.01 260), oklch(0.30 0.03 240));">
               <span class="pt-tag">라이브 과외</span>
               <h3 class="pt-title">1:1 라이브<br>자동화 과외</h3>
@@ -932,7 +932,7 @@
             </div>
           </div>
 
-          <div class="product-card" onclick="location.href='product-003.html'">
+          <div class="product-card" data-product-id="workspace" onclick="location.href='product-003.html'">
             <div class="product-thumb" style="background: linear-gradient(135deg, oklch(0.38 0.10 165), oklch(0.50 0.12 150));">
               <span class="pt-tag">세팅</span>
               <h3 class="pt-title">구글워크스페이스<br>이메일 세팅</h3>
@@ -946,7 +946,7 @@
             </div>
           </div>
 
-          <div class="product-card" onclick="location.href='product-004.html'">
+          <div class="product-card" data-product-id="landing" onclick="location.href='product-004.html'">
             <div class="product-thumb" style="background: linear-gradient(135deg, oklch(0.30 0.06 280), oklch(0.42 0.10 260));">
               <span class="pt-tag">웹사이트</span>
               <h3 class="pt-title">랜딩페이지<br>제작</h3>
@@ -1640,6 +1640,20 @@
     })();
     </script>
 
+    <script>
+    (function() {
+      var url = 'https://script.google.com/macros/s/AKfycbyU48extpJX8Eb6NBjNFSOo5fHP8jnTGJ8FxKOJA-iU8FRU1PAQQlpaHTKLHNBHqb2P_A/exec?action=getProducts';
+      fetch(url).then(function(r) { return r.json(); }).then(function(data) {
+        if (!data.products) return;
+        Object.keys(data.products).forEach(function(id) {
+          if (!data.products[id].visible) {
+            var card = document.querySelector('[data-product-id="' + id + '"]');
+            if (card) card.style.display = 'none';
+          }
+        });
+      }).catch(function() {});
+    })();
+    </script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
 </body>

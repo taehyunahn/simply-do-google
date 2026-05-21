@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>관리자 | 심플리Do</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" rel="stylesheet">
+
+    <style>
+      :root {
+        --bg: oklch(0.992 0.003 80); --bg-soft: oklch(0.975 0.004 80); --bg-elev: #ffffff;
+        --line: oklch(0.92 0.005 80); --line-strong: oklch(0.86 0.006 80);
+        --ink-1: oklch(0.18 0.008 260); --ink-2: oklch(0.38 0.006 260);
+        --ink-3: oklch(0.55 0.006 260); --ink-4: oklch(0.72 0.006 260);
+        --accent: oklch(0.52 0.13 165); --accent-soft: oklch(0.96 0.03 165); --accent-ink: oklch(0.32 0.08 165);
+        --radius: 10px; --radius-lg: 14px;
+        --shadow-sm: 0 1px 2px rgba(15,20,30,.04), 0 1px 1px rgba(15,20,30,.03);
+        --shadow-md: 0 1px 2px rgba(15,20,30,.04), 0 8px 24px -8px rgba(15,20,30,.08);
+        --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+
+      html, body { margin: 0; padding: 0; }
+      body { font-family: var(--font-sans); color: var(--ink-1); background: var(--bg); -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
+      *, *::before, *::after { box-sizing: border-box; }
+
+      /* ─── Login ─── */
+      .login-wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .login-box {
+        background: var(--bg-elev);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-lg);
+        padding: 40px 36px;
+        width: 100%;
+        max-width: 380px;
+        box-shadow: var(--shadow-md);
+        text-align: center;
+      }
+      .login-box h1 {
+        margin: 0 0 8px;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .login-box p {
+        margin: 0 0 24px;
+        font-size: 14px;
+        color: var(--ink-3);
+      }
+      .login-input {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 14px;
+        outline: none;
+        transition: border-color .15s;
+        background: var(--bg);
+      }
+      .login-input:focus {
+        border-color: var(--accent);
+      }
+      .login-btn {
+        width: 100%;
+        margin-top: 12px;
+        padding: 12px;
+        background: var(--ink-1);
+        color: var(--bg);
+        border: none;
+        border-radius: var(--radius);
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background .15s;
+      }
+      .login-btn:hover { background: oklch(0.10 0.008 260); }
+      .login-error {
+        margin-top: 12px;
+        font-size: 13px;
+        color: oklch(0.55 0.2 25);
+        display: none;
+      }
+
+      /* ─── Admin Panel ─── */
+      .admin-wrap {
+        display: none;
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 48px 24px 80px;
+      }
+      .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 32px;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .admin-header h1 {
+        margin: 0;
+        font-size: 22px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+      .admin-status {
+        font-size: 13px;
+        color: var(--ink-3);
+      }
+
+      /* ─── Product List ─── */
+      .product-list {
+        background: var(--bg-elev);
+        border: 1px solid var(--line-strong);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+      .product-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 20px 24px;
+        border-bottom: 1px solid var(--line);
+        transition: opacity .2s;
+      }
+      .product-row:last-child { border-bottom: none; }
+      .product-row.off .product-info { opacity: 0.4; }
+      .product-info { flex: 1; min-width: 0; transition: opacity .2s; }
+      .product-name {
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin: 0 0 4px;
+      }
+      .product-meta {
+        font-size: 13px;
+        color: var(--ink-3);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .product-price { color: var(--ink-2); }
+      .product-file {
+        color: var(--ink-4);
+        text-decoration: none;
+        transition: color .15s;
+      }
+      .product-file:hover { color: var(--accent-ink); }
+
+      /* ─── Toggle Switch ─── */
+      .toggle {
+        position: relative;
+        width: 44px;
+        height: 24px;
+        flex-shrink: 0;
+      }
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
+      .toggle-track {
+        position: absolute;
+        inset: 0;
+        background: var(--line-strong);
+        border-radius: 999px;
+        cursor: pointer;
+        transition: background .2s;
+      }
+      .toggle-track::after {
+        content: "";
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 20px;
+        height: 20px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 1px 3px rgba(0,0,0,.15);
+        transition: transform .2s;
+      }
+      .toggle input:checked + .toggle-track {
+        background: var(--accent);
+      }
+      .toggle input:checked + .toggle-track::after {
+        transform: translateX(20px);
+      }
+
+      /* ─── Footer Note ─── */
+      .admin-note {
+        margin-top: 24px;
+        padding: 20px 24px;
+        background: var(--bg-soft);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        font-size: 13px;
+        line-height: 1.7;
+        color: var(--ink-3);
+      }
+
+      /* ─── Responsive ─── */
+      @media (max-width: 480px) {
+        .admin-wrap { padding: 32px 16px 60px; }
+        .product-row { padding: 16px 18px; }
+        .login-box { padding: 32px 24px; }
+      }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== Login Gate ==================== -->
+    <div id="loginWrap" class="login-wrap">
+      <div class="login-box">
+        <h1>SimplyDo</h1>
+        <p>관리자 로그인</p>
+        <input type="password" id="pwInput" class="login-input" placeholder="비밀번호를 입력하세요" autocomplete="off">
+        <button type="button" id="loginBtn" class="login-btn">로그인</button>
+        <div id="loginError" class="login-error">비밀번호가 올바르지 않습니다.</div>
+      </div>
+    </div>
+
+    <!-- ==================== Admin Panel ==================== -->
+    <div id="adminWrap" class="admin-wrap">
+      <div class="admin-header">
+        <h1>SimplyDo &middot; 관리자</h1>
+        <span id="statusText" class="admin-status"></span>
+      </div>
+
+      <div id="productList" class="product-list">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="admin-note">
+        설정 변경 후 메인 페이지를 새로고침하면 반영됩니다.<br>
+        비밀번호를 변경하려면 admin.html 파일의 ADMIN_PASSWORD 값을 수정하세요.
+      </div>
+    </div>
+
+    <script>
+    (function() {
+      var ADMIN_PASSWORD = 'simplydo2026';
+      var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU48extpJX8Eb6NBjNFSOo5fHP8jnTGJ8FxKOJA-iU8FRU1PAQQlpaHTKLHNBHqb2P_A/exec';
+
+      var products = [
+        { id: 'invoice', name: '스마트 인보이스', price: '50,000원', file: 'product-001.html' },
+        { id: 'tutoring', name: '1:1 라이브 자동화 과외', price: '120,000원/60분', file: 'product-002.html' },
+        { id: 'workspace', name: '구글워크스페이스 이메일 세팅', price: '95,000원', file: 'product-003.html' },
+        { id: 'landing', name: '랜딩페이지 제작', price: '390,000원~', file: 'product-004.html' }
+      ];
+
+      var visibility = {};
+
+      // --- Elements ---
+      var loginWrap = document.getElementById('loginWrap');
+      var adminWrap = document.getElementById('adminWrap');
+      var pwInput = document.getElementById('pwInput');
+      var loginBtn = document.getElementById('loginBtn');
+      var loginError = document.getElementById('loginError');
+      var productList = document.getElementById('productList');
+      var statusText = document.getElementById('statusText');
+
+      // --- Auth ---
+      function checkAuth() {
+        if (sessionStorage.getItem('simplydo_admin') === 'true') {
+          showAdmin();
+        }
+      }
+
+      function attemptLogin() {
+        var pw = pwInput.value.trim();
+        if (pw === ADMIN_PASSWORD) {
+          sessionStorage.setItem('simplydo_admin', 'true');
+          loginError.style.display = 'none';
+          showAdmin();
+        } else {
+          loginError.style.display = 'block';
+          pwInput.value = '';
+          pwInput.focus();
+        }
+      }
+
+      loginBtn.addEventListener('click', attemptLogin);
+      pwInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') attemptLogin();
+      });
+
+      // --- Admin Panel ---
+      function showAdmin() {
+        loginWrap.style.display = 'none';
+        adminWrap.style.display = 'block';
+        loadSettings();
+      }
+
+      function loadSettings() {
+        statusText.textContent = '설정 불러오는 중...';
+
+        // Default all visible
+        products.forEach(function(p) {
+          visibility[p.id] = true;
+        });
+
+        fetch(SCRIPT_URL + '?action=getProducts')
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            if (data && data.products) {
+              var saved = data.products;
+              products.forEach(function(p) {
+                if (saved[p.id] && typeof saved[p.id].visible === 'boolean') {
+                  visibility[p.id] = saved[p.id].visible;
+                }
+              });
+            }
+            statusText.textContent = '';
+            renderProducts();
+          })
+          .catch(function() {
+            statusText.textContent = '기본 설정으로 표시합니다.';
+            renderProducts();
+          });
+      }
+
+      function renderProducts() {
+        productList.innerHTML = '';
+
+        products.forEach(function(p) {
+          var isOn = visibility[p.id];
+
+          var row = document.createElement('div');
+          row.className = 'product-row' + (isOn ? '' : ' off');
+          row.setAttribute('data-id', p.id);
+
+          var info = document.createElement('div');
+          info.className = 'product-info';
+
+          var name = document.createElement('div');
+          name.className = 'product-name';
+          name.textContent = p.name;
+
+          var meta = document.createElement('div');
+          meta.className = 'product-meta';
+
+          var price = document.createElement('span');
+          price.className = 'product-price';
+          price.textContent = p.price;
+
+          var file = document.createElement('a');
+          file.className = 'product-file';
+          file.href = p.file;
+          file.target = '_blank';
+          file.textContent = p.file;
+
+          meta.appendChild(price);
+          meta.appendChild(file);
+          info.appendChild(name);
+          info.appendChild(meta);
+
+          var toggle = document.createElement('label');
+          toggle.className = 'toggle';
+
+          var input = document.createElement('input');
+          input.type = 'checkbox';
+          input.checked = isOn;
+          input.setAttribute('data-id', p.id);
+          input.addEventListener('change', function() {
+            onToggle(p.id, this.checked);
+          });
+
+          var track = document.createElement('span');
+          track.className = 'toggle-track';
+
+          toggle.appendChild(input);
+          toggle.appendChild(track);
+
+          row.appendChild(info);
+          row.appendChild(toggle);
+          productList.appendChild(row);
+        });
+      }
+
+      function onToggle(id, isOn) {
+        visibility[id] = isOn;
+
+        // Update row styling
+        var row = productList.querySelector('[data-id="' + id + '"]');
+        if (row) {
+          if (isOn) {
+            row.classList.remove('off');
+          } else {
+            row.classList.add('off');
+          }
+        }
+
+        saveSettings();
+      }
+
+      function saveSettings() {
+        statusText.textContent = '저장 중...';
+
+        var payload = { type: 'productConfig', products: {} };
+        products.forEach(function(p) {
+          payload.products[p.id] = {
+            name: p.name,
+            visible: visibility[p.id]
+          };
+        });
+
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        }).catch(function() {
+          // no-cors won't give us a readable response, ignore errors
+        });
+
+        // Since no-cors can't read response, show success after delay
+        setTimeout(function() {
+          var now = new Date();
+          var hh = String(now.getHours()).padStart(2, '0');
+          var mm = String(now.getMinutes()).padStart(2, '0');
+          var ss = String(now.getSeconds()).padStart(2, '0');
+          statusText.textContent = '저장 완료 (' + hh + ':' + mm + ':' + ss + ')';
+        }, 1500);
+      }
+
+      // --- Init ---
+      checkAuth();
+    })();
+    </script>
+</body>
+</html>
