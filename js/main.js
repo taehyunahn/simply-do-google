@@ -157,6 +157,7 @@ function handleOrderSubmit(e, type) {
 
   // Google Apps Script 연동
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyU48extpJX8Eb6NBjNFSOo5fHP8jnTGJ8FxKOJA-iU8FRU1PAQQlpaHTKLHNBHqb2P_A/exec';
+
   fetch(APPS_SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',

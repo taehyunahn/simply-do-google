@@ -21,10 +21,10 @@ const PRODUCTS = {
         '일정 조율: 최적의 빌드 환경을 세팅한 후 라이브 미팅 일정을 잡습니다.',
         '60분 라이브 세션: 화면 공유를 통해 작업 과정을 직관적으로 보여드리며, 작동 원리와 AI 활용 커스터마이징 팁을 전수합니다.'
       ],
-      price: 120000,
-      priceLabel: '120,000원 / 60분',
-      priceType: 'fixed',
-      note: '추가 30분당 30,000원이 적용됩니다.'
+      price: null,
+      priceLabel: '상담 후 안내',
+      priceType: 'consultation',
+      note: '무료 상담 후 맞춤 견적을 안내해 드립니다.'
     }
   },
 
@@ -52,8 +52,8 @@ const PRODUCTS = {
             '스마트 워크 환경: 구글 캘린더 일정 자동 등록, 구글 드라이브 내 고객별/업체별 폴더 자동 생성 및 관리'
           ],
           target: '1인 기업가, 소규모 교습소, 관리가 필요한 개인 사업자',
-          price: 250000,
-          priceLabel: '250,000원'
+          price: null,
+          priceLabel: '상담 후 안내'
         },
         deluxe: {
           name: '확장형',
@@ -66,8 +66,8 @@ const PRODUCTS = {
             '협업 최적화: 팀원 간 실시간 상태값 동기화 및 모바일 최적화 화면 제공'
           ],
           target: '직원이 있는 학원, 매물 공유가 잦은 부동산, 외부 문의가 많은 서비스업',
-          price: 390000,
-          priceLabel: '390,000원'
+          price: null,
+          priceLabel: '상담 후 안내'
         },
         premium: {
           name: 'AI 활용형',
@@ -80,8 +80,8 @@ const PRODUCTS = {
             '전문가 전용 대시보드: 복잡한 데이터를 직관적인 시각화 차트로 구현하여 의사결정 지원'
           ],
           target: '데이터 기반 마케팅이 필요한 학원, 방대한 상담 기록 요약이 필요한 전문직',
-          price: 600000,
-          priceLabel: '600,000원~'
+          price: null,
+          priceLabel: '상담 후 안내'
         }
       },
       price: null,

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="심플리Do 1:1 라이브 자동화 과외 - 막힌 Apps Script를 전문가와 실시간으로 해결하는 라이브 세션. 120,000원/60분.">
+    <meta name="description" content="심플리Do 1:1 라이브 자동화 과외 - 막힌 Apps Script를 전문가와 실시간으로 해결하는 라이브 세션.">
     <meta name="keywords" content="AppsScript과외, 구글시트자동화, 1:1코딩, 라이브과외, 심플리Do">
     <title>1:1 라이브 자동화 과외 | 심플리Do</title>
 
@@ -14,16 +14,15 @@
 
     <style>
       :root {
-        --bg: oklch(0.992 0.003 80); --bg-soft: oklch(0.975 0.004 80); --bg-elev: #ffffff;
-        --line: oklch(0.92 0.005 80); --line-strong: oklch(0.86 0.006 80);
-        --ink-1: oklch(0.18 0.008 260); --ink-2: oklch(0.38 0.006 260);
-        --ink-3: oklch(0.55 0.006 260); --ink-4: oklch(0.72 0.006 260);
-        --accent: oklch(0.52 0.13 165); --accent-soft: oklch(0.96 0.03 165); --accent-ink: oklch(0.32 0.08 165);
-        --ok: oklch(0.65 0.16 150); --warn: oklch(0.78 0.14 75);
-        --radius: 10px; --radius-lg: 14px;
-        --shadow-sm: 0 1px 2px rgba(15,20,30,.04), 0 1px 1px rgba(15,20,30,.03);
-        --shadow-md: 0 1px 2px rgba(15,20,30,.04), 0 8px 24px -8px rgba(15,20,30,.08);
-        --shadow-lg: 0 1px 2px rgba(15,20,30,.04), 0 24px 48px -16px rgba(15,20,30,.10);
+        --bg: #ffffff; --bg-soft: #f7f8fa; --bg-elev: #ffffff;
+        --line: #eeeff2; --line-strong: #e0e1e6;
+        --ink-1: #111111; --ink-2: #555555;
+        --ink-3: #888888; --ink-4: #aaaaaa;
+        --accent: #111111; --accent-soft: #f0f0f0; --accent-ink: #111111;
+        --radius: 12px; --radius-lg: 16px;
+        --shadow-sm: 0 1px 3px rgba(0,0,0,.04);
+        --shadow-md: 0 4px 20px rgba(0,0,0,.06);
+        --shadow-lg: 0 8px 40px rgba(0,0,0,.08);
         --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
         --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
       }
@@ -36,13 +35,13 @@
       /* ─── Nav ─── */
       .nav-wrap { position: sticky; top: 0; z-index: 50; background: color-mix(in oklch, var(--bg) 80%, transparent); backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px); border-bottom: 1px solid color-mix(in oklch, var(--line) 60%, transparent); }
       .nav { max-width: 1200px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; gap: 32px; }
-      .brand { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; letter-spacing: -0.02em; color: var(--ink-1); }
+      .brand { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 17px; letter-spacing: -0.02em; color: var(--ink-1); }
       .brand-mark { width: 22px; height: 22px; border-radius: 6px; background: var(--ink-1); display: grid; place-items: center; color: var(--bg); font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
       .nav-links { display: flex; gap: 28px; margin-left: 12px; }
-      .nav-links a { font-size: 14px; color: var(--ink-2); transition: color .15s; }
+      .nav-links a { font-size: 15px; color: var(--ink-2); transition: color .15s; }
       .nav-links a:hover { color: var(--ink-1); }
       .nav-spacer { flex: 1; }
-      .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; background: var(--ink-1); color: var(--bg); border: 1px solid var(--ink-1); border-radius: 8px; font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em; transition: transform .15s, background .15s; }
+      .nav-cta { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; background: var(--ink-1); color: var(--bg); border: 1px solid var(--ink-1); border-radius: 999px; font-size: 14px; font-weight: 600; letter-spacing: -0.01em; transition: transform .15s, background .15s; }
       .nav-cta:hover { background: oklch(0.10 0.008 260); }
 
       /* ─── Layout ─── */
@@ -58,7 +57,7 @@
       .detail-h1 { margin: 0; font-size: clamp(36px, 4vw, 52px); line-height: 1.1; letter-spacing: -0.035em; font-weight: 600; text-wrap: balance; }
       .detail-sub { margin: 20px 0 0; font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 540px; }
       .detail-cta-row { margin-top: 32px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-      .btn-sd { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 10px; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s, box-shadow .2s; background: none; }
+      .btn-sd { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 999px; font-size: 14.5px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid transparent; cursor: pointer; transition: transform .15s ease, background .15s, box-shadow .2s; background: none; }
       .btn-sd-primary { background: var(--ink-1); color: var(--bg); border-color: var(--ink-1); box-shadow: 0 1px 0 rgba(255,255,255,.1) inset, var(--shadow-sm); }
       .btn-sd-primary:hover { background: oklch(0.10 0.008 260); transform: translateY(-1px); box-shadow: var(--shadow-md); }
       .btn-sd-secondary { background: var(--bg-elev); color: var(--ink-1); border-color: var(--line-strong); }
@@ -75,8 +74,8 @@
       /* ─── Section Headings ─── */
       .sec-eyebrow { font-family: var(--font-mono); font-size: 11.5px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ink-3); display: flex; align-items: center; gap: 10px; }
       .sec-eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--ink-4); }
-      .sec-title { margin: 14px 0 0; font-size: clamp(24px, 2.8vw, 34px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 600; text-wrap: balance; }
-      .sec-desc { margin: 16px 0 0; font-size: 16px; line-height: 1.65; color: var(--ink-2); max-width: 560px; }
+      .sec-title { margin: 14px 0 0; font-size: clamp(30px, 3.5vw, 42px); line-height: 1.15; letter-spacing: -0.025em; font-weight: 800; text-wrap: balance; }
+      .sec-desc { margin: 16px 0 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 560px; }
 
       /* ─── Cards ─── */
       .card-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; }
@@ -84,7 +83,7 @@
       .info-card:hover { border-color: var(--ink-4); }
       .info-card .ic-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-soft); border: 1px solid var(--line); display: grid; place-items: center; font-family: var(--font-mono); font-size: 14px; color: var(--ink-2); }
       .info-card .ic-title { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; margin: 0; }
-      .info-card .ic-desc { font-size: 14px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+      .info-card .ic-desc { font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0; }
 
       /* ─── Process Steps ─── */
       .process-list { display: flex; flex-direction: column; gap: 0; margin-top: 40px; }
@@ -93,11 +92,11 @@
       .process-step:last-child { border-bottom: none; }
       .ps-num { width: 40px; height: 40px; border-radius: 10px; background: var(--ink-1); color: var(--bg); font-family: var(--font-mono); font-size: 15px; font-weight: 600; display: grid; place-items: center; }
       .ps-title { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
-      .ps-desc { font-size: 14.5px; line-height: 1.65; color: var(--ink-2); margin: 0; }
+      .ps-desc { font-size: 16px; line-height: 1.65; color: var(--ink-2); margin: 0; }
 
       /* ─── Topics ─── */
       .topic-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 40px; }
-      .topic-item { display: flex; align-items: flex-start; gap: 12px; padding: 18px 20px; background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius); font-size: 14px; color: var(--ink-2); line-height: 1.5; }
+      .topic-item { display: flex; align-items: flex-start; gap: 12px; padding: 18px 20px; background: var(--bg-elev); border: 1px solid var(--line); border-radius: var(--radius); font-size: 15px; color: var(--ink-2); line-height: 1.5; }
       .topic-item .ti-check { flex-shrink: 0; width: 18px; height: 18px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 10px; font-weight: 700; margin-top: 1px; }
 
       /* ─── Pricing Detail ─── */
@@ -109,10 +108,10 @@
       .pd-price { margin: 14px 0 6px; font-size: 32px; font-weight: 600; letter-spacing: -0.025em; }
       .pd-unit { font-size: 14px; font-weight: 500; color: var(--ink-3); }
       .pd-card.featured .pd-unit { color: oklch(0.72 0.006 260); }
-      .pd-desc { margin: 10px 0 0; font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+      .pd-desc { margin: 10px 0 0; font-size: 15px; line-height: 1.55; color: var(--ink-2); }
       .pd-card.featured .pd-desc { color: oklch(0.78 0.006 260); }
       .pd-includes { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
-      .pd-includes li { display: flex; align-items: flex-start; gap: 8px; font-size: 13.5px; color: var(--ink-2); line-height: 1.45; list-style: none; }
+      .pd-includes li { display: flex; align-items: flex-start; gap: 8px; font-size: 15px; color: var(--ink-2); line-height: 1.45; list-style: none; }
       .pd-card.featured .pd-includes li { color: oklch(0.86 0.006 260); }
       .pd-check { flex-shrink: 0; width: 14px; height: 14px; border-radius: 999px; background: var(--accent-soft); color: var(--accent-ink); display: grid; place-items: center; font-size: 9px; font-weight: 700; margin-top: 2px; }
       .pd-card.featured .pd-check { background: color-mix(in oklch, var(--accent) 30%, transparent); color: white; }
@@ -126,7 +125,7 @@
       .faq-item.open .faq-arrow { transform: rotate(45deg); }
       .faq-a { max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; }
       .faq-item.open .faq-a { max-height: 300px; }
-      .faq-a-inner { padding: 0 0 22px; font-size: 14.5px; line-height: 1.7; color: var(--ink-2); }
+      .faq-a-inner { padding: 0 0 22px; font-size: 16px; line-height: 1.7; color: var(--ink-2); }
 
       /* ─── Final CTA ─── */
       .detail-cta { max-width: 1200px; margin: 0 auto 100px; padding: 0 32px; }
@@ -135,19 +134,19 @@
       .detail-cta-inner > * { position: relative; z-index: 1; }
       .detail-cta-title { margin: 0; font-size: clamp(24px, 3vw, 34px); font-weight: 600; letter-spacing: -0.025em; line-height: 1.25; }
       .detail-cta-sub { margin: 14px auto 0; color: oklch(0.78 0.006 260); font-size: 15px; line-height: 1.55; max-width: 480px; }
-      .detail-cta-btn { margin-top: 28px; display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--bg); color: var(--ink-1); border-radius: 10px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid var(--bg); transition: transform .15s; cursor: pointer; }
+      .detail-cta-btn { margin-top: 28px; display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: var(--bg); color: var(--ink-1); border-radius: 999px; font-size: 15px; font-weight: 500; letter-spacing: -0.01em; border: 1px solid var(--bg); transition: transform .15s; cursor: pointer; }
       .detail-cta-btn:hover { transform: translateY(-1px); }
 
       /* ─── Footer ─── */
       .sd-footer { border-top: 1px solid var(--line); background: var(--bg-soft); }
       .footer-inner { max-width: 1200px; margin: 0 auto; padding: 48px 32px 36px; display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 56px; }
-      .footer-brand .brand { font-size: 16px; }
-      .footer-meta { margin-top: 14px; font-size: 12.5px; line-height: 1.7; color: var(--ink-3); }
-      .footer-col h5 { margin: 0 0 14px; font-size: 11.5px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); font-weight: 500; }
+      .footer-brand .brand { font-size: 18px; }
+      .footer-meta { margin-top: 14px; font-size: 14.5px; line-height: 1.7; color: var(--ink-3); }
+      .footer-col h5 { margin: 0 0 14px; font-size: 13.5px; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-4); font-weight: 500; }
       .footer-col ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
-      .footer-col a { font-size: 13.5px; color: var(--ink-2); transition: color .15s; }
+      .footer-col a { font-size: 15.5px; color: var(--ink-2); transition: color .15s; }
       .footer-col a:hover { color: var(--ink-1); }
-      .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px 32px 28px; border-top: 1px dashed var(--line-strong); font-size: 12px; color: var(--ink-4); font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+      .footer-bottom { max-width: 1200px; margin: 0 auto; padding: 18px 32px 28px; border-top: 1px dashed var(--line-strong); font-size: 14px; color: var(--ink-4); font-family: var(--font-mono); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
 
       /* ─── Responsive ─── */
       @media (max-width: 960px) {
@@ -171,8 +170,7 @@
     <div class="nav-wrap">
       <nav class="nav">
         <a href="index.html" class="brand">
-          <div class="brand-mark">S</div>
-          <span>SimplyDo</span>
+          <img src="images/logo_simplydo.png" alt="심플리Do" style="height: 36px; width: auto;">
         </a>
         <div class="nav-links">
           <a href="index.html#benefits">왜 심플리Do?</a>
@@ -221,9 +219,7 @@
 
       <div class="detail-price-badge">
         <div class="dpb-label">1:1 Live Session</div>
-        <div class="dpb-price">120,000<span class="dpb-unit">원</span></div>
-        <div class="dpb-unit">/ 60분</div>
-        <div class="dpb-note">추가 30분당 30,000원</div>
+        <div class="dpb-price" style="font-size: 22px;">무료 상담 후<span class="dpb-unit"> 안내</span></div>
       </div>
     </section>
 
@@ -411,8 +407,7 @@
       <div class="footer-inner">
         <div class="footer-brand">
           <a href="index.html" class="brand">
-            <div class="brand-mark">S</div>
-            <span>SimplyDo</span>
+            <img src="images/logo_simplydo.png" alt="심플리Do" style="height: 36px; width: auto;">
           </a>
           <div class="footer-meta">
             크몽 평점 5.0 · 구글 스프레드시트 기반 업무 자동화 전문<br>
