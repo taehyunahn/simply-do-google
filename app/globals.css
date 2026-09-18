@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+/* ─── Monday Design Tokens ─── */
+:root {
+  /* Primary - Monday Bright Blue */
+  --color-primary-50:  #E6F3FF;
+  --color-primary-100: #C2E1FF;
+  --color-primary-200: #80C0FF;
+  --color-primary-300: #4DA3FF;
+  --color-primary-400: #2790FF;
+  --color-primary-500: #0085FF;
+  --color-primary-600: #0073DB;
+  --color-primary-700: #005AA8;
+  --color-primary-800: #004482;
+  --color-primary-900: #002E5A;
+
+  /* Secondary - Monday Pink */
+  --color-secondary-500: #FF158A;
+
+  /* Status */
+  --status-done:    #00C875;
+  --status-working: #FDAB3D;
+  --status-stuck:   #E2445C;
+  --status-blank:   #C4C4C4;
+  --status-purple:  #A25DDC;
+  --status-blue:    #579BFC;
+  --status-pink:    #FF158A;
+
+  /* Neutral */
+  --color-neutral-0:    #FFFFFF;
+  --color-neutral-50:   #F6F7FB;
+  --color-neutral-100:  #EBEDF1;
+  --color-neutral-200:  #E6E9EF;
+  --color-neutral-300:  #C5C7D0;
+  --color-neutral-500:  #9699A6;
+  --color-neutral-700:  #676879;
+  --color-neutral-800:  #494B5C;
+  --color-neutral-900:  #323338;
+  --color-neutral-1000: #181B34;
+
+  /* Semantic */
+  --color-success-bg: #DCF7E5;
+  --color-success-fg: #00C875;
+  --color-warning-bg: #FFF1D9;
+  --color-warning-fg: #FDAB3D;
+  --color-error-bg:   #FCE4E8;
+  --color-error-fg:   #E2445C;
+  --color-info-bg:    #E6F3FF;
+  --color-info-fg:    #0085FF;
+
+  /* Surface */
+  --bg-base:     #FFFFFF;
+  --bg-subtle:   #F6F7FB;
+  --bg-elevated: #FFFFFF;
+
+  /* Text */
+  --text-primary:   #323338;
+  --text-secondary: #676879;
+  --text-tertiary:  #9699A6;
+  --text-disabled:  #C5C7D0;
+
+  /* Border */
+  --border-default: #E6E9EF;
+  --border-subtle:  #EBEDF1;
+  --border-strong:  #C5C7D0;
+  --border-focus:   #0085FF;
+
+  /* Spacing (base: 4px) */
+  --space-xs:  4px;
+  --space-sm:  8px;
+  --space-md:  12px;
+  --space-lg:  16px;
+  --space-xl:  24px;
+  --space-2xl: 40px;
+  --space-3xl: 64px;
+
+  /* Radius */
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-full: 9999px;
+
+  /* Shadow */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.14);
+  --shadow-xl: 0 16px 40px rgba(0,0,0,0.20);
+
+  /* Motion */
+  --duration-fast: 100ms;
+  --duration-base: 200ms;
+  --duration-slow: 350ms;
+  --ease-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ─── Tailwind v4: CSS 변수 → Tailwind 클래스 매핑 ─── */
+@theme inline {
+  /* Colors */
+  --color-primary-50:  var(--color-primary-50);
+  --color-primary-100: var(--color-primary-100);
+  --color-primary-200: var(--color-primary-200);
+  --color-primary-300: var(--color-primary-300);
+  --color-primary-400: var(--color-primary-400);
+  --color-primary-500: var(--color-primary-500);
+  --color-primary-600: var(--color-primary-600);
+  --color-primary-700: var(--color-primary-700);
+  --color-primary-800: var(--color-primary-800);
+  --color-primary-900: var(--color-primary-900);
+
+  --color-secondary-500: var(--color-secondary-500);
+
+  --color-neutral-0:    var(--color-neutral-0);
+  --color-neutral-50:   var(--color-neutral-50);
+  --color-neutral-100:  var(--color-neutral-100);
+  --color-neutral-200:  var(--color-neutral-200);
+  --color-neutral-300:  var(--color-neutral-300);
+  --color-neutral-500:  var(--color-neutral-500);
+  --color-neutral-700:  var(--color-neutral-700);
+  --color-neutral-800:  var(--color-neutral-800);
+  --color-neutral-900:  var(--color-neutral-900);
+  --color-neutral-1000: var(--color-neutral-1000);
+
+  --color-success-bg: var(--color-success-bg);
+  --color-success-fg: var(--color-success-fg);
+  --color-warning-bg: var(--color-warning-bg);
+  --color-warning-fg: var(--color-warning-fg);
+  --color-error-bg:   var(--color-error-bg);
+  --color-error-fg:   var(--color-error-fg);
+  --color-info-bg:    var(--color-info-bg);
+  --color-info-fg:    var(--color-info-fg);
+
+  /* Font */
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* Border Radius */
+  --radius-sm:   var(--radius-sm);
+  --radius-md:   var(--radius-md);
+  --radius-lg:   var(--radius-lg);
+  --radius-xl:   var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  /* Shadow */
+  --shadow-sm: var(--shadow-sm);
+  --shadow-md: var(--shadow-md);
+  --shadow-lg: var(--shadow-lg);
+  --shadow-xl: var(--shadow-xl);
+}
+
+/* ─── Base Styles ─── */
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+}
